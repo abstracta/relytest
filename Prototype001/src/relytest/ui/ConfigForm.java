@@ -24,6 +24,7 @@ public class ConfigForm extends javax.swing.JFrame {
         initComponents();
         _mainForm = mainForm;
         loadValues();
+        jButtonLaF.setVisible(false);
     }
 
     private void loadValues() {
