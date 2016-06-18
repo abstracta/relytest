@@ -1,0 +1,21 @@
+-------------------------------------
+OS
+OS name		= Windows 10
+OS arch		= amd64
+OS version	= 10.0
+User
+User language	= en
+User name	= migue_000
+User timezone	= America/Montevideo
+User country	= US
+-------------------------------------
+Available Processors	= 4
+Free memory		= 51 MB
+Total memory available	= 61 MB
+-------------------------------------
+File system root 	= C:\
+Total space		= 444 GB
+Free space		= 335 GB
+Usable space		= 335 GB
+-------------------------------------
+

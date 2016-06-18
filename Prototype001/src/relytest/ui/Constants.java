@@ -17,7 +17,12 @@ public class Constants {
     public static final String Key_HideRelyTest = "HideRelyTest";
     public static final String Key_Name = "Name";
     public static final String Key_lookAndFeel = "lookAndFeel";
+    public static final String Key_ShortTime = "ShortTime";
+    public static final String Key_LongTime = "LongTime";        
 
+    public static final int DEFAULT_SHORT_TIME=15;
+    public static final int DEFAULT_LONG_TIME=30;
+    
     /* Look and Feel */
     public static final int LAF_ACRYL = 0;
     public static final int LAF_AERO = 1;

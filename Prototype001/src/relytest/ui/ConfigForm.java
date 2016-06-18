@@ -35,6 +35,12 @@ public class ConfigForm extends javax.swing.JFrame {
         jTextFieldName.setText(name);
         Boolean hide = Boolean.valueOf(p.getValue(Constants.Key_HideRelyTest));
         jCheckBoxHideRelyTest.setSelected(hide);
+        
+        String value = p.getValue(Constants.Key_ShortTime);
+        Integer i = Integer.parseInt(value);
+        jSpinnerShort.setValue(i);
+         i = Integer.parseInt( p.getValue(Constants.Key_LongTime));
+         jSpinnerLong.setValue(i);
     }
 
     private void save() {
@@ -47,6 +53,9 @@ public class ConfigForm extends javax.swing.JFrame {
             p.setValue(Constants.Key_OpenImageEditor, open.toString());
             Boolean hideRelyTest = jCheckBoxHideRelyTest.isSelected();
             p.setValue(Constants.Key_HideRelyTest, hideRelyTest.toString());
+        
+            p.setValue(Constants.Key_ShortTime,  jSpinnerShort.getValue().toString());
+            p.setValue(Constants.Key_LongTime,  jSpinnerLong.getValue().toString());
             this.setVisible(false);
         }
     }
@@ -67,6 +76,10 @@ public class ConfigForm extends javax.swing.JFrame {
         jCheckBoxOpenImageEditor = new javax.swing.JCheckBox();
         jCheckBoxHideRelyTest = new javax.swing.JCheckBox();
         jButtonLaF = new javax.swing.JButton();
+        jLabelShortTimeValue = new javax.swing.JLabel();
+        jLabelLongTimeValue = new javax.swing.JLabel();
+        jSpinnerShort = new javax.swing.JSpinner();
+        jSpinnerLong = new javax.swing.JSpinner();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
@@ -96,6 +109,10 @@ public class ConfigForm extends javax.swing.JFrame {
             }
         });
 
+        jLabelShortTimeValue.setText("Short Time value");
+
+        jLabelLongTimeValue.setText("Long Time value");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -114,7 +131,15 @@ public class ConfigForm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxHideRelyTest)
-                            .addComponent(jCheckBoxOpenImageEditor))
+                            .addComponent(jCheckBoxOpenImageEditor)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelShortTimeValue)
+                                    .addComponent(jLabelLongTimeValue))
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSpinnerShort, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                                    .addComponent(jSpinnerLong))))
                         .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -122,14 +147,23 @@ public class ConfigForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelName)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(jCheckBoxOpenImageEditor)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelName)
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(jCheckBoxOpenImageEditor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxHideRelyTest)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelShortTimeValue))
+                    .addComponent(jSpinnerShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxHideRelyTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelLongTimeValue)
+                    .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLaF))
@@ -144,7 +178,9 @@ public class ConfigForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -198,8 +234,12 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSave;
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
+    private javax.swing.JLabel jLabelLongTimeValue;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelShortTimeValue;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinnerLong;
+    private javax.swing.JSpinner jSpinnerShort;
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 }

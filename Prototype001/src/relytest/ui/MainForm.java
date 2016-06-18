@@ -12,19 +12,39 @@ import static javax.swing.JOptionPane.showMessageDialog;
  * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class MainForm extends javax.swing.JFrame {
-private ConfigForm configFrm;
+
+    private ConfigForm configFrm;
+
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
+        loadTimes();
+    }
+
+    private void loadTimes() {
+        PropertiesMgr p = new PropertiesMgr();
+        String value = p.getValue(Constants.Key_ShortTime);
+        Integer i = Integer.parseInt(value);
+        jToggleButtonShort.setText("Short " + i + " Mins");
+        i = Integer.parseInt(p.getValue(Constants.Key_LongTime));
+        jToggleButtonMedium.setText("Long " + i + " Mins");
     }
 
     private String getTotalTime() {
+        PropertiesMgr p = new PropertiesMgr();
+        String value;
+        Integer i;
         if (jToggleButtonShort.isSelected()) {
-            return "0:15:00";
+
+            value = p.getValue(Constants.Key_ShortTime);
+            i = Integer.parseInt(value);
+            return "0:" + i + ":00";
         } else if (jToggleButtonMedium.isSelected()) {
-            return "0:30:00";
+            value = p.getValue(Constants.Key_LongTime);
+            i = Integer.parseInt(value);
+            return "0:" + i + ":00";
         } else {
             return "0:60:00";
         }
@@ -44,9 +64,10 @@ private ConfigForm configFrm;
             this.setVisible(false);
         }
     }
-    private void config(){
+
+    private void config() {
         configFrm = new ConfigForm(this);
-        configFrm.setLocationRelativeTo(null);      
+        configFrm.setLocationRelativeTo(null);
         configFrm.setVisible(true);
     }
 
