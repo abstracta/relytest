@@ -19,6 +19,12 @@ public class Constants {
     public static final String KEY_LOOK_AND_FEEL = "lookAndFeel";
     public static final String KEY_SHORT_TIME = "ShortTime";
     public static final String KEY_LONG_TIME = "LongTime";        
+    
+    public static final String KEY_BUTTON_NOTE = "Note";
+    public static final String KEY_BUTTON_BUG = "Bug";
+    public static final String KEY_BUTTON_TODO = "ToDo";
+    public static final String KEY_BUTTON_RISK = "Risk";
+    public static final String KEY_BUTTON_ISSUE = "Issue";
 
     public static final int DEFAULT_SHORT_TIME=15;
     public static final int DEFAULT_LONG_TIME=30;

@@ -81,6 +81,22 @@ public class MisionForm extends javax.swing.JFrame {
         e.start();
 
         defaultColor = jButtonPause.getBackground();
+        
+        loadButtons();
+    }
+    private void loadButtons(){
+        PropertiesMgr p = new PropertiesMgr();      
+        jtbNote.setVisible(displayButton( p, Constants.KEY_BUTTON_NOTE));
+        jtbBug.setVisible(displayButton( p, Constants.KEY_BUTTON_BUG));
+        jtbIssue.setVisible(displayButton( p, Constants.KEY_BUTTON_ISSUE));
+        jtbRisk.setVisible(displayButton( p, Constants.KEY_BUTTON_RISK));
+        jtbToDo.setVisible(displayButton( p, Constants.KEY_BUTTON_TODO));
+    }
+    private Boolean displayButton(PropertiesMgr p, String buttonName){
+        if(p.getValue(buttonName) != null){
+            return Boolean.valueOf(p.getValue(buttonName));
+        }
+        return true;
     }
 
     public void Start() {
@@ -349,7 +365,6 @@ public class MisionForm extends javax.swing.JFrame {
         buttonGroupNotes.add(jtbIssue);
         jtbIssue.setText("Issue");
         jtbIssue.setMaximumSize(new java.awt.Dimension(97, 23));
-        jtbIssue.setMinimumSize(new java.awt.Dimension(59, 23));
         jtbIssue.setPreferredSize(new java.awt.Dimension(80, 23));
 
         javax.swing.GroupLayout jPanelNoteSelectionLayout = new javax.swing.GroupLayout(jPanelNoteSelection);
@@ -371,7 +386,7 @@ public class MisionForm extends javax.swing.JFrame {
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbNote, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(jtbNote, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
             .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jtbToDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,9 +426,9 @@ public class MisionForm extends javax.swing.JFrame {
             .addGroup(jPanelNoteLayout.createSequentialGroup()
                 .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -440,13 +455,11 @@ public class MisionForm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonPicture)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButtonPicture)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(113, Short.MAX_VALUE))
+            .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleName("frameRelyTest");

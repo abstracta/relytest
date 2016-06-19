@@ -23,7 +23,7 @@ public class RelyTest {
 //        try {
             // TODO code application logic here
             PropertiesMgr p = new PropertiesMgr();
-            String lookAndFeel = p.getValue(Constants.Key_lookAndFeel);
+            String lookAndFeel = p.getValue(Constants.KEY_LOOK_AND_FEEL);
             Integer lookAndFeelInt = 0;
             if (lookAndFeel != null) {
                 lookAndFeelInt = Integer.valueOf(lookAndFeel);
