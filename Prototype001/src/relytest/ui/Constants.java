@@ -11,14 +11,14 @@ package relytest.ui;
  */
 public class Constants {
 
-    public static final String DateTimeFormat = "yyyy.MM.dd_HH.mm.ss";
-    public static final String DateTimeFormatLog = "yyyy.MM.dd_HH:mm:ss";
-    public static final String Key_OpenImageEditor = "OpenImageEditor";
-    public static final String Key_HideRelyTest = "HideRelyTest";
-    public static final String Key_Name = "Name";
-    public static final String Key_lookAndFeel = "lookAndFeel";
-    public static final String Key_ShortTime = "ShortTime";
-    public static final String Key_LongTime = "LongTime";        
+    public static final String DATE_TIME_FORMAT = "yyyy.MM.dd_HH.mm.ss";
+    public static final String DATE_TIME_FORMAT_LOG = "yyyy.MM.dd_HH:mm:ss";
+    public static final String KEY_OPEN_IMAGE_EDITOR = "OpenImageEditor";
+    public static final String KEY_HIDE_RELY_TEST = "HideRelyTest";
+    public static final String KEY_NAME = "Name";
+    public static final String KEY_LOOK_AND_FEEL = "lookAndFeel";
+    public static final String KEY_SHORT_TIME = "ShortTime";
+    public static final String KEY_LONG_TIME = "LongTime";        
 
     public static final int DEFAULT_SHORT_TIME=15;
     public static final int DEFAULT_LONG_TIME=30;

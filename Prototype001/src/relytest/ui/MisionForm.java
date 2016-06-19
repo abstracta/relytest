@@ -65,6 +65,7 @@ public class MisionForm extends javax.swing.JFrame {
     /**
      * Creates new form MisionForm
      *
+     * @param newCharterName
      */
     public MisionForm(String newCharterName) {
         initComponents();
@@ -118,7 +119,6 @@ public class MisionForm extends javax.swing.JFrame {
                     writeToLog("Elapsed Time Pass Expected", "The elapsed time passed the expected time for the session.");
                 }
             }
-
         } else {
             ChangeBackgroundColor();
         }
@@ -160,7 +160,7 @@ public class MisionForm extends javax.swing.JFrame {
             IScreenPrinter printer = new ScreenPrinter();
 
             PropertiesMgr p = new PropertiesMgr();
-            Boolean hide = Boolean.valueOf(p.getValue(Constants.Key_HideRelyTest));
+            Boolean hide = Boolean.valueOf(p.getValue(Constants.KEY_HIDE_RELY_TEST));
             if (hide) {
                 this.setVisible(false);
             }
@@ -179,7 +179,7 @@ public class MisionForm extends javax.swing.JFrame {
         String pic = print();
 
         PropertiesMgr p = new PropertiesMgr();
-        Boolean open = Boolean.valueOf(p.getValue(Constants.Key_OpenImageEditor));
+        Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
         if (open) {
             executePaint(picturePath + pic);
         }
@@ -218,7 +218,7 @@ public class MisionForm extends javax.swing.JFrame {
     private String getDateNow() {
         Date dt = new Date();
         calStart.setTime(dt);
-        DateFormat dateFormat = new SimpleDateFormat(Constants.DateTimeFormat);
+        DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         return dateFormat.format(dt);
     }
 
@@ -512,19 +512,12 @@ public class MisionForm extends javax.swing.JFrame {
 
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MisionForm.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MisionForm.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MisionForm.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MisionForm.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */

@@ -7,6 +7,7 @@ package relytest.ui;
 
 import java.util.Properties;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -88,7 +89,7 @@ public class LookAndFeelMgr {
 //            }
             // Maybe selected item is not visible after changing the look and feel so we correct this
 //            scrollSelectedToVisible(lafList);
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
     } // end setLookAndFeel

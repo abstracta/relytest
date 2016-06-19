@@ -29,17 +29,17 @@ public class ConfigForm extends javax.swing.JFrame {
 
     private void loadValues() {
        
-        String name = p.getValue(Constants.Key_Name);
-        Boolean open = Boolean.valueOf(p.getValue(Constants.Key_OpenImageEditor));
+        String name = p.getValue(Constants.KEY_NAME);
+        Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
         jCheckBoxOpenImageEditor.setSelected(open);
         jTextFieldName.setText(name);
-        Boolean hide = Boolean.valueOf(p.getValue(Constants.Key_HideRelyTest));
+        Boolean hide = Boolean.valueOf(p.getValue(Constants.KEY_HIDE_RELY_TEST));
         jCheckBoxHideRelyTest.setSelected(hide);
         
-        String value = p.getValue(Constants.Key_ShortTime);
+        String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
         jSpinnerShort.setValue(i);
-         i = Integer.parseInt( p.getValue(Constants.Key_LongTime));
+         i = Integer.parseInt( p.getValue(Constants.KEY_LONG_TIME));
          jSpinnerLong.setValue(i);
     }
 
@@ -48,14 +48,14 @@ public class ConfigForm extends javax.swing.JFrame {
             showMessageDialog(this, "Please insert the name of the user.");
         } else {
            
-            p.setValue(Constants.Key_Name, jTextFieldName.getText());
+            p.setValue(Constants.KEY_NAME, jTextFieldName.getText());
             Boolean open = jCheckBoxOpenImageEditor.isSelected();
-            p.setValue(Constants.Key_OpenImageEditor, open.toString());
+            p.setValue(Constants.KEY_OPEN_IMAGE_EDITOR, open.toString());
             Boolean hideRelyTest = jCheckBoxHideRelyTest.isSelected();
-            p.setValue(Constants.Key_HideRelyTest, hideRelyTest.toString());
+            p.setValue(Constants.KEY_HIDE_RELY_TEST, hideRelyTest.toString());
         
-            p.setValue(Constants.Key_ShortTime,  jSpinnerShort.getValue().toString());
-            p.setValue(Constants.Key_LongTime,  jSpinnerLong.getValue().toString());
+            p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
+            p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
             
             _mainForm.loadTimes();            
             this.setVisible(false);

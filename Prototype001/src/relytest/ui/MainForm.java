@@ -25,10 +25,10 @@ public class MainForm extends javax.swing.JFrame {
 
     public void loadTimes() {
         PropertiesMgr p = new PropertiesMgr();
-        String value = p.getValue(Constants.Key_ShortTime);
+        String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
         jToggleButtonShort.setText("Short " + i + " Mins");
-        i = Integer.parseInt(p.getValue(Constants.Key_LongTime));
+        i = Integer.parseInt(p.getValue(Constants.KEY_LONG_TIME));
         jToggleButtonMedium.setText("Long " + i + " Mins");
     }
 
@@ -37,11 +37,11 @@ public class MainForm extends javax.swing.JFrame {
         String value;
         Integer i;
         if (jToggleButtonShort.isSelected()) {
-            value = p.getValue(Constants.Key_ShortTime);
+            value = p.getValue(Constants.KEY_SHORT_TIME);
             i = Integer.parseInt(value);
             return timeToHhMmSs(i);
         } else if (jToggleButtonMedium.isSelected()) {
-            value = p.getValue(Constants.Key_LongTime);
+            value = p.getValue(Constants.KEY_LONG_TIME);
             i = Integer.parseInt(value);
             return timeToHhMmSs(i);
         } else {
@@ -78,12 +78,8 @@ public class MainForm extends javax.swing.JFrame {
     
     public boolean isAlphaNumeric(String s){
     String pattern= "^[a-zA-Z0-9]*$";
-        if(s.matches(pattern)){
-            return true;
-        }
-        return false;   
+        return s.matches(pattern);   
 }
-
     private void config() {
         configFrm = new ConfigForm(this);
         configFrm.setLocationRelativeTo(null);
@@ -272,19 +268,16 @@ public class MainForm extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MainForm().setVisible(true);
             }
