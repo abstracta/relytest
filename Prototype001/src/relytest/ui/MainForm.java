@@ -37,16 +37,25 @@ public class MainForm extends javax.swing.JFrame {
         String value;
         Integer i;
         if (jToggleButtonShort.isSelected()) {
-
             value = p.getValue(Constants.Key_ShortTime);
             i = Integer.parseInt(value);
-            return "0:" + i + ":00";
+            return timeToHhMmSs(i);
         } else if (jToggleButtonMedium.isSelected()) {
             value = p.getValue(Constants.Key_LongTime);
             i = Integer.parseInt(value);
-            return "0:" + i + ":00";
+            return timeToHhMmSs(i);
         } else {
             return "0:60:00";
+        }
+    }
+
+    private String timeToHhMmSs(Integer time) {
+        if (time < 60) {
+            return "0:" + time + ":00";
+        } else {
+            Integer hour = time / 60;
+            Integer mins = time % 60;
+            return hour + ":" + mins + ":00";
         }
     }
 
