@@ -62,17 +62,27 @@ public class MainForm extends javax.swing.JFrame {
     private void start() {
         if (jTextFieldCharterName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the charter.");
+        }else if(!isAlphaNumeric(jTextFieldCharterName.getText()))  {
+        showMessageDialog(this, "The charter contains ilegal values.\nOnly letters and numbers are allowed.");
         } else {
-            MisionForm mision = new MisionForm();
+            MisionForm mision = new MisionForm(jTextFieldCharterName.getText());
             mision.setTotalTime(getTotalTime());
             mision.setMisionName("RelyTest - Charter: " + jTextFieldCharterName.getText());
-            mision.setTitle("RelyTest - Charter: " + jTextFieldCharterName.getText());
+            mision.setTitle("RelyTest - Charter: " + jTextFieldCharterName.getText());     
             mision.Start();
             mision.show();
             mision.setLocationRelativeTo(null);
             this.setVisible(false);
         }
     }
+    
+    public boolean isAlphaNumeric(String s){
+    String pattern= "^[a-zA-Z0-9]*$";
+        if(s.matches(pattern)){
+            return true;
+        }
+        return false;   
+}
 
     private void config() {
         configFrm = new ConfigForm(this);

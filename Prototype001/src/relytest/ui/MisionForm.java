@@ -38,6 +38,7 @@ import relytest.ui.common.Writer;
 public class MisionForm extends javax.swing.JFrame {
 
     private String misionName;
+    private String charterName;
     private String sesionName = "";
     private ArrayList<String> notesTypes = new ArrayList<>();
     private int selectedNoteType = 0;
@@ -65,9 +66,10 @@ public class MisionForm extends javax.swing.JFrame {
      * Creates new form MisionForm
      *
      */
-    public MisionForm() {
+    public MisionForm(String newCharterName) {
         initComponents();
-        sesionName = getDateNow();
+        sesionName = getDateNow()+"_Charter_"+newCharterName;
+        charterName=newCharterName;
         picturePath = RunningPath + SubDir + sesionName + SubDir + ScreenShotsDir + SubDir;
         createMisionFolders();
 
@@ -529,7 +531,8 @@ public class MisionForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MisionForm().setVisible(true);
+                String noCharter ="No charter";
+                new MisionForm(noCharter).setVisible(true);
             }
         });
     }
@@ -576,5 +579,12 @@ public class MisionForm extends javax.swing.JFrame {
      */
     public void setMisionName(String misionName) {
         this.misionName = misionName;
+    }
+    
+    public String getCharterName(){
+        return charterName;
+    }
+    public void setCharterName(String charterName){
+        this.charterName=charterName;
     }
 }
