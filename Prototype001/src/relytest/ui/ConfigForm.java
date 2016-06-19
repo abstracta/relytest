@@ -56,6 +56,8 @@ public class ConfigForm extends javax.swing.JFrame {
         
             p.setValue(Constants.Key_ShortTime,  jSpinnerShort.getValue().toString());
             p.setValue(Constants.Key_LongTime,  jSpinnerLong.getValue().toString());
+            
+            _mainForm.loadTimes();            
             this.setVisible(false);
         }
     }
@@ -113,6 +115,10 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jLabelLongTimeValue.setText("Long Time value");
 
+        jSpinnerShort.setModel(new javax.swing.SpinnerNumberModel(15, 1, 99, 1));
+
+        jSpinnerLong.setModel(new javax.swing.SpinnerNumberModel(30, 1, 199, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +144,7 @@ public class ConfigForm extends javax.swing.JFrame {
                                     .addComponent(jLabelLongTimeValue))
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinnerShort, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                                    .addComponent(jSpinnerShort)
                                     .addComponent(jSpinnerLong))))
                         .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())

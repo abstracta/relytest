@@ -23,7 +23,7 @@ public class MainForm extends javax.swing.JFrame {
         loadTimes();
     }
 
-    private void loadTimes() {
+    public void loadTimes() {
         PropertiesMgr p = new PropertiesMgr();
         String value = p.getValue(Constants.Key_ShortTime);
         Integer i = Integer.parseInt(value);
