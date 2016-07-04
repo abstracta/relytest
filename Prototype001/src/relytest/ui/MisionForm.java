@@ -48,7 +48,7 @@ public class MisionForm extends javax.swing.JFrame {
 
     private final String PaintApp = "mspaint.exe";
     private final String NotesTypesFile = "NoteTypes.txt";
-    private final String SubDir = "\\";
+    //private final String SubDir = "\\";
     private final String LogFile = "SessionLog.txt";
     private final String RunningPath = System.getProperty("user.dir");
     private final String ScreenShotsDir = "ScreenShots";
@@ -71,13 +71,13 @@ public class MisionForm extends javax.swing.JFrame {
         initComponents();
         sesionName = getDateNow()+"_Charter_"+newCharterName;
         charterName=newCharterName;
-        picturePath = RunningPath + SubDir + sesionName + SubDir + ScreenShotsDir + SubDir;
+        picturePath = RunningPath + File.separator  + sesionName + File.separator + ScreenShotsDir + File.separator;
         createMisionFolders();
 
         writeToLog("Session Started", "");
 
         EnvironmentStats e = new EnvironmentStats();
-        e.setFile(RunningPath + SubDir + sesionName + SubDir + Summary);
+        e.setFile(RunningPath + File.separator + sesionName + File.separator + Summary);
         e.start();
 
         defaultColor = jButtonPause.getBackground();
@@ -149,8 +149,8 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void createMisionFolders() {
-        new File(RunningPath + SubDir + sesionName).mkdirs();
-        new File(RunningPath + SubDir + sesionName + SubDir + ScreenShotsDir).mkdirs();
+        new File(RunningPath + File.separator + sesionName).mkdirs();
+        new File(RunningPath + File.separator + sesionName + File.separator + ScreenShotsDir).mkdirs();
     }
 
     private void executePaint(String pictureName) {
@@ -228,7 +228,7 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void writeToLog(String label, String text) {
-        writer.writeToFile(RunningPath + SubDir + sesionName + SubDir + LogFile, getDateNow() + " > [" + label + "] " + text);
+        writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, getDateNow() + " > [" + label + "] " + text);
     }
 
     private String getDateNow() {
@@ -239,7 +239,7 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void readXmlFile() throws ParserConfigurationException, SAXException, IOException {
-        File file = new File(RunningPath + SubDir + NotesTypesFile);
+        File file = new File(RunningPath + File.separator + NotesTypesFile);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                 .newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
