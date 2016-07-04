@@ -29,7 +29,9 @@ public class MainForm extends javax.swing.JFrame {
         Integer i = Integer.parseInt(value);
         jToggleButtonShort.setText("Short " + i + " Mins");
         i = Integer.parseInt(p.getValue(Constants.KEY_LONG_TIME));
-        jToggleButtonMedium.setText("Long " + i + " Mins");
+        jToggleButtonLong.setText("Long " + i + " Mins");
+        i = Integer.parseInt(p.getValue(Constants.KEY_MEDIUM_TIME));
+        jToggleButtonMedium.setText("Med. " + i + " Mins");
     }
 
     private String getTotalTime() {
@@ -38,15 +40,13 @@ public class MainForm extends javax.swing.JFrame {
         Integer i;
         if (jToggleButtonShort.isSelected()) {
             value = p.getValue(Constants.KEY_SHORT_TIME);
-            i = Integer.parseInt(value);
-            return timeToHhMmSs(i);
         } else if (jToggleButtonMedium.isSelected()) {
-            value = p.getValue(Constants.KEY_LONG_TIME);
-            i = Integer.parseInt(value);
-            return timeToHhMmSs(i);
+            value = p.getValue(Constants.KEY_MEDIUM_TIME);
         } else {
-            return "0:60:00";
+            value = p.getValue(Constants.KEY_LONG_TIME);
         }
+        i = Integer.parseInt(value);
+        return timeToHhMmSs(i);
     }
 
     private String timeToHhMmSs(Integer time) {
@@ -62,24 +62,25 @@ public class MainForm extends javax.swing.JFrame {
     private void start() {
         if (jTextFieldCharterName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the charter.");
-        }else if(!isAlphaNumeric(jTextFieldCharterName.getText()))  {
-        showMessageDialog(this, "The charter contains ilegal values.\nOnly letters and numbers are allowed.");
+        } else if (!isAlphaNumeric(jTextFieldCharterName.getText())) {
+            showMessageDialog(this, "The charter contains ilegal values.\nOnly letters and numbers are allowed.");
         } else {
             MisionForm mision = new MisionForm(jTextFieldCharterName.getText());
             mision.setTotalTime(getTotalTime());
             mision.setMisionName("RelyTest - Charter: " + jTextFieldCharterName.getText());
-            mision.setTitle("RelyTest - Charter: " + jTextFieldCharterName.getText());     
+            mision.setTitle("RelyTest - Charter: " + jTextFieldCharterName.getText());
             mision.Start();
             mision.show();
             mision.setLocationRelativeTo(null);
             this.setVisible(false);
         }
     }
-    
-    public boolean isAlphaNumeric(String s){
-    String pattern= "^[a-zA-Z0-9]*$";
-        return s.matches(pattern);   
-}
+
+    public boolean isAlphaNumeric(String s) {
+        String pattern = "^[a-zA-Z0-9]*$";
+        return s.matches(pattern);
+    }
+
     private void config() {
         configFrm = new ConfigForm(this);
         configFrm.setLocationRelativeTo(null);
@@ -101,7 +102,7 @@ public class MainForm extends javax.swing.JFrame {
         jPanelDuration = new javax.swing.JPanel();
         jToggleButtonShort = new javax.swing.JToggleButton();
         jToggleButtonMedium = new javax.swing.JToggleButton();
-        jToggleButtonRelyTest = new javax.swing.JToggleButton();
+        jToggleButtonLong = new javax.swing.JToggleButton();
         jPanelCharter = new javax.swing.JPanel();
         jTextFieldCharterName = new javax.swing.JTextField();
 
@@ -146,18 +147,18 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         durationButtonGroup.add(jToggleButtonMedium);
-        jToggleButtonMedium.setText("Long (30min)");
+        jToggleButtonMedium.setText("Medium (30min)");
         jToggleButtonMedium.setFocusPainted(false);
         jToggleButtonMedium.setMaximumSize(new java.awt.Dimension(113, 23));
         jToggleButtonMedium.setMinimumSize(new java.awt.Dimension(113, 23));
         jToggleButtonMedium.setPreferredSize(new java.awt.Dimension(113, 23));
 
-        durationButtonGroup.add(jToggleButtonRelyTest);
-        jToggleButtonRelyTest.setText("RelyTest (60min)");
-        jToggleButtonRelyTest.setFocusPainted(false);
-        jToggleButtonRelyTest.addActionListener(new java.awt.event.ActionListener() {
+        durationButtonGroup.add(jToggleButtonLong);
+        jToggleButtonLong.setText("Long (60min)");
+        jToggleButtonLong.setFocusPainted(false);
+        jToggleButtonLong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonRelyTestActionPerformed(evt);
+                jToggleButtonLongActionPerformed(evt);
             }
         });
 
@@ -171,14 +172,14 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButtonRelyTest)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jToggleButtonLong)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanelDurationLayout.setVerticalGroup(
             jPanelDurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToggleButtonShort, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
             .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToggleButtonRelyTest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jToggleButtonLong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Charter:"));
@@ -230,8 +231,6 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanelCharter.getAccessibleContext().setAccessibleName("Charter:");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -240,9 +239,9 @@ public class MainForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jToggleButtonShortActionPerformed
 
-    private void jToggleButtonRelyTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonRelyTestActionPerformed
+    private void jToggleButtonLongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonLongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButtonRelyTestActionPerformed
+    }//GEN-LAST:event_jToggleButtonLongActionPerformed
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
         start();
@@ -272,7 +271,7 @@ public class MainForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -291,8 +290,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCharter;
     private javax.swing.JPanel jPanelDuration;
     private javax.swing.JTextField jTextFieldCharterName;
+    private javax.swing.JToggleButton jToggleButtonLong;
     private javax.swing.JToggleButton jToggleButtonMedium;
-    private javax.swing.JToggleButton jToggleButtonRelyTest;
     private javax.swing.JToggleButton jToggleButtonShort;
     // End of variables declaration//GEN-END:variables
 }

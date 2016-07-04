@@ -116,8 +116,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jToggleButtonMedium" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jToggleButtonRelyTest" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <Component id="jToggleButtonLong" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,7 +125,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jToggleButtonShort" pref="34" max="32767" attributes="0"/>
               <Component id="jToggleButtonMedium" max="32767" attributes="0"/>
-              <Component id="jToggleButtonRelyTest" alignment="1" max="32767" attributes="0"/>
+              <Component id="jToggleButtonLong" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -157,7 +157,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="durationButtonGroup"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Long (30min)"/>
+            <Property name="text" type="java.lang.String" value="Medium (30min)"/>
             <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[113, 23]"/>
@@ -170,16 +170,16 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="jToggleButtonRelyTest">
+        <Component class="javax.swing.JToggleButton" name="jToggleButtonLong">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="durationButtonGroup"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="RelyTest (60min)"/>
+            <Property name="text" type="java.lang.String" value="Long (60min)"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonRelyTestActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonLongActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
