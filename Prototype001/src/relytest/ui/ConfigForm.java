@@ -41,6 +41,9 @@ public class ConfigForm extends javax.swing.JFrame {
         jSpinnerShort.setValue(i);
          i = Integer.parseInt( p.getValue(Constants.KEY_LONG_TIME));
          jSpinnerLong.setValue(i);
+         
+          i = Integer.parseInt( p.getValue(Constants.KEY_MEDIUM_TIME));
+         jSpinnerMedium.setValue(i);
     }
 
     private void save() {
@@ -56,6 +59,7 @@ public class ConfigForm extends javax.swing.JFrame {
         
             p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
             p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
+             p.setValue(Constants.KEY_MEDIUM_TIME,  jSpinnerMedium.getValue().toString());
             
             _mainForm.loadTimes();            
             this.setVisible(false);
@@ -82,6 +86,8 @@ public class ConfigForm extends javax.swing.JFrame {
         jLabelLongTimeValue = new javax.swing.JLabel();
         jSpinnerShort = new javax.swing.JSpinner();
         jSpinnerLong = new javax.swing.JSpinner();
+        jLabelMediumTimeValue = new javax.swing.JLabel();
+        jSpinnerMedium = new javax.swing.JSpinner();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
@@ -119,6 +125,10 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jSpinnerLong.setModel(new javax.swing.SpinnerNumberModel(30, 1, 199, 1));
 
+        jLabelMediumTimeValue.setText("Medium Time value");
+
+        jSpinnerMedium.setModel(new javax.swing.SpinnerNumberModel(30, 1, 199, 1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,11 +151,13 @@ public class ConfigForm extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelShortTimeValue)
-                                    .addComponent(jLabelLongTimeValue))
+                                    .addComponent(jLabelLongTimeValue)
+                                    .addComponent(jLabelMediumTimeValue))
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSpinnerShort)
-                                    .addComponent(jSpinnerLong))))
+                                    .addComponent(jSpinnerMedium)
+                                    .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -167,9 +179,13 @@ public class ConfigForm extends javax.swing.JFrame {
                     .addComponent(jSpinnerShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelMediumTimeValue)
+                    .addComponent(jSpinnerMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLongTimeValue)
                     .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLaF))
@@ -241,10 +257,12 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
     private javax.swing.JLabel jLabelLongTimeValue;
+    private javax.swing.JLabel jLabelMediumTimeValue;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelShortTimeValue;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerLong;
+    private javax.swing.JSpinner jSpinnerMedium;
     private javax.swing.JSpinner jSpinnerShort;
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables

@@ -18,7 +18,9 @@ public class Constants {
     public static final String KEY_NAME = "Name";
     public static final String KEY_LOOK_AND_FEEL = "lookAndFeel";
     public static final String KEY_SHORT_TIME = "ShortTime";
-    public static final String KEY_LONG_TIME = "LongTime";        
+    public static final String KEY_LONG_TIME = "LongTime";  
+    public static final String KEY_MEDIUM_TIME = "MediumTime"; 
+    
     
     public static final String KEY_BUTTON_NOTE = "Note";
     public static final String KEY_BUTTON_BUG = "Bug";
