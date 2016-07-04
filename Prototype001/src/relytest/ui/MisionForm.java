@@ -46,9 +46,7 @@ public class MisionForm extends javax.swing.JFrame {
     private static Timer timer;
     private static Date date;
 
-    private final String PaintApp = "mspaint.exe";
     private final String NotesTypesFile = "NoteTypes.txt";
-    //private final String SubDir = "\\";
     private final String LogFile = "SessionLog.txt";
     private final String RunningPath = System.getProperty("user.dir");
     private final String ScreenShotsDir = "ScreenShots";
@@ -56,6 +54,7 @@ public class MisionForm extends javax.swing.JFrame {
     private static boolean paused = false;
 
     private String picturePath = "";
+    private String paintApp = "mspaint.exe";
     private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private final IWriter writer = new Writer();
     private final Calendar calStart = Calendar.getInstance();
@@ -69,9 +68,9 @@ public class MisionForm extends javax.swing.JFrame {
      */
     public MisionForm(String newCharterName) {
         initComponents();
-        sesionName = getDateNow()+"_Charter_"+newCharterName;
-        charterName=newCharterName;
-        picturePath = RunningPath + File.separator  + sesionName + File.separator + ScreenShotsDir + File.separator;
+        sesionName = getDateNow() + "_Charter_" + newCharterName;
+        charterName = newCharterName;
+        picturePath = RunningPath + File.separator + sesionName + File.separator + ScreenShotsDir + File.separator;
         createMisionFolders();
 
         writeToLog("Session Started", "");
@@ -81,19 +80,23 @@ public class MisionForm extends javax.swing.JFrame {
         e.start();
 
         defaultColor = jButtonPause.getBackground();
-        
-        loadButtons();
+
+        loadProperties();
     }
-    private void loadButtons(){
-        PropertiesMgr p = new PropertiesMgr();      
-        jtbNote.setVisible(displayButton( p, Constants.KEY_BUTTON_NOTE));
-        jtbBug.setVisible(displayButton( p, Constants.KEY_BUTTON_BUG));
-        jtbIssue.setVisible(displayButton( p, Constants.KEY_BUTTON_ISSUE));
-        jtbRisk.setVisible(displayButton( p, Constants.KEY_BUTTON_RISK));
-        jtbToDo.setVisible(displayButton( p, Constants.KEY_BUTTON_TODO));
+
+    private void loadProperties() {
+        PropertiesMgr p = new PropertiesMgr();
+        jtbNote.setVisible(displayButton(p, Constants.KEY_BUTTON_NOTE));
+        jtbBug.setVisible(displayButton(p, Constants.KEY_BUTTON_BUG));
+        jtbIssue.setVisible(displayButton(p, Constants.KEY_BUTTON_ISSUE));
+        jtbRisk.setVisible(displayButton(p, Constants.KEY_BUTTON_RISK));
+        jtbToDo.setVisible(displayButton(p, Constants.KEY_BUTTON_TODO));
+
+        paintApp = p.getValue(Constants.KEY_PAINT_APP);
     }
-    private Boolean displayButton(PropertiesMgr p, String buttonName){
-        if(p.getValue(buttonName) != null){
+
+    private Boolean displayButton(PropertiesMgr p, String buttonName) {
+        if (p.getValue(buttonName) != null) {
             return Boolean.valueOf(p.getValue(buttonName));
         }
         return true;
@@ -157,7 +160,7 @@ public class MisionForm extends javax.swing.JFrame {
         try {
             String[] params = new String[2];
 
-            params[0] = PaintApp;
+            params[0] = paintApp;
             params[1] = pictureName;
             Process p = new ProcessBuilder(params).start();
 
@@ -192,12 +195,14 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void takePicture() {
-        String pic = print();
+        if (paintApp != null) {
+            String pic = print();
 
-        PropertiesMgr p = new PropertiesMgr();
-        Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
-        if (open) {
-            executePaint(picturePath + pic);
+            PropertiesMgr p = new PropertiesMgr();
+            Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
+            if (open) {
+                executePaint(picturePath + pic);
+            }
         }
     }
 
@@ -263,7 +268,6 @@ public class MisionForm extends javax.swing.JFrame {
 //            notesTypes.add("Improvement");
 //        }
 //    }
-
 //    private void getNextNote() {
 //        if (!notesTypes.isEmpty()) {
 //            selectedNoteType++;
@@ -273,7 +277,6 @@ public class MisionForm extends javax.swing.JFrame {
 ////            jLabelNoteType.setText(notesTypes.get(selectedNoteType));
 //        }
 //    }
-
 //    private void getPreviousNote() {
 //        if (!notesTypes.isEmpty()) {
 //            selectedNoteType--;
@@ -283,7 +286,6 @@ public class MisionForm extends javax.swing.JFrame {
 ////            jLabelNoteType.setText(notesTypes.get(selectedNoteType));
 //        }
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -530,14 +532,14 @@ public class MisionForm extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                String noCharter ="No charter";
+                String noCharter = "No charter";
                 new MisionForm(noCharter).setVisible(true);
             }
         });
@@ -586,11 +588,12 @@ public class MisionForm extends javax.swing.JFrame {
     public void setMisionName(String misionName) {
         this.misionName = misionName;
     }
-    
-    public String getCharterName(){
+
+    public String getCharterName() {
         return charterName;
     }
-    public void setCharterName(String charterName){
-        this.charterName=charterName;
+
+    public void setCharterName(String charterName) {
+        this.charterName = charterName;
     }
 }

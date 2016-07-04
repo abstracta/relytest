@@ -18,19 +18,16 @@ public class Constants {
     public static final String KEY_NAME = "Name";
     public static final String KEY_LOOK_AND_FEEL = "lookAndFeel";
     public static final String KEY_SHORT_TIME = "ShortTime";
-    public static final String KEY_LONG_TIME = "LongTime";  
-    public static final String KEY_MEDIUM_TIME = "MediumTime"; 
-    
-    
+    public static final String KEY_LONG_TIME = "LongTime";
+    public static final String KEY_MEDIUM_TIME = "MediumTime";
+    public static final String KEY_PAINT_APP = "PaintApp";
+
     public static final String KEY_BUTTON_NOTE = "Note";
     public static final String KEY_BUTTON_BUG = "Bug";
     public static final String KEY_BUTTON_TODO = "ToDo";
     public static final String KEY_BUTTON_RISK = "Risk";
     public static final String KEY_BUTTON_ISSUE = "Issue";
 
-    public static final int DEFAULT_SHORT_TIME=15;
-    public static final int DEFAULT_LONG_TIME=30;
-    
     /* Look and Feel */
     public static final int LAF_ACRYL = 0;
     public static final int LAF_AERO = 1;
@@ -45,10 +42,8 @@ public class Constants {
     public static final int LAF_NOIRE = 10;
     public static final int LAF_SMART = 11;
     public static final int LAF_TEXTURE = 12;
-    
-    
+
     // The possible look and feels
-    public static final String[] LAF_NAMES = new String[]
-    { "Acryl", "Aero", "Aluminium", "Bernstein", "Fast", "Graphite", "HiFi", "Luna", "McWin", "Mint", "Noire", "Smart", "Texture"};
-    
+    public static final String[] LAF_NAMES = new String[]{"Acryl", "Aero", "Aluminium", "Bernstein", "Fast", "Graphite", "HiFi", "Luna", "McWin", "Mint", "Noire", "Smart", "Texture"};
+
 }
