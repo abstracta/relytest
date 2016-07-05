@@ -82,9 +82,6 @@ public class MisionForm extends javax.swing.JFrame {
         defaultColor = jButtonPause.getBackground();
 
         loadProperties();
-        
-        jTextAreaNote.setLineWrap(true);
-jTextAreaNote.setWrapStyleWord(true);
     }
 
     private void loadProperties() {
@@ -368,7 +365,7 @@ jTextAreaNote.setWrapStyleWord(true);
 
         jtbIssue.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbIssue);
-        jtbIssue.setText("Issue");
+        jtbIssue.setText("Problem");
         jtbIssue.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbIssue.setPreferredSize(new java.awt.Dimension(80, 23));
 
