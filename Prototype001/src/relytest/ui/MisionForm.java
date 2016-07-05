@@ -82,6 +82,9 @@ public class MisionForm extends javax.swing.JFrame {
         defaultColor = jButtonPause.getBackground();
 
         loadProperties();
+        
+        jTextAreaNote.setLineWrap(true);
+jTextAreaNote.setWrapStyleWord(true);
     }
 
     private void loadProperties() {
@@ -397,6 +400,7 @@ public class MisionForm extends javax.swing.JFrame {
 
         jTextAreaNote.setColumns(20);
         jTextAreaNote.setRows(5);
+        jTextAreaNote.setAutoscrolls(false);
         jScrollPane1.setViewportView(jTextAreaNote);
 
         jButtonAdd.setText("Add");
