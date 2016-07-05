@@ -6,9 +6,11 @@
 package relytest.ui;
 
 import java.awt.Color;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,18 +18,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import relytest.interfaces.IScreenPrinter;
 import relytest.interfaces.IWriter;
 import relytest.ui.common.EnvironmentStats;
+import relytest.ui.common.Pair;
 import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 
@@ -78,7 +84,6 @@ public class MisionForm extends javax.swing.JFrame {
         EnvironmentStats e = new EnvironmentStats();
         e.setFile(RunningPath + File.separator + sesionName + File.separator + Summary);
         e.start();
-
         defaultColor = jButtonPause.getBackground();
 
         loadProperties();
@@ -159,11 +164,9 @@ public class MisionForm extends javax.swing.JFrame {
     private void executePaint(String pictureName) {
         try {
             String[] params = new String[2];
-
             params[0] = paintApp;
             params[1] = pictureName;
             Process p = new ProcessBuilder(params).start();
-
             p.waitFor();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(MisionForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -232,8 +235,24 @@ public class MisionForm extends javax.swing.JFrame {
         return str;
     }
 
+    private ArrayList<Pair<String, String>> notesTaken = new ArrayList<>();
+
     private void writeToLog(String label, String text) {
-        writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, getDateNow() + " > [" + label + "] " + text);
+//        try {
+            writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, getDateNow() + " > [" + label + "] " + text);
+//            Pair<String, String> labelTaken = new Pair(label, text);
+//            notesTaken.add(labelTaken);
+//            String STRINGS_IDIOMAS_JSON="Label";
+//            String content = new Scanner(new File(STRINGS_IDIOMAS_JSON)).useDelimiter("\\Z").next();
+//            JSONObject json = new JSONObject(content);
+//            JSONArray idiomas = json.getJSONArray("idiomas");
+//            String[] list = new String[idiomas.length()];
+//            for (int i = 0; i < idiomas.length(); i++) {
+//                list[i] = idiomas.getJSONObject(i).getString("nombre");
+//            }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(MisionForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private String getDateNow() {
@@ -431,7 +450,7 @@ public class MisionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -451,7 +470,7 @@ public class MisionForm extends javax.swing.JFrame {
                 .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                     .addComponent(jButtonPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -461,7 +480,7 @@ public class MisionForm extends javax.swing.JFrame {
                 .addComponent(jButtonPicture)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
