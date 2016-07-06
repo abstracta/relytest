@@ -5,12 +5,12 @@
  */
 package relytest.ui;
 
+import com.google.gson.Gson;
 import java.awt.Color;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -18,22 +18,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import relytest.interfaces.IScreenPrinter;
 import relytest.interfaces.IWriter;
 import relytest.ui.common.EnvironmentStats;
-import relytest.ui.common.Pair;
+import relytest.ui.common.GroupNote;
+import relytest.ui.common.Note;
 import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 
@@ -64,7 +62,7 @@ public class MisionForm extends javax.swing.JFrame {
     private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private final IWriter writer = new Writer();
     private final Calendar calStart = Calendar.getInstance();
-
+ 
     private final Color defaultColor;
 
     /**
@@ -74,12 +72,10 @@ public class MisionForm extends javax.swing.JFrame {
      */
     public MisionForm(String newCharterName) {
         initComponents();
-        sesionName = getDateNow() + "_Charter_" + newCharterName;
+        sesionName = getDateNow(false) + "_Charter_" + newCharterName;
         charterName = newCharterName;
         picturePath = RunningPath + File.separator + sesionName + File.separator + ScreenShotsDir + File.separator;
         createMisionFolders();
-
-        writeToLog("Session Started", "");
 
         EnvironmentStats e = new EnvironmentStats();
         e.setFile(RunningPath + File.separator + sesionName + File.separator + Summary);
@@ -87,6 +83,8 @@ public class MisionForm extends javax.swing.JFrame {
         defaultColor = jButtonPause.getBackground();
 
         loadProperties();
+        initializeNotesGroup();
+        writeToLog("Session Started", "Session Started");
     }
 
     private void loadProperties() {
@@ -176,7 +174,7 @@ public class MisionForm extends javax.swing.JFrame {
     private String print() {
         String pictureName = "";
         try {
-            String now = getDateNow();
+            String now = getDateNow(false);
 
             pictureName = "Pic_" + now;
             IScreenPrinter printer = new ScreenPrinter();
@@ -235,29 +233,108 @@ public class MisionForm extends javax.swing.JFrame {
         return str;
     }
 
-    private ArrayList<Pair<String, String>> notesTaken = new ArrayList<>();
+    private ArrayList<Note> notesTaken = new ArrayList<>();
+    GroupNote[] groupNotes = new GroupNote[7];
 
-    private void writeToLog(String label, String text) {
-//        try {
-            writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, getDateNow() + " > [" + label + "] " + text);
-//            Pair<String, String> labelTaken = new Pair(label, text);
-//            notesTaken.add(labelTaken);
-//            String STRINGS_IDIOMAS_JSON="Label";
-//            String content = new Scanner(new File(STRINGS_IDIOMAS_JSON)).useDelimiter("\\Z").next();
-//            JSONObject json = new JSONObject(content);
-//            JSONArray idiomas = json.getJSONArray("idiomas");
-//            String[] list = new String[idiomas.length()];
-//            for (int i = 0; i < idiomas.length(); i++) {
-//                list[i] = idiomas.getJSONObject(i).getString("nombre");
-//            }
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(MisionForm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    private void initializeNotesGroup() {
+        for (int x = 0; x < groupNotes.length; x++) {
+             switch (x) {
+            case 0:
+                groupNotes[x] = new GroupNote("BUG");
+                break;
+            case 1:
+                groupNotes[x] = new GroupNote("NOTE");
+                break;
+            case 2:
+                groupNotes[x] = new GroupNote("ToDo");
+                break;
+            case 3:
+                groupNotes[x] = new GroupNote("Problem");
+                break;
+            case 4:
+                groupNotes[x] = new GroupNote("Risk");
+                break;
+            case 5:
+               groupNotes[x] = new GroupNote("Picture Taken");
+                break;
+            default:
+                groupNotes[x] = new GroupNote("Event");
+                break;
+            
+        }}
     }
 
-    private String getDateNow() {
+    private long cont = 0;
+
+    private void addNote(String label, String text, String timeStamp) {
+        Note note = new Note(++cont, text, timeStamp);
+        notesTaken.add(note);
+        switch (label) {
+            case "BUG":
+                groupNotes[0].addNote(note);
+                break;
+            case "NOTE":
+                groupNotes[1].addNote(note);
+                break;
+            case "ToDo":
+                groupNotes[2].addNote(note);
+                break;
+            case "Issue":
+                groupNotes[3].addNote(note);
+                break;
+            case "Risk":
+                groupNotes[4].addNote(note);
+                break;
+            case "Picture Taken":
+                groupNotes[5].addNote(note);
+                break;
+            default:
+                groupNotes[6].addNote(note);
+                break;
+        }
+    }
+
+    private void writeToLog(String label, String text) {
+        boolean setStartTime ="Session Started".equals(label);
+        String timeStamp = getDateNow(setStartTime);
+        writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
+        addNote(label, text, timeStamp);       
+    }
+
+    private void printNotes() {
+        printJsonLog();
+        printJsonGroupNotes();
+    }
+
+    private void printJsonLog() {
+        Gson gson = new Gson();
+        //2. Convert object to JSON string and save into a file directly
+        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + sesionName + File.separator + "log.json", false)) {
+            gson.toJson(notesTaken, fwriter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printJsonGroupNotes() {
+        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + sesionName + File.separator + "notes.json", true)) {
+            for (int i=0; i<groupNotes.length; i++) {
+                if (!groupNotes[i].notes.isEmpty()) {
+                    Gson gson = new Gson();
+                    gson.toJson(groupNotes[i], fwriter);
+                    fwriter.append(System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDateNow(boolean setStartTime) {
         Date dt = new Date();
+        if(setStartTime){
         calStart.setTime(dt);
+        }
         DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         return dateFormat.format(dt);
     }
@@ -332,6 +409,9 @@ public class MisionForm extends javax.swing.JFrame {
         setTitle("RelyTest");
         setName("frameRelyTest"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -508,11 +588,11 @@ public class MisionForm extends javax.swing.JFrame {
 
         long min = sec / 60;
         if (min > 0) {
-            writeToLog("Session Finished", "Duration: " + min + " min : " + (sec - min * 60) + " sec.");
+            writeToLog("Session Finished", "Session Finished - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
         } else {
-            writeToLog("Session Finished", "Duration: " + sec + " sec.");
+            writeToLog("Session Finished", "Session Finished - Duration: " + sec + " sec.");
         }
-
+        printNotes();
     }//GEN-LAST:event_formWindowClosing
 
     private void jtbNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbNoteActionPerformed
@@ -529,6 +609,12 @@ public class MisionForm extends javax.swing.JFrame {
             writeToLog("Continue", "");
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
+
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
