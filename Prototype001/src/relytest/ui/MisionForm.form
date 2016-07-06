@@ -144,6 +144,7 @@
                 </Property>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Note"/>
+                <Property name="toolTipText" type="java.lang.String" value="Select the Note label"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[97, 23]"/>
                 </Property>
@@ -167,6 +168,7 @@
                   <ComponentRef name="buttonGroupNotes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Bug"/>
+                <Property name="toolTipText" type="java.lang.String" value="Select the Bug label"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[97, 23]"/>
                 </Property>
@@ -187,6 +189,7 @@
                   <ComponentRef name="buttonGroupNotes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="To do"/>
+                <Property name="toolTipText" type="java.lang.String" value="Select the ToDo label"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[97, 23]"/>
                 </Property>
@@ -204,6 +207,7 @@
                   <ComponentRef name="buttonGroupNotes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Risk"/>
+                <Property name="toolTipText" type="java.lang.String" value="Select the Risk label"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[97, 23]"/>
                 </Property>
@@ -224,6 +228,7 @@
                   <ComponentRef name="buttonGroupNotes"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Problem"/>
+                <Property name="toolTipText" type="java.lang.String" value="Select the Problem label"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[97, 23]"/>
                 </Property>
@@ -256,6 +261,7 @@
         <Component class="javax.swing.JButton" name="jButtonAdd">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="toolTipText" type="java.lang.String" value="Add the note to your notes collection"/>
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
@@ -271,7 +277,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jButtonPause" alignment="1" max="32767" attributes="0"/>
-              <Component id="jButtonPicture" alignment="0" pref="187" max="32767" attributes="0"/>
+              <Component id="jButtonPicture" alignment="0" pref="117" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabelEventLog" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -282,7 +288,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jButtonPicture" min="-2" pref="59" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButtonPause" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabelEventLog" min="-2" max="-2" attributes="0"/>
@@ -299,6 +305,7 @@
         <Component class="javax.swing.JButton" name="jButtonPause">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pause"/>
+            <Property name="toolTipText" type="java.lang.String" value="Pause the session"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -307,8 +314,20 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonPicture">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Take Picture"/>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/resources/camera-icon.jpg"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Take a Picture"/>
             <Property name="focusPainted" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="false"/>
+            <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPictureActionPerformed"/>

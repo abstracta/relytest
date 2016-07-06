@@ -220,7 +220,7 @@ public class MisionForm extends javax.swing.JFrame {
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
             writeToLog(getSelectedNote(), jTextAreaNote.getText());
-            jLabelEventLog.setText("Your " + getSelectedNote() + "  has been added.");
+            jLabelEventLog.setText("Your " + getSelectedNote() + " has been added.");
         }
     }
 
@@ -440,6 +440,7 @@ public class MisionForm extends javax.swing.JFrame {
         buttonGroupNotes.add(jtbNote);
         jtbNote.setSelected(true);
         jtbNote.setText("Note");
+        jtbNote.setToolTipText("Select the Note label");
         jtbNote.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbNote.setMinimumSize(new java.awt.Dimension(97, 23));
         jtbNote.setPreferredSize(new java.awt.Dimension(80, 23));
@@ -452,6 +453,7 @@ public class MisionForm extends javax.swing.JFrame {
         jtbBug.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbBug);
         jtbBug.setText("Bug");
+        jtbBug.setToolTipText("Select the Bug label");
         jtbBug.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbBug.setMinimumSize(new java.awt.Dimension(97, 23));
         jtbBug.setPreferredSize(new java.awt.Dimension(80, 23));
@@ -459,12 +461,14 @@ public class MisionForm extends javax.swing.JFrame {
         jtbToDo.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbToDo);
         jtbToDo.setText("To do");
+        jtbToDo.setToolTipText("Select the ToDo label");
         jtbToDo.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbToDo.setPreferredSize(new java.awt.Dimension(80, 23));
 
         jtbRisk.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbRisk);
         jtbRisk.setText("Risk");
+        jtbRisk.setToolTipText("Select the Risk label");
         jtbRisk.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbRisk.setMinimumSize(new java.awt.Dimension(59, 23));
         jtbRisk.setPreferredSize(new java.awt.Dimension(80, 23));
@@ -472,6 +476,7 @@ public class MisionForm extends javax.swing.JFrame {
         jtbIssue.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbIssue);
         jtbIssue.setText("Problem");
+        jtbIssue.setToolTipText("Select the Problem label");
         jtbIssue.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbIssue.setPreferredSize(new java.awt.Dimension(80, 23));
 
@@ -512,6 +517,7 @@ public class MisionForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextAreaNote);
 
         jButtonAdd.setText("Add");
+        jButtonAdd.setToolTipText("Add the note to your notes collection");
         jButtonAdd.setEnabled(false);
         jButtonAdd.setFocusPainted(false);
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -550,6 +556,7 @@ public class MisionForm extends javax.swing.JFrame {
         jLabelEventLog.setText("jLabel1");
 
         jButtonPause.setText("Pause");
+        jButtonPause.setToolTipText("Pause the session");
         jButtonPause.setFocusPainted(false);
         jButtonPause.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -557,8 +564,14 @@ public class MisionForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonPicture.setText("Take Picture");
+        jButtonPicture.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonPicture.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/camera-icon.jpg"))); // NOI18N
+        jButtonPicture.setToolTipText("Take a Picture");
         jButtonPicture.setFocusPainted(false);
+        jButtonPicture.setFocusable(false);
+        jButtonPicture.setOpaque(false);
+        jButtonPicture.setRolloverEnabled(false);
         jButtonPicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPictureActionPerformed(evt);
@@ -570,7 +583,7 @@ public class MisionForm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+            .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabelEventLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -579,7 +592,7 @@ public class MisionForm extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelEventLog))
@@ -642,11 +655,13 @@ public class MisionForm extends javax.swing.JFrame {
         jLabelEventLog.setText("");
         if (paused) {
             jButtonPause.setText(Constants.LABEL_PAUSED + "...");
+            jButtonPause.setToolTipText("Continue the session");
             writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
             enableAllControls(false);
         } else {
             jButtonPause.setBackground(defaultColor);
             writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
+             jButtonPause.setToolTipText("Pause the session");
             enableAllControls(true);
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
