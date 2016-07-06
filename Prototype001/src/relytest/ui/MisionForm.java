@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import javax.swing.text.DefaultCaret;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -86,6 +87,9 @@ public class MisionForm extends javax.swing.JFrame {
         initializeNotesGroup();
         writeToLog(Constants.LABEL_SESSION_STARTED, Constants.LABEL_SESSION_STARTED);
         jLabelEventLog.setText(Constants.LABEL_SESSION_STARTED);
+
+        jTextAreaNote.setLineWrap(true);
+        jTextAreaNote.setWrapStyleWord(true);
     }
 
     private void loadProperties() {
@@ -216,7 +220,7 @@ public class MisionForm extends javax.swing.JFrame {
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
             writeToLog(getSelectedNote(), jTextAreaNote.getText());
-            jLabelEventLog.setText("Your "+getSelectedNote() + "  has been added.");
+            jLabelEventLog.setText("Your " + getSelectedNote() + "  has been added.");
         }
     }
 
@@ -622,9 +626,9 @@ public class MisionForm extends javax.swing.JFrame {
 
         long min = sec / 60;
         if (min > 0) {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED+" - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
         } else {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED+" - Duration: " + sec + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
         }
         printNotes();
     }//GEN-LAST:event_formWindowClosing
@@ -637,7 +641,7 @@ public class MisionForm extends javax.swing.JFrame {
         paused = !paused;
         jLabelEventLog.setText("");
         if (paused) {
-            jButtonPause.setText(Constants.LABEL_PAUSED+"...");
+            jButtonPause.setText(Constants.LABEL_PAUSED + "...");
             writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
             enableAllControls(false);
         } else {
