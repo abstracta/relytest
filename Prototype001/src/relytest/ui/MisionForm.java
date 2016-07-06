@@ -62,7 +62,7 @@ public class MisionForm extends javax.swing.JFrame {
     private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private final IWriter writer = new Writer();
     private final Calendar calStart = Calendar.getInstance();
- 
+
     private final Color defaultColor;
 
     /**
@@ -238,30 +238,31 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void initializeNotesGroup() {
         for (int x = 0; x < groupNotes.length; x++) {
-             switch (x) {
-            case 0:
-                groupNotes[x] = new GroupNote("BUG");
-                break;
-            case 1:
-                groupNotes[x] = new GroupNote("NOTE");
-                break;
-            case 2:
-                groupNotes[x] = new GroupNote("ToDo");
-                break;
-            case 3:
-                groupNotes[x] = new GroupNote("Problem");
-                break;
-            case 4:
-                groupNotes[x] = new GroupNote("Risk");
-                break;
-            case 5:
-               groupNotes[x] = new GroupNote("Picture Taken");
-                break;
-            default:
-                groupNotes[x] = new GroupNote("Event");
-                break;
-            
-        }}
+            switch (x) {
+                case 0:
+                    groupNotes[x] = new GroupNote("BUG");
+                    break;
+                case 1:
+                    groupNotes[x] = new GroupNote("NOTE");
+                    break;
+                case 2:
+                    groupNotes[x] = new GroupNote("ToDo");
+                    break;
+                case 3:
+                    groupNotes[x] = new GroupNote("Problem");
+                    break;
+                case 4:
+                    groupNotes[x] = new GroupNote("Risk");
+                    break;
+                case 5:
+                    groupNotes[x] = new GroupNote("Picture Taken");
+                    break;
+                default:
+                    groupNotes[x] = new GroupNote("Event");
+                    break;
+
+            }
+        }
     }
 
     private long cont = 0;
@@ -295,10 +296,10 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void writeToLog(String label, String text) {
-        boolean setStartTime ="Session Started".equals(label);
+        boolean setStartTime = "Session Started".equals(label);
         String timeStamp = getDateNow(setStartTime);
         writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
-        addNote(label, text, timeStamp);       
+        addNote(label, text, timeStamp);
     }
 
     private void printNotes() {
@@ -318,7 +319,7 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void printJsonGroupNotes() {
         try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + sesionName + File.separator + "notes.json", true)) {
-            for (int i=0; i<groupNotes.length; i++) {
+            for (int i = 0; i < groupNotes.length; i++) {
                 if (!groupNotes[i].notes.isEmpty()) {
                     Gson gson = new Gson();
                     gson.toJson(groupNotes[i], fwriter);
@@ -332,8 +333,8 @@ public class MisionForm extends javax.swing.JFrame {
 
     private String getDateNow(boolean setStartTime) {
         Date dt = new Date();
-        if(setStartTime){
-        calStart.setTime(dt);
+        if (setStartTime) {
+            calStart.setTime(dt);
         }
         DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         return dateFormat.format(dt);
@@ -497,9 +498,15 @@ public class MisionForm extends javax.swing.JFrame {
         jTextAreaNote.setColumns(20);
         jTextAreaNote.setRows(5);
         jTextAreaNote.setAutoscrolls(false);
+        jTextAreaNote.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextAreaNoteKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextAreaNote);
 
         jButtonAdd.setText("Add");
+        jButtonAdd.setEnabled(false);
         jButtonAdd.setFocusPainted(false);
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -574,9 +581,9 @@ public class MisionForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPictureActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-
         writeNote();
         jTextAreaNote.setText("");
+        jButtonAdd.setEnabled(false);
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -603,18 +610,35 @@ public class MisionForm extends javax.swing.JFrame {
         paused = !paused;
         if (paused) {
             jButtonPause.setText("Paused...");
-            writeToLog("Paused", "");
+            writeToLog("Paused", "Paused");
+            enableAllControls(false);
         } else {
             jButtonPause.setBackground(defaultColor);
-            writeToLog("Continue", "");
+            writeToLog("Continue", "Continue");
+            enableAllControls(true);
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
 
+    private void enableAllControls(boolean enable){
+        jButtonAdd.setEnabled(enable && !jTextAreaNote.getText().isEmpty());
+        jButtonPicture.setEnabled(enable);
+        jTextAreaNote.setEnabled(enable);
+        jtbBug.setEnabled(enable);
+        jtbIssue.setEnabled(enable);
+        jtbNote.setEnabled(enable);
+        jtbRisk.setEnabled(enable);
+        jtbToDo.setEnabled(enable);
+    }
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_formWindowClosed
+
+    private void jTextAreaNoteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaNoteKeyReleased
+        // TODO add your handling code here:
+        jButtonAdd.setEnabled(!jTextAreaNote.getText().isEmpty());
+    }//GEN-LAST:event_jTextAreaNoteKeyReleased
 
     /**
      * @param args the command line arguments
