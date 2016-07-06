@@ -277,7 +277,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jButtonPause" alignment="1" max="32767" attributes="0"/>
-              <Component id="jButtonPicture" alignment="0" pref="117" max="32767" attributes="0"/>
+              <Component id="jButtonPicture" alignment="0" pref="201" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabelEventLog" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -287,9 +287,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jButtonPicture" min="-2" pref="59" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButtonPause" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jButtonPicture" min="-2" pref="59" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabelEventLog" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -314,20 +314,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonPicture">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/camera-icon.jpg"/>
+              <Image iconType="3" name="/resources/Camara.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Take a Picture"/>
             <Property name="focusPainted" type="boolean" value="false"/>
-            <Property name="focusable" type="boolean" value="false"/>
             <Property name="opaque" type="boolean" value="false"/>
-            <Property name="rolloverEnabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPictureActionPerformed"/>
