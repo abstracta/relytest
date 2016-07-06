@@ -36,6 +36,9 @@ public class ConfigForm extends javax.swing.JFrame {
         Boolean hide = Boolean.valueOf(p.getValue(Constants.KEY_HIDE_RELY_TEST));
         jCheckBoxHideRelyTest.setSelected(hide);
         
+        Boolean takePic = Boolean.valueOf(p.getValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG));
+        jCheckBoxTakePicAfterBug.setSelected(takePic);
+        
         String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
         jSpinnerShort.setValue(i);
@@ -56,6 +59,10 @@ public class ConfigForm extends javax.swing.JFrame {
             p.setValue(Constants.KEY_OPEN_IMAGE_EDITOR, open.toString());
             Boolean hideRelyTest = jCheckBoxHideRelyTest.isSelected();
             p.setValue(Constants.KEY_HIDE_RELY_TEST, hideRelyTest.toString());
+            
+            Boolean takePic = jCheckBoxTakePicAfterBug.isSelected();
+            p.setValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG, takePic.toString());
+            
         
             p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
             p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
@@ -88,6 +95,7 @@ public class ConfigForm extends javax.swing.JFrame {
         jSpinnerLong = new javax.swing.JSpinner();
         jLabelMediumTimeValue = new javax.swing.JLabel();
         jSpinnerMedium = new javax.swing.JSpinner();
+        jCheckBoxTakePicAfterBug = new javax.swing.JCheckBox();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
@@ -129,6 +137,8 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jSpinnerMedium.setModel(new javax.swing.SpinnerNumberModel(30, 1, 199, 1));
 
+        jCheckBoxTakePicAfterBug.setText("Take picture after adding a Bug");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,6 +156,7 @@ public class ConfigForm extends javax.swing.JFrame {
                         .addComponent(jTextFieldName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBoxTakePicAfterBug)
                             .addComponent(jCheckBoxHideRelyTest)
                             .addComponent(jCheckBoxOpenImageEditor)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -185,7 +196,9 @@ public class ConfigForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLongTimeValue)
                     .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBoxTakePicAfterBug)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLaF))
@@ -256,6 +269,7 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSave;
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
+    private javax.swing.JCheckBox jCheckBoxTakePicAfterBug;
     private javax.swing.JLabel jLabelLongTimeValue;
     private javax.swing.JLabel jLabelMediumTimeValue;
     private javax.swing.JLabel jLabelName;

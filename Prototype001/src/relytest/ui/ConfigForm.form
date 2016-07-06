@@ -53,7 +53,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -68,6 +68,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxHideRelyTest" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxOpenImageEditor" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -120,7 +121,9 @@
                       <Component id="jLabelLongTimeValue" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jSpinnerLong" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="116" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="75" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonLaF" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -198,6 +201,11 @@
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="30" maximum="199" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxTakePicAfterBug">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Take picture after adding a Bug"/>
           </Properties>
         </Component>
       </SubComponents>

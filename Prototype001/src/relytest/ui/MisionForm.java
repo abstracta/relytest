@@ -84,14 +84,15 @@ public class MisionForm extends javax.swing.JFrame {
 
         loadProperties();
         initializeNotesGroup();
-        writeToLog("Session Started", "Session Started");
+        writeToLog(Constants.LABEL_SESSION_STARTED, Constants.LABEL_SESSION_STARTED);
+        jLabelEventLog.setText(Constants.LABEL_SESSION_STARTED);
     }
 
     private void loadProperties() {
         PropertiesMgr p = new PropertiesMgr();
         jtbNote.setVisible(displayButton(p, Constants.KEY_BUTTON_NOTE));
         jtbBug.setVisible(displayButton(p, Constants.KEY_BUTTON_BUG));
-        jtbIssue.setVisible(displayButton(p, Constants.KEY_BUTTON_ISSUE));
+        jtbIssue.setVisible(displayButton(p, Constants.KEY_BUTTON_PROBLEM));
         jtbRisk.setVisible(displayButton(p, Constants.KEY_BUTTON_RISK));
         jtbToDo.setVisible(displayButton(p, Constants.KEY_BUTTON_TODO));
 
@@ -138,7 +139,7 @@ public class MisionForm extends javax.swing.JFrame {
                 jButtonPause.setText(sdf.format(date));
                 elapsedTimePassExpected = sdf.format(date).equals("00:00:00");
                 if (elapsedTimePassExpected) {
-                    writeToLog("Elapsed Time Pass Expected", "The elapsed time passed the expected time for the session.");
+                    writeToLog(Constants.LABEL_ELAPSED_TIME_PASS_EXPECTED_TIME, "The elapsed time passed the expected time for the session.");
                 }
             }
         } else {
@@ -204,31 +205,33 @@ public class MisionForm extends javax.swing.JFrame {
             if (open) {
                 executePaint(picturePath + pic);
             }
+            jLabelEventLog.setText(Constants.LABEL_PICTURE_TAKEN);
         }
     }
 
     private void writePicTaken(String picName) {
-        writeToLog("Picture Taken", picName);
+        writeToLog(Constants.LABEL_PICTURE_TAKEN, picName);
     }
 
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
             writeToLog(getSelectedNote(), jTextAreaNote.getText());
+            jLabelEventLog.setText(getSelectedNote() + " added.");
         }
     }
 
     private String getSelectedNote() {
         String str;
         if (jtbBug.isSelected()) {
-            str = "BUG";
+            str = Constants.LABEL_BUG;
         } else if (jtbNote.isSelected()) {
-            str = "NOTE";
+            str = Constants.LABEL_NOTE;
         } else if (jtbToDo.isSelected()) {
-            str = "ToDo";
+            str = Constants.LABEL_ToDo;
         } else if (jtbIssue.isSelected()) {
-            str = "Issue";
+            str = Constants.LABEL_PROBLEM;
         } else {
-            str = "Risk";
+            str = Constants.LABEL_RISK;
         }
         return str;
     }
@@ -240,25 +243,25 @@ public class MisionForm extends javax.swing.JFrame {
         for (int x = 0; x < groupNotes.length; x++) {
             switch (x) {
                 case 0:
-                    groupNotes[x] = new GroupNote("BUG");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_BUG);
                     break;
                 case 1:
-                    groupNotes[x] = new GroupNote("NOTE");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_NOTE);
                     break;
                 case 2:
-                    groupNotes[x] = new GroupNote("ToDo");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_ToDo);
                     break;
                 case 3:
-                    groupNotes[x] = new GroupNote("Problem");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_PROBLEM);
                     break;
                 case 4:
-                    groupNotes[x] = new GroupNote("Risk");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_RISK);
                     break;
                 case 5:
-                    groupNotes[x] = new GroupNote("Picture Taken");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_PICTURE_TAKEN);
                     break;
                 default:
-                    groupNotes[x] = new GroupNote("Event");
+                    groupNotes[x] = new GroupNote(Constants.LABEL_EVENT);
                     break;
 
             }
@@ -271,22 +274,27 @@ public class MisionForm extends javax.swing.JFrame {
         Note note = new Note(++cont, text, timeStamp);
         notesTaken.add(note);
         switch (label) {
-            case "BUG":
+            case Constants.LABEL_BUG:
                 groupNotes[0].addNote(note);
+                PropertiesMgr p = new PropertiesMgr();
+                Boolean takePic = Boolean.valueOf(p.getValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG));
+                if (takePic) {
+                    takePicture();
+                }
                 break;
-            case "NOTE":
+            case Constants.LABEL_NOTE:
                 groupNotes[1].addNote(note);
                 break;
-            case "ToDo":
+            case Constants.LABEL_ToDo:
                 groupNotes[2].addNote(note);
                 break;
-            case "Issue":
+            case Constants.LABEL_PROBLEM:
                 groupNotes[3].addNote(note);
                 break;
-            case "Risk":
+            case Constants.LABEL_RISK:
                 groupNotes[4].addNote(note);
                 break;
-            case "Picture Taken":
+            case Constants.LABEL_PICTURE_TAKEN:
                 groupNotes[5].addNote(note);
                 break;
             default:
@@ -296,7 +304,7 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void writeToLog(String label, String text) {
-        boolean setStartTime = "Session Started".equals(label);
+        boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
         String timeStamp = getDateNow(setStartTime);
         writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
         addNote(label, text, timeStamp);
@@ -405,6 +413,7 @@ public class MisionForm extends javax.swing.JFrame {
         jTextAreaNote = new javax.swing.JTextArea();
         jButtonAdd = new javax.swing.JButton();
         jButtonPicture = new javax.swing.JButton();
+        jLabelEventLog = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
@@ -549,6 +558,9 @@ public class MisionForm extends javax.swing.JFrame {
             }
         });
 
+        jLabelEventLog.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelEventLog.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -558,7 +570,8 @@ public class MisionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(jButtonPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonPause, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelEventLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -567,7 +580,8 @@ public class MisionForm extends javax.swing.JFrame {
                 .addComponent(jButtonPicture)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelEventLog))
             .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -582,6 +596,7 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         writeNote();
+
         jTextAreaNote.setText("");
         jButtonAdd.setEnabled(false);
     }//GEN-LAST:event_jButtonAddActionPerformed
@@ -595,9 +610,9 @@ public class MisionForm extends javax.swing.JFrame {
 
         long min = sec / 60;
         if (min > 0) {
-            writeToLog("Session Finished", "Session Finished - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED+" - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
         } else {
-            writeToLog("Session Finished", "Session Finished - Duration: " + sec + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED+" - Duration: " + sec + " sec.");
         }
         printNotes();
     }//GEN-LAST:event_formWindowClosing
@@ -608,18 +623,19 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void jButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPauseActionPerformed
         paused = !paused;
+        jLabelEventLog.setText("");
         if (paused) {
-            jButtonPause.setText("Paused...");
-            writeToLog("Paused", "Paused");
+            jButtonPause.setText(Constants.LABEL_PAUSED+"...");
+            writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
             enableAllControls(false);
         } else {
             jButtonPause.setBackground(defaultColor);
-            writeToLog("Continue", "Continue");
+            writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
             enableAllControls(true);
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
 
-    private void enableAllControls(boolean enable){
+    private void enableAllControls(boolean enable) {
         jButtonAdd.setEnabled(enable && !jTextAreaNote.getText().isEmpty());
         jButtonPicture.setEnabled(enable);
         jTextAreaNote.setEnabled(enable);
@@ -680,6 +696,7 @@ public class MisionForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonPause;
     private javax.swing.JButton jButtonPicture;
+    private javax.swing.JLabel jLabelEventLog;
     private javax.swing.JPanel jPanelNote;
     private javax.swing.JPanel jPanelNoteSelection;
     private javax.swing.JScrollPane jScrollPane1;

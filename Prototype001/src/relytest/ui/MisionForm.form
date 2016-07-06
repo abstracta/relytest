@@ -42,6 +42,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jButtonPicture" pref="100" max="32767" attributes="0"/>
                   <Component id="jButtonPause" max="32767" attributes="0"/>
+                  <Component id="jLabelEventLog" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -53,7 +54,8 @@
               <Component id="jButtonPicture" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonPause" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabelEventLog" min="-2" max="-2" attributes="0"/>
           </Group>
           <Component id="jPanelNote" max="32767" attributes="0"/>
       </Group>
@@ -290,6 +292,12 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPictureActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabelEventLog">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
