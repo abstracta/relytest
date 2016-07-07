@@ -58,7 +58,9 @@ public class MainForm extends javax.swing.JFrame {
             return hour + ":" + mins + ":00";
         }
     }
-
+    
+    
+    
     private void start() {
         if (jTextFieldCharterName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the charter.");
@@ -68,6 +70,7 @@ public class MainForm extends javax.swing.JFrame {
             mision.setTotalTime(getTotalTime());
             mision.setMisionName("RelyTest - Charter: " + charterName);
             mision.setTitle("RelyTest - Charter: " + charterName);
+            mision.setMainForm(this);
             mision.Start();
             mision.show();
             mision.setLocationRelativeTo(null);

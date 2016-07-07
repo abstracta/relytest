@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import javax.swing.text.DefaultCaret;
+import javax.swing.WindowConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -50,6 +50,7 @@ public class MisionForm extends javax.swing.JFrame {
     private String totalTime;
     private static Timer timer;
     private static Date date;
+    private MainForm mainForm;
 
     private final String NotesTypesFile = "NoteTypes.txt";
     private final String LogFile = "SessionLog.txt";
@@ -639,7 +640,10 @@ public class MisionForm extends javax.swing.JFrame {
         } else {
             writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
         }
-        printNotes();
+        printNotes();        
+        mainForm.setVisible(true);   
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        
     }//GEN-LAST:event_formWindowClosing
 
     private void jtbNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbNoteActionPerformed
@@ -770,5 +774,19 @@ public class MisionForm extends javax.swing.JFrame {
 
     public void setCharterName(String charterName) {
         this.charterName = charterName;
+    }
+
+    /**
+     * @return the mainForm
+     */
+    public MainForm getMainForm() {
+        return mainForm;
+    }
+
+    /**
+     * @param mainForm the mainForm to set
+     */
+    public void setMainForm(MainForm mainForm) {
+        this.mainForm = mainForm;
     }
 }
