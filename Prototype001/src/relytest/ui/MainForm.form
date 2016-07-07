@@ -51,12 +51,12 @@
               <Component id="jPanelCharter" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelDuration" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonConfig" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonStart" alignment="3" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jButtonStart" pref="44" max="32767" attributes="0"/>
+                  <Component id="jButtonConfig" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -64,7 +64,12 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButtonStart">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Start"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="ff" red="66" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/start.png"/>
+        </Property>
         <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[113, 23]"/>
@@ -82,7 +87,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonConfig">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Config"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/resources/tool.png"/>
+        </Property>
         <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[113, 23]"/>

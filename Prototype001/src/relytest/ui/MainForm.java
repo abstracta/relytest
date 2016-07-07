@@ -111,7 +111,8 @@ public class MainForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
 
-        jButtonStart.setText("Start");
+        jButtonStart.setBackground(new java.awt.Color(102, 255, 102));
+        jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/start.png"))); // NOI18N
         jButtonStart.setFocusPainted(false);
         jButtonStart.setMaximumSize(new java.awt.Dimension(113, 23));
         jButtonStart.setMinimumSize(new java.awt.Dimension(113, 23));
@@ -122,7 +123,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        jButtonConfig.setText("Config");
+        jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/tool.png"))); // NOI18N
         jButtonConfig.setFocusPainted(false);
         jButtonConfig.setMaximumSize(new java.awt.Dimension(113, 23));
         jButtonConfig.setMinimumSize(new java.awt.Dimension(113, 23));
@@ -226,11 +227,11 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jPanelCharter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelDuration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(jButtonConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();

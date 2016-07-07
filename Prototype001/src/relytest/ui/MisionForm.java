@@ -439,8 +439,8 @@ public class MisionForm extends javax.swing.JFrame {
 
         jtbNote.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbNote);
+        jtbNote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/note.png"))); // NOI18N
         jtbNote.setSelected(true);
-        jtbNote.setText("Note");
         jtbNote.setToolTipText("Select the Note label");
         jtbNote.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbNote.setMinimumSize(new java.awt.Dimension(97, 23));
@@ -453,7 +453,7 @@ public class MisionForm extends javax.swing.JFrame {
 
         jtbBug.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbBug);
-        jtbBug.setText("Bug");
+        jtbBug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/bug.png"))); // NOI18N
         jtbBug.setToolTipText("Select the Bug label");
         jtbBug.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbBug.setMinimumSize(new java.awt.Dimension(97, 23));
@@ -461,14 +461,14 @@ public class MisionForm extends javax.swing.JFrame {
 
         jtbToDo.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbToDo);
-        jtbToDo.setText("To do");
+        jtbToDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ToDo.png"))); // NOI18N
         jtbToDo.setToolTipText("Select the ToDo label");
         jtbToDo.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbToDo.setPreferredSize(new java.awt.Dimension(80, 23));
 
         jtbRisk.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbRisk);
-        jtbRisk.setText("Risk");
+        jtbRisk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/risk.png"))); // NOI18N
         jtbRisk.setToolTipText("Select the Risk label");
         jtbRisk.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbRisk.setMinimumSize(new java.awt.Dimension(59, 23));
@@ -476,7 +476,7 @@ public class MisionForm extends javax.swing.JFrame {
 
         jtbIssue.setBackground(new java.awt.Color(255, 255, 153));
         buttonGroupNotes.add(jtbIssue);
-        jtbIssue.setText("Problem");
+        jtbIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/error.png"))); // NOI18N
         jtbIssue.setToolTipText("Select the Problem label");
         jtbIssue.setMaximumSize(new java.awt.Dimension(97, 23));
         jtbIssue.setPreferredSize(new java.awt.Dimension(80, 23));
@@ -500,7 +500,7 @@ public class MisionForm extends javax.swing.JFrame {
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbNote, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+            .addComponent(jtbNote, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
             .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jtbToDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -517,7 +517,7 @@ public class MisionForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTextAreaNote);
 
-        jButtonAdd.setText("Add");
+        jButtonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Add.png"))); // NOI18N
         jButtonAdd.setToolTipText("Add the note to your notes collection");
         jButtonAdd.setEnabled(false);
         jButtonAdd.setFocusPainted(false);
@@ -550,12 +550,13 @@ public class MisionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jLabelEventLog.setText("jLabel1");
 
+        jButtonPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/timer.png"))); // NOI18N
         jButtonPause.setText("Pause");
         jButtonPause.setToolTipText("Pause the session");
         jButtonPause.setFocusPainted(false);
@@ -580,7 +581,7 @@ public class MisionForm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+            .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabelEventLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -588,10 +589,10 @@ public class MisionForm extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jButtonPause, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonPause)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabelEventLog))
         );
 
