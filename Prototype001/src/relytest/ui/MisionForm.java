@@ -21,15 +21,16 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import relytest.interfaces.IPrinter;
 import relytest.interfaces.IScreenPrinter;
 import relytest.interfaces.IWriter;
+import relytest.ui.common.CharterDto;
 import relytest.ui.common.EnvironmentStats;
 import relytest.ui.common.GroupNote;
 import relytest.ui.common.Note;
@@ -42,12 +43,14 @@ import relytest.ui.common.Writer;
  */
 public class MisionForm extends javax.swing.JFrame {
 
-    private String misionName;
-    private String charterName;
-    private String sesionName = "";
+    private CharterDto charterDto;
+    
+    //private String misionName;
+ //   private String charterName;
+   // private String folderName = "";
     private ArrayList<String> notesTypes = new ArrayList<>();
     private int selectedNoteType = 0;
-    private String totalTime;
+//    private String totalTime;
     private static Timer timer;
     private static Date date;
     private MainForm mainForm;
@@ -59,7 +62,7 @@ public class MisionForm extends javax.swing.JFrame {
     private final String Summary = "Environment_Summary.txt";
     private static boolean paused = false;
 
-    private String picturePath = "";
+    //private String picturePath = "";
     private String paintApp = "mspaint.exe";
     private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private final IWriter writer = new Writer();
@@ -72,15 +75,16 @@ public class MisionForm extends javax.swing.JFrame {
      *
      * @param newCharterName
      */
-    public MisionForm(String newCharterName) {
+    public MisionForm(CharterDto dto) {
         initComponents();
-        sesionName = getDateNow(false) + "_Charter_" + newCharterName;
-        charterName = newCharterName;
-        picturePath = RunningPath + File.separator + sesionName + File.separator + ScreenShotsDir + File.separator;
+        charterDto=dto;
+        charterDto.setFolderName( getDateNow(false) + "_Charter_" + dto.getCharterFileName());
+        charterDto.setFolderNamePath(RunningPath + File.separator + charterDto.getFolderName());
+        charterDto.setPicturePath( charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
         createMisionFolders();
 
         EnvironmentStats e = new EnvironmentStats();
-        e.setFile(RunningPath + File.separator + sesionName + File.separator + Summary);
+        e.setFile(charterDto.getFolderNamePath()  + File.separator + Summary);
         e.start();
         defaultColor = jButtonPause.getBackground();
 
@@ -113,7 +117,7 @@ public class MisionForm extends javax.swing.JFrame {
 
     public void Start() {
         try {
-            date = sdf.parse(totalTime);
+            date = sdf.parse(charterDto.getTotalTime());
         } catch (ParseException ex) {
             Logger.getLogger(MisionForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -161,8 +165,8 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void createMisionFolders() {
-        new File(RunningPath + File.separator + sesionName).mkdirs();
-        new File(RunningPath + File.separator + sesionName + File.separator + ScreenShotsDir).mkdirs();
+        new File(RunningPath + File.separator + charterDto.getFolderName()).mkdirs();
+        new File(RunningPath + File.separator + charterDto.getFolderName() + File.separator + ScreenShotsDir).mkdirs();
     }
 
     private void executePaint(String pictureName) {
@@ -190,7 +194,7 @@ public class MisionForm extends javax.swing.JFrame {
             if (hide) {
                 this.setVisible(false);
             }
-            String picFormat = printer.print(picturePath + pictureName);
+            String picFormat = printer.print(charterDto.getPicturePath() + pictureName);
             if (hide) {
                 this.setVisible(true);
             }
@@ -208,7 +212,7 @@ public class MisionForm extends javax.swing.JFrame {
             PropertiesMgr p = new PropertiesMgr();
             Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
             if (open) {
-                executePaint(picturePath + pic);
+                executePaint(charterDto.getPicturePath() + pic);
             }
             jLabelEventLog.setText(Constants.LABEL_PICTURE_TAKEN);
         }
@@ -311,8 +315,16 @@ public class MisionForm extends javax.swing.JFrame {
     private void writeToLog(String label, String text) {
         boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
         String timeStamp = getDateNow(setStartTime);
-        writer.writeToFile(RunningPath + File.separator + sesionName + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
+        writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
         addNote(label, text, timeStamp);
+    }
+
+    private void printHtml() {
+        IPrinter printer = new HtmlPrinter();
+        charterDto.setGroupNotes(groupNotes);
+        charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
+
+        printer.print(charterDto);
     }
 
     private void printNotes() {
@@ -323,7 +335,7 @@ public class MisionForm extends javax.swing.JFrame {
     private void printJsonLog() {
         Gson gson = new Gson();
         //2. Convert object to JSON string and save into a file directly
-        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + sesionName + File.separator + "log.json", false)) {
+        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "log.json", false)) {
             gson.toJson(notesTaken, fwriter);
         } catch (IOException e) {
             e.printStackTrace();
@@ -331,7 +343,7 @@ public class MisionForm extends javax.swing.JFrame {
     }
 
     private void printJsonGroupNotes() {
-        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + sesionName + File.separator + "notes.json", true)) {
+        try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "notes.json", true)) {
             for (int i = 0; i < groupNotes.length; i++) {
                 if (!groupNotes[i].notes.isEmpty()) {
                     Gson gson = new Gson();
@@ -420,6 +432,7 @@ public class MisionForm extends javax.swing.JFrame {
         jLabelEventLog = new javax.swing.JLabel();
         jButtonPause = new javax.swing.JButton();
         jButtonPicture = new javax.swing.JButton();
+        jButtonStop = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
@@ -576,6 +589,13 @@ public class MisionForm extends javax.swing.JFrame {
             }
         });
 
+        jButtonStop.setText("Stop");
+        jButtonStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -585,6 +605,7 @@ public class MisionForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabelEventLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jButtonStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -592,7 +613,9 @@ public class MisionForm extends javax.swing.JFrame {
                 .addComponent(jButtonPause)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelEventLog))
         );
 
@@ -628,9 +651,7 @@ public class MisionForm extends javax.swing.JFrame {
         jButtonAdd.setEnabled(false);
     }//GEN-LAST:event_jButtonAddActionPerformed
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-
+    private void lastWriteToLog() {
         Date now = new Date();
 
         long sec = (now.getTime() - calStart.getTime().getTime()) / 1000;
@@ -641,10 +662,14 @@ public class MisionForm extends javax.swing.JFrame {
         } else {
             writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
         }
-        printNotes();        
-        mainForm.setVisible(true);   
-        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+
+        lastWriteToLog();
+        printNotes();
+
     }//GEN-LAST:event_formWindowClosing
 
     private void jtbNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbNoteActionPerformed
@@ -662,7 +687,7 @@ public class MisionForm extends javax.swing.JFrame {
         } else {
             jButtonPause.setBackground(defaultColor);
             writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
-             jButtonPause.setToolTipText("Pause the session");
+            jButtonPause.setToolTipText("Pause the session");
             enableAllControls(true);
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
@@ -687,6 +712,17 @@ public class MisionForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         jButtonAdd.setEnabled(!jTextAreaNote.getText().isEmpty());
     }//GEN-LAST:event_jTextAreaNoteKeyReleased
+
+    private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
+        // TODO add your handling code here:
+        lastWriteToLog();
+        printNotes();
+        printHtml();
+
+        mainForm.setVisible(true);
+        setVisible(false);
+        dispose();
+    }//GEN-LAST:event_jButtonStopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -716,9 +752,8 @@ public class MisionForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
-            public void run() {
-                String noCharter = "No charter";
-                new MisionForm(noCharter).setVisible(true);
+            public void run() {              
+                new MisionForm(new CharterDto()).setVisible(true);
             }
         });
     }
@@ -728,6 +763,7 @@ public class MisionForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonPause;
     private javax.swing.JButton jButtonPicture;
+    private javax.swing.JButton jButtonStop;
     private javax.swing.JLabel jLabelEventLog;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelNote;
@@ -741,41 +777,11 @@ public class MisionForm extends javax.swing.JFrame {
     private javax.swing.JToggleButton jtbToDo;
     // End of variables declaration//GEN-END:variables
 
-    /**
-     * @return the totalTime
-     */
-    public String getTotalTime() {
-        return totalTime;
-    }
+   
 
-    /**
-     * @param totalTime the totalTime to set
-     */
-    public void setTotalTime(String totalTime) {
-        this.totalTime = totalTime;
-    }
+  
 
-    /**
-     * @return the misionName
-     */
-    public String getMisionName() {
-        return misionName;
-    }
-
-    /**
-     * @param misionName the misionName to set
-     */
-    public void setMisionName(String misionName) {
-        this.misionName = misionName;
-    }
-
-    public String getCharterName() {
-        return charterName;
-    }
-
-    public void setCharterName(String charterName) {
-        this.charterName = charterName;
-    }
+    
 
     /**
      * @return the mainForm

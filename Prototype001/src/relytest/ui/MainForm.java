@@ -5,6 +5,7 @@
  */
 package relytest.ui;
 
+import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
@@ -66,14 +67,18 @@ public class MainForm extends javax.swing.JFrame {
             showMessageDialog(this, "Please insert the name of the charter.");
         } else {
             String charterName = jTextFieldCharterName.getText().replaceAll("[^a-zA-Z0-9.-]", "_");
-            MisionForm mision = new MisionForm(charterName);
-            mision.setTotalTime(getTotalTime());
-            mision.setMisionName("RelyTest - Charter: " + charterName);
+            CharterDto dto = new CharterDto();
+            dto.setCharterFileName(charterName);
+            dto.setName(jTextFieldCharterName.getText());
+            dto.setTotalTime(getTotalTime());
+            MisionForm mision = new MisionForm(dto);
+               
             mision.setTitle("RelyTest - Charter: " + charterName);
             mision.setMainForm(this);
             mision.Start();
             mision.show();
             mision.setLocationRelativeTo(null);
+            jTextFieldCharterName.setText("");
             this.setVisible(false);
         }
     }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class GroupNote {
-    private String label;
+    private final String label;
     public ArrayList<Note> notes = new ArrayList<>();
     
     public GroupNote(String labelName){
@@ -20,6 +20,13 @@ public class GroupNote {
     }
     public void addNote(Note note){
         notes.add(note);
+    }
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
     }
     
 }
