@@ -1,10 +1,10 @@
 <html>
 <head>
-<title>${title}</title>
+<title>${title} - ${charterName}</title>
 </head>
 <body>
 <h1>${title}</h1>
-<h1><p>Charter: ${charterName} </p></h1>
+<h1><p>Charter: ${charterName}</p></h1>
 <ul>
 <h2><p>${label0}: </p></h2>
 </ul>
@@ -64,14 +64,13 @@
 <ul> 
 <h2><p>List of screenprints: </p></h2>
 </ul>
-<#list screenprints as print>
 <ul>
-
+<#list screenprints as print>
 <a href=ScreenShots/${print.text}>
   <img src=ScreenShots/${print.text} alt="HTML tutorial" style="width:42px;height:42px;border:0;">
 </a>
-</ul>
 </#list>
+</ul>
 </#if>
 
  
