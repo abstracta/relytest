@@ -22,6 +22,9 @@ public class Constants {
     public static final String KEY_LONG_TIME = "LongTime";
     public static final String KEY_MEDIUM_TIME = "MediumTime";
     public static final String KEY_PAINT_APP = "PaintApp";
+    
+    public static final String KEY_CONFIRM_STOP_CHARTER = "ConfirmStopCharter";
+    public static final String KEY_CONFIRM_EXIT_RELYTEST = "ConfirmExitRelyTest";
 
     public static final String KEY_BUTTON_NOTE = "Note";
     public static final String KEY_BUTTON_BUG = "Bug";

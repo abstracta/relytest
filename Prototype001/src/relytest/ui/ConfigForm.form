@@ -68,6 +68,8 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jCheckBoxConfirmExitRelyTest" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCheckBoxConfirmStopCharter" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxHideRelyTest" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxOpenImageEditor" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -123,7 +125,11 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="75" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxConfirmStopCharter" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxConfirmExitRelyTest" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonSave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonLaF" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -206,6 +212,16 @@
         <Component class="javax.swing.JCheckBox" name="jCheckBoxTakePicAfterBug">
           <Properties>
             <Property name="text" type="java.lang.String" value="Take picture after adding a Bug"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxConfirmStopCharter">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Confirm to Stop Charter"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxConfirmExitRelyTest">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Confirm to Exit RelyTest"/>
           </Properties>
         </Component>
       </SubComponents>

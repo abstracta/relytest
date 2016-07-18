@@ -37,14 +37,16 @@ import relytest.ui.common.GroupNote;
 import relytest.ui.common.Note;
 import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
+import javax.swing.text.DefaultCaret;
+import relytest.interfaces.IConfigFormLoad;
 
 /**
  *
  * @author Gabriela Sanchez - Miguel Sanchez
  */
-public class MisionForm extends javax.swing.JFrame {
+public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
-    private CharterDto charterDto;
+    private final CharterDto charterDto;
 
     //private String misionName;
     //   private String charterName;
@@ -74,7 +76,7 @@ public class MisionForm extends javax.swing.JFrame {
     /**
      * Creates new form MisionForm
      *
-     * @param newCharterName
+     * @param dto
      */
     public MisionForm(CharterDto dto) {
         initComponents();
@@ -92,10 +94,18 @@ public class MisionForm extends javax.swing.JFrame {
         loadProperties();
         initializeNotesGroup();
         writeToLog(Constants.LABEL_SESSION_STARTED, Constants.LABEL_SESSION_STARTED);
-        jLabelEventLog.setText(Constants.LABEL_SESSION_STARTED);
+//        jLabelEventLog.setText(Constants.LABEL_SESSION_STARTED);
 
         jTextAreaNote.setLineWrap(true);
         jTextAreaNote.setWrapStyleWord(true);
+
+        DefaultCaret caret = (DefaultCaret) jTextAreaLog.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+    }
+
+    @Override
+    public void loadTimes() {
+
     }
 
     private void loadProperties() {
@@ -215,7 +225,7 @@ public class MisionForm extends javax.swing.JFrame {
             if (open) {
                 executePaint(charterDto.getPicturePath() + pic);
             }
-            jLabelEventLog.setText(Constants.LABEL_PICTURE_TAKEN);
+            // jLabelEventLog.setText(Constants.LABEL_PICTURE_TAKEN);
         }
     }
 
@@ -226,7 +236,7 @@ public class MisionForm extends javax.swing.JFrame {
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
             writeToLog(getSelectedNote(), jTextAreaNote.getText());
-            jLabelEventLog.setText("Your " + getSelectedNote() + " has been added.");
+            //jLabelEventLog.setText("Your " + getSelectedNote() + " has been added.");
         }
     }
 
@@ -316,7 +326,9 @@ public class MisionForm extends javax.swing.JFrame {
     private void writeToLog(String label, String text) {
         boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
         String timeStamp = getDateNow(setStartTime);
-        writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, timeStamp + " > [" + label + "] " + text);
+        String newLogLine = timeStamp + " > [" + label + "] " + text;
+        writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
+        jTextAreaLog.append(System.lineSeparator() + newLogLine);
         addNote(label, text, timeStamp);
     }
 
@@ -345,10 +357,10 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void printJsonGroupNotes() {
         try (FileWriter fwriter = new FileWriter(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "notes.json", true)) {
-            for (int i = 0; i < groupNotes.length; i++) {
-                if (!groupNotes[i].notes.isEmpty()) {
+            for (GroupNote groupNote : groupNotes) {
+                if (!groupNote.notes.isEmpty()) {
                     Gson gson = new Gson();
-                    gson.toJson(groupNotes[i], fwriter);
+                    gson.toJson(groupNote, fwriter);
                     fwriter.append(System.lineSeparator());
                 }
             }
@@ -419,21 +431,22 @@ public class MisionForm extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupNotes = new javax.swing.ButtonGroup();
-        jPanelNote = new javax.swing.JPanel();
         jPanelNoteSelection = new javax.swing.JPanel();
         jtbNote = new javax.swing.JToggleButton();
         jtbBug = new javax.swing.JToggleButton();
         jtbToDo = new javax.swing.JToggleButton();
         jtbRisk = new javax.swing.JToggleButton();
         jtbIssue = new javax.swing.JToggleButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaLog = new javax.swing.JTextArea();
+        jPanelNote = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaNote = new javax.swing.JTextArea();
         jButtonAdd = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabelEventLog = new javax.swing.JLabel();
         jButtonPause = new javax.swing.JButton();
         jButtonPicture = new javax.swing.JButton();
         jButtonStop = new javax.swing.JButton();
+        jButtonConfig = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
@@ -446,8 +459,6 @@ public class MisionForm extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
-
-        jPanelNote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanelNoteSelection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -501,25 +512,35 @@ public class MisionForm extends javax.swing.JFrame {
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbBug, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbToDo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbRisk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbIssue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jtbIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jtbToDo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbNote, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-            .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jtbToDo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jtbIssue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
+                .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtbBug, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtbToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtbRisk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jtbIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jTextAreaLog.setEditable(false);
+        jTextAreaLog.setColumns(20);
+        jTextAreaLog.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaLog);
+
+        jPanelNote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jTextAreaNote.setColumns(20);
         jTextAreaNote.setRows(5);
@@ -541,35 +562,6 @@ public class MisionForm extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelNoteLayout = new javax.swing.GroupLayout(jPanelNote);
-        jPanelNote.setLayout(jPanelNoteLayout);
-        jPanelNoteLayout.setHorizontalGroup(
-            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNoteLayout.createSequentialGroup()
-                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelNoteLayout.createSequentialGroup()
-                        .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelNoteLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonAdd)))
-                .addContainerGap())
-        );
-        jPanelNoteLayout.setVerticalGroup(
-            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNoteLayout.createSequentialGroup()
-                .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        jLabelEventLog.setText("jLabel1");
-
         jButtonPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/timer.png"))); // NOI18N
         jButtonPause.setText("Pause");
         jButtonPause.setToolTipText("Pause the session");
@@ -583,41 +575,64 @@ public class MisionForm extends javax.swing.JFrame {
         jButtonPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Camara.png"))); // NOI18N
         jButtonPicture.setToolTipText("Take a Picture");
         jButtonPicture.setFocusPainted(false);
+        jButtonPicture.setMaximumSize(new java.awt.Dimension(109, 52));
+        jButtonPicture.setMinimumSize(new java.awt.Dimension(109, 52));
         jButtonPicture.setOpaque(false);
+        jButtonPicture.setPreferredSize(new java.awt.Dimension(109, 52));
         jButtonPicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPictureActionPerformed(evt);
             }
         });
 
-        jButtonStop.setText("Stop");
+        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/stopCharter.png"))); // NOI18N
+        jButtonStop.setToolTipText("Exit the charter");
+        jButtonStop.setMaximumSize(new java.awt.Dimension(109, 52));
+        jButtonStop.setMinimumSize(new java.awt.Dimension(109, 52));
+        jButtonStop.setPreferredSize(new java.awt.Dimension(109, 52));
         jButtonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonStopActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabelEventLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jButtonStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/tool.png"))); // NOI18N
+        jButtonConfig.setToolTipText("Pause the session");
+        jButtonConfig.setFocusPainted(false);
+        jButtonConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfigActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelNoteLayout = new javax.swing.GroupLayout(jPanelNote);
+        jPanelNote.setLayout(jPanelNoteLayout);
+        jPanelNoteLayout.setHorizontalGroup(
+            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonConfig, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        jPanelNoteLayout.setVerticalGroup(
+            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonConfig)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPause)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelEventLog))
+                .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -625,15 +640,20 @@ public class MisionForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleName("frameRelyTest");
@@ -664,6 +684,7 @@ public class MisionForm extends javax.swing.JFrame {
             writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
         }
     }
+
     private void printCloseChart() {
         lastWriteToLog();
         printNotes();
@@ -672,11 +693,16 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        int dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit RelyTest?", "Exit RelyTest", JOptionPane.YES_NO_OPTION);
-        if (dialogResult == JOptionPane.YES_OPTION) {
+        PropertiesMgr p = new PropertiesMgr();
+        Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_EXIT_RELYTEST));
+        int dialogResult = JOptionPane.NO_OPTION;
+        if (confirm) {
+            dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit RelyTest?", "Exit RelyTest", JOptionPane.YES_NO_OPTION);
+        }
+        if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
             printCloseChart();
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        }else{
+        } else {
             setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//cancel
         }
     }//GEN-LAST:event_formWindowClosing
@@ -687,7 +713,7 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void jButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPauseActionPerformed
         paused = !paused;
-        jLabelEventLog.setText("");
+//        jLabelEventLog.setText("");
         if (paused) {
             jButtonPause.setText(Constants.LABEL_PAUSED + "...");
             jButtonPause.setToolTipText("Continue the session");
@@ -725,8 +751,13 @@ public class MisionForm extends javax.swing.JFrame {
     private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
         // TODO add your handling code here:
 
-        int dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit the Chart?", "Exit the Chart: " + charterDto.getName(), JOptionPane.YES_NO_OPTION);
-        if (dialogResult == JOptionPane.YES_OPTION) {
+        PropertiesMgr p = new PropertiesMgr();
+        Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_STOP_CHARTER));
+        int dialogResult = JOptionPane.NO_OPTION;
+        if (confirm) {
+            dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit the Charter?", "Exit the Charter: " + charterDto.getName(), JOptionPane.YES_NO_OPTION);
+        }
+        if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
 
             printCloseChart();
 
@@ -735,7 +766,14 @@ public class MisionForm extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_jButtonStopActionPerformed
-    
+
+    private void jButtonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfigActionPerformed
+        // TODO add your handling code here:
+        ConfigForm configFrm = new ConfigForm(this);
+        configFrm.setLocationRelativeTo(null);
+        configFrm.setVisible(true);
+    }//GEN-LAST:event_jButtonConfigActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -773,14 +811,15 @@ public class MisionForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupNotes;
     private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonConfig;
     private javax.swing.JButton jButtonPause;
     private javax.swing.JButton jButtonPicture;
     private javax.swing.JButton jButtonStop;
-    private javax.swing.JLabel jLabelEventLog;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelNote;
     private javax.swing.JPanel jPanelNoteSelection;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaLog;
     private javax.swing.JTextArea jTextAreaNote;
     private javax.swing.JToggleButton jtbBug;
     private javax.swing.JToggleButton jtbIssue;

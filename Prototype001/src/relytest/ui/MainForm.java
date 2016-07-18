@@ -7,12 +7,13 @@ package relytest.ui;
 
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
+import relytest.interfaces.IConfigFormLoad;
 
 /**
  *
  * @author Gabriela Sanchez - Miguel Sanchez
  */
-public class MainForm extends javax.swing.JFrame {
+public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
 
     private ConfigForm configFrm;
 
@@ -24,6 +25,7 @@ public class MainForm extends javax.swing.JFrame {
         loadTimes();
     }
 
+    @Override
     public void loadTimes() {
         PropertiesMgr p = new PropertiesMgr();
         String value = p.getValue(Constants.KEY_SHORT_TIME);

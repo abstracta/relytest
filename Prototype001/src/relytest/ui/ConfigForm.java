@@ -6,6 +6,7 @@
 package relytest.ui;
 
 import static javax.swing.JOptionPane.showMessageDialog;
+import relytest.interfaces.IConfigFormLoad;
 
 /**
  *
@@ -13,16 +14,16 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class ConfigForm extends javax.swing.JFrame {
 
-    private static MainForm _mainForm;
+    private static IConfigFormLoad _loadConfigForm;
     private PropertiesMgr p = new PropertiesMgr();
 
     /**
      * Creates new form ConfigForm
-     * @param mainForm
+     * @param loadForm
      */
-    public ConfigForm(MainForm mainForm) {
+    public ConfigForm(IConfigFormLoad loadForm) {
         initComponents();
-        _mainForm = mainForm;
+        _loadConfigForm = loadForm;
         loadValues();
         jButtonLaF.setVisible(false);
     }
@@ -38,6 +39,12 @@ public class ConfigForm extends javax.swing.JFrame {
         
         Boolean takePic = Boolean.valueOf(p.getValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG));
         jCheckBoxTakePicAfterBug.setSelected(takePic);
+        
+        Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_STOP_CHARTER));
+        jCheckBoxConfirmStopCharter.setSelected(confirm);
+        
+        confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_EXIT_RELYTEST));
+        jCheckBoxConfirmExitRelyTest.setSelected(confirm);
         
         String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
@@ -63,12 +70,17 @@ public class ConfigForm extends javax.swing.JFrame {
             Boolean takePic = jCheckBoxTakePicAfterBug.isSelected();
             p.setValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG, takePic.toString());
             
+            Boolean confirm = jCheckBoxConfirmStopCharter.isSelected();
+            p.setValue(Constants.KEY_CONFIRM_STOP_CHARTER, confirm.toString());
+            
+            confirm = jCheckBoxConfirmExitRelyTest.isSelected();
+            p.setValue(Constants.KEY_CONFIRM_EXIT_RELYTEST, confirm.toString());
         
             p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
             p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
              p.setValue(Constants.KEY_MEDIUM_TIME,  jSpinnerMedium.getValue().toString());
             
-            _mainForm.loadTimes();            
+            _loadConfigForm.loadTimes();            
             this.setVisible(false);
         }
     }
@@ -96,6 +108,8 @@ public class ConfigForm extends javax.swing.JFrame {
         jLabelMediumTimeValue = new javax.swing.JLabel();
         jSpinnerMedium = new javax.swing.JSpinner();
         jCheckBoxTakePicAfterBug = new javax.swing.JCheckBox();
+        jCheckBoxConfirmStopCharter = new javax.swing.JCheckBox();
+        jCheckBoxConfirmExitRelyTest = new javax.swing.JCheckBox();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
@@ -139,6 +153,10 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jCheckBoxTakePicAfterBug.setText("Take picture after adding a Bug");
 
+        jCheckBoxConfirmStopCharter.setText("Confirm to Stop Charter");
+
+        jCheckBoxConfirmExitRelyTest.setText("Confirm to Exit RelyTest");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,6 +174,8 @@ public class ConfigForm extends javax.swing.JFrame {
                         .addComponent(jTextFieldName))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBoxConfirmExitRelyTest)
+                            .addComponent(jCheckBoxConfirmStopCharter)
                             .addComponent(jCheckBoxTakePicAfterBug)
                             .addComponent(jCheckBoxHideRelyTest)
                             .addComponent(jCheckBoxOpenImageEditor)
@@ -198,7 +218,11 @@ public class ConfigForm extends javax.swing.JFrame {
                     .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBoxTakePicAfterBug)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxConfirmStopCharter)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jCheckBoxConfirmExitRelyTest)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLaF))
@@ -259,7 +283,7 @@ public class ConfigForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ConfigForm(_mainForm).setVisible(true);
+                new ConfigForm(_loadConfigForm).setVisible(true);
             }
         });
     }
@@ -267,6 +291,8 @@ public class ConfigForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonLaF;
     private javax.swing.JButton jButtonSave;
+    private javax.swing.JCheckBox jCheckBoxConfirmExitRelyTest;
+    private javax.swing.JCheckBox jCheckBoxConfirmStopCharter;
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
     private javax.swing.JCheckBox jCheckBoxTakePicAfterBug;
