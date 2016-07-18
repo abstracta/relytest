@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,10 +45,10 @@ import relytest.ui.common.Writer;
 public class MisionForm extends javax.swing.JFrame {
 
     private CharterDto charterDto;
-    
+
     //private String misionName;
- //   private String charterName;
-   // private String folderName = "";
+    //   private String charterName;
+    // private String folderName = "";
     private ArrayList<String> notesTypes = new ArrayList<>();
     private int selectedNoteType = 0;
 //    private String totalTime;
@@ -77,14 +78,14 @@ public class MisionForm extends javax.swing.JFrame {
      */
     public MisionForm(CharterDto dto) {
         initComponents();
-        charterDto=dto;
-        charterDto.setFolderName( getDateNow(false) + "_Charter_" + dto.getCharterFileName());
+        charterDto = dto;
+        charterDto.setFolderName(getDateNow(false) + "_Charter_" + dto.getCharterFileName());
         charterDto.setFolderNamePath(RunningPath + File.separator + charterDto.getFolderName());
-        charterDto.setPicturePath( charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
+        charterDto.setPicturePath(charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
         createMisionFolders();
 
         EnvironmentStats e = new EnvironmentStats();
-        e.setFile(charterDto.getFolderNamePath()  + File.separator + Summary);
+        e.setFile(charterDto.getFolderNamePath() + File.separator + Summary);
         e.start();
         defaultColor = jButtonPause.getBackground();
 
@@ -663,13 +664,21 @@ public class MisionForm extends javax.swing.JFrame {
             writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
         }
     }
+    private void printCloseChart() {
+        lastWriteToLog();
+        printNotes();
+        printHtml();
+    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-
-        lastWriteToLog();
-        printNotes();
-
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit RelyTest?", "Exit RelyTest", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            printCloseChart();
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        }else{
+            setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);//cancel
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void jtbNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbNoteActionPerformed
@@ -715,15 +724,18 @@ public class MisionForm extends javax.swing.JFrame {
 
     private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
         // TODO add your handling code here:
-        lastWriteToLog();
-        printNotes();
-        printHtml();
 
-        mainForm.setVisible(true);
-        setVisible(false);
-        dispose();
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit the Chart?", "Exit the Chart: " + charterDto.getName(), JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+
+            printCloseChart();
+
+            mainForm.setVisible(true);
+            setVisible(false);
+            dispose();
+        }
     }//GEN-LAST:event_jButtonStopActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -752,7 +764,7 @@ public class MisionForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
-            public void run() {              
+            public void run() {
                 new MisionForm(new CharterDto()).setVisible(true);
             }
         });
@@ -776,12 +788,6 @@ public class MisionForm extends javax.swing.JFrame {
     private javax.swing.JToggleButton jtbRisk;
     private javax.swing.JToggleButton jtbToDo;
     // End of variables declaration//GEN-END:variables
-
-   
-
-  
-
-    
 
     /**
      * @return the mainForm
