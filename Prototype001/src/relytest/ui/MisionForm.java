@@ -341,10 +341,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         charterDto.setNotesTaken(notesTaken);
         charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
 
-        printer.print(charterDto);
-        
-        StartBrowser st = new StartBrowser();
-        st.start(charterDto.getPathHtml());
+        printer.print(charterDto);                
     }
 
     private void printNotes() {
@@ -793,9 +790,14 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
             printCloseChart();
 
-            mainForm.setVisible(true);
+            QuestionnaireForm qForm = new QuestionnaireForm(charterDto);
+            qForm.setMainForm(mainForm);
+            qForm.setLocationRelativeTo(null);
+            qForm.setVisible(true);
+            //mainForm.setVisible(true);
             setVisible(false);
             dispose();
+            
         }
     }//GEN-LAST:event_jButtonStopActionPerformed
 
