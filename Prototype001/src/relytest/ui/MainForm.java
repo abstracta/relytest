@@ -207,6 +207,12 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
         jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Charter:"));
         jPanelCharter.setName("Charter"); // NOI18N
 
+        jTextFieldCharterName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCharterNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCharterLayout = new javax.swing.GroupLayout(jPanelCharter);
         jPanelCharter.setLayout(jPanelCharterLayout);
         jPanelCharterLayout.setHorizontalGroup(
@@ -305,6 +311,11 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPathActionPerformed
+
+    private void jTextFieldCharterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCharterNameActionPerformed
+        // TODO add your handling code here:
+        start();
+    }//GEN-LAST:event_jTextFieldCharterNameActionPerformed
 
     /**
      * @param args the command line arguments
