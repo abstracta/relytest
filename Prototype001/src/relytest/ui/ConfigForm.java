@@ -46,6 +46,9 @@ public class ConfigForm extends javax.swing.JFrame {
         confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_EXIT_RELYTEST));
         jCheckBoxConfirmExitRelyTest.setSelected(confirm);
         
+         Boolean launchBrowser = Boolean.valueOf(p.getValue(Constants.KEY_LAUNCH_BROWSER));
+        jCheckBoxLaunchBrowserAfterCharterEnds.setSelected(launchBrowser);
+        
         String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
         jSpinnerShort.setValue(i);
@@ -75,6 +78,9 @@ public class ConfigForm extends javax.swing.JFrame {
             
             confirm = jCheckBoxConfirmExitRelyTest.isSelected();
             p.setValue(Constants.KEY_CONFIRM_EXIT_RELYTEST, confirm.toString());
+            
+             Boolean launchBrowser = jCheckBoxLaunchBrowserAfterCharterEnds.isSelected();
+            p.setValue(Constants.KEY_LAUNCH_BROWSER, launchBrowser.toString());
         
             p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
             p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
@@ -110,14 +116,17 @@ public class ConfigForm extends javax.swing.JFrame {
         jCheckBoxTakePicAfterBug = new javax.swing.JCheckBox();
         jCheckBoxConfirmStopCharter = new javax.swing.JCheckBox();
         jCheckBoxConfirmExitRelyTest = new javax.swing.JCheckBox();
+        jCheckBoxLaunchBrowserAfterCharterEnds = new javax.swing.JCheckBox();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
-        setMaximumSize(new java.awt.Dimension(400, 184));
-        setMinimumSize(new java.awt.Dimension(400, 184));
+        setMinimumSize(new java.awt.Dimension(449, 379));
         setName("frameConfiguration"); // NOI18N
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(440, 368));
+        jPanel1.setMinimumSize(new java.awt.Dimension(440, 368));
 
         jButtonSave.setText("Save");
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +166,8 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jCheckBoxConfirmExitRelyTest.setText("Confirm to Exit RelyTest");
 
+        jCheckBoxLaunchBrowserAfterCharterEnds.setText("Launch Browser At End");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,22 +175,19 @@ public class ConfigForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonLaF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSave))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelName)
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldName))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonLaF)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBoxConfirmExitRelyTest)
-                            .addComponent(jCheckBoxConfirmStopCharter)
-                            .addComponent(jCheckBoxTakePicAfterBug)
                             .addComponent(jCheckBoxHideRelyTest)
                             .addComponent(jCheckBoxOpenImageEditor)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelShortTimeValue)
                                     .addComponent(jLabelLongTimeValue)
@@ -188,24 +196,43 @@ public class ConfigForm extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jSpinnerShort)
                                     .addComponent(jSpinnerMedium)
-                                    .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 21, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jCheckBoxTakePicAfterBug))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBoxConfirmStopCharter)
+                            .addComponent(jCheckBoxLaunchBrowserAfterCharterEnds)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButtonSave)
+                                .addComponent(jCheckBoxConfirmExitRelyTest)))))
+                .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelName)
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelName)
-                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
                         .addComponent(jCheckBoxOpenImageEditor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxHideRelyTest)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxTakePicAfterBug))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jCheckBoxLaunchBrowserAfterCharterEnds)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxConfirmStopCharter)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxConfirmExitRelyTest)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addComponent(jLabelShortTimeValue))
                     .addComponent(jSpinnerShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -216,13 +243,7 @@ public class ConfigForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLongTimeValue)
                     .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jCheckBoxTakePicAfterBug)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxConfirmStopCharter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBoxConfirmExitRelyTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSave)
                     .addComponent(jButtonLaF))
@@ -233,7 +254,9 @@ public class ConfigForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,6 +317,7 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxConfirmExitRelyTest;
     private javax.swing.JCheckBox jCheckBoxConfirmStopCharter;
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
+    private javax.swing.JCheckBox jCheckBoxLaunchBrowserAfterCharterEnds;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
     private javax.swing.JCheckBox jCheckBoxTakePicAfterBug;
     private javax.swing.JLabel jLabelLongTimeValue;

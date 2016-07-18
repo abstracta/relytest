@@ -40,6 +40,7 @@ import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 import javax.swing.text.DefaultCaret;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.ui.common.StartBrowser;
 
 /**
  *
@@ -341,6 +342,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
 
         printer.print(charterDto);
+        
+        StartBrowser st = new StartBrowser();
+        st.start(charterDto.getPathHtml());
     }
 
     private void printNotes() {

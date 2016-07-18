@@ -25,6 +25,7 @@ public class Constants {
     
     public static final String KEY_CONFIRM_STOP_CHARTER = "ConfirmStopCharter";
     public static final String KEY_CONFIRM_EXIT_RELYTEST = "ConfirmExitRelyTest";
+    public static final String KEY_LAUNCH_BROWSER= "LaunchBrowserAfterCharterEnds";
 
     public static final String KEY_BUTTON_NOTE = "Note";
     public static final String KEY_BUTTON_BUG = "Bug";
