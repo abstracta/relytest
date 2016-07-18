@@ -228,6 +228,7 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        jToolBar.setFloatable(false);
         jToolBar.setRollover(true);
 
         jButtonPath.setText("Path:");
