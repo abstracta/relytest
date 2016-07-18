@@ -48,7 +48,7 @@
 
 <#if logNotes??>
 <div class="well">Charter Log:</div>
-<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show</button>
+<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show</button> </p>
 <div id="logNote" class="collapse">
 <#list logNotes as logNote>
 <ul>
@@ -60,6 +60,11 @@
 </#list>
 </div>
 </#if>
+
+<div class="well">Summary:</div>
+<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#Summary">Show</button></p>
+<div id="Summary" class="collapse">
+
 
 <#if labels0??>
 <div class="well">${label0}:</div>
@@ -138,7 +143,7 @@
 </ul>
 </div>
 </#if>
-
+</div>
 <div class="btn-group btn-group-justified">
   <a href="http://blog.abstracta.com.uy/2016/06/testing-exploratorio-proyecto-de-grado.html" class="btn btn-primary">Blog Abstracta</a>
   <a href="https://github.com/abstracta/relytest" class="btn btn-primary">Code at Github</a>
