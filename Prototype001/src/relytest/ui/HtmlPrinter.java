@@ -60,6 +60,11 @@ public class HtmlPrinter implements IPrinter {
 
             input.put("charterName", dto.getName());
 
+            if (!dto.getNotesTaken().isEmpty()) {
+                input.put("logNotes", dto.getNotesTaken());
+            }
+            
+            
             for (int i = 0; i < 5; i++) {
                 input.put("label"+i, dto.getGroupNotes()[i].getLabel());
                 if (!dto.getGroupNotes()[i].notes.isEmpty()) {

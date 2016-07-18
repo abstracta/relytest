@@ -5,6 +5,8 @@
  */
 package relytest.ui.common;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Gabriela Sanchez - Miguel Sanchez
@@ -18,6 +20,7 @@ public class CharterDto {
      private String totalTime;
      private String folderName;
      private GroupNote[] groupNotes;
+     private ArrayList<Note> notesTaken;
 
     /**
      * @return the name
@@ -133,5 +136,19 @@ public class CharterDto {
      */
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    /**
+     * @return the notesTaken
+     */
+    public ArrayList<Note> getNotesTaken() {
+        return notesTaken;
+    }
+
+    /**
+     * @param notesTaken the notesTaken to set
+     */
+    public void setNotesTaken(ArrayList<Note> notesTaken) {
+        this.notesTaken = notesTaken;
     }
 }

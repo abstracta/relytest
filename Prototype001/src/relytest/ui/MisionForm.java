@@ -293,7 +293,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private long cont = 0;
 
     private void addNote(String label, String text, String timeStamp) {
-        Note note = new Note(++cont, text, timeStamp);
+        Note note = new Note(++cont, text, timeStamp, label);
         notesTaken.add(note);
         switch (label) {
             case Constants.LABEL_BUG:
@@ -330,13 +330,14 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         String timeStamp = getDateNow(setStartTime);
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
-        jTextAreaLog.append(newLogLine+System.lineSeparator() );
+        jTextAreaLog.append(newLogLine + System.lineSeparator());
         addNote(label, text, timeStamp);
     }
 
     private void printHtml() {
         IPrinter printer = new HtmlPrinter();
         charterDto.setGroupNotes(groupNotes);
+        charterDto.setNotesTaken(notesTaken);
         charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
 
         printer.print(charterDto);
@@ -803,14 +804,16 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void jButtonPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPathActionPerformed
 
-try {
-            File file = new File (charterDto.getFolderName());
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(file);
+        try {
+            if (Desktop.isDesktopSupported()) {
+                File file = new File(charterDto.getFolderName());
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(file);           
+            }
             // TODO add your handling code here:
         } catch (IOException ex) {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }//GEN-LAST:event_jButtonPathActionPerformed
 
     /**

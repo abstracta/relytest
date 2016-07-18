@@ -46,7 +46,20 @@
   <strong>Success!</strong> Your charter was great!
 </div>
 
-
+<#if logNotes??>
+<div class="well">Charter Log:</div>
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show</button>
+<div id="logNote" class="collapse">
+<#list logNotes as logNote>
+<ul>
+<p>${logNote.timeStamp}- [${logNote.label}]- ${logNote.text} </p>
+<#if logNote.label == "Picture Taken">
+<img class="img-responsive" src=ScreenShots/${logNote.text} alt="Chania">
+</#if>
+</ul>
+</#list>
+</div>
+</#if>
 
 <#if labels0??>
 <div class="well">${label0}:</div>

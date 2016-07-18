@@ -10,15 +10,16 @@ package relytest.ui.common;
  * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class Note {
-    private long id;
-    
+    private long id;    
     private String text;
     private String timeStamp;
+    private String label;
 
-    public Note(long idNew,String textNew, String timeStampNew){        
+    public Note(long idNew,String textNew, String timeStampNew, String aLabel){        
         text=textNew;
         timeStamp=timeStampNew;
         id=idNew;
+        label=aLabel;
     }
     public Note(){
         
@@ -65,5 +66,19 @@ public class Note {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * @param label the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
