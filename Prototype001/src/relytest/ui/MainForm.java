@@ -5,6 +5,11 @@
  */
 package relytest.ui;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
@@ -23,6 +28,8 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
     public MainForm() {
         initComponents();
         loadTimes();
+        
+        jTextFieldPath.setText(System.getProperty("user.dir"));
     }
 
     @Override
@@ -114,6 +121,9 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
         jToggleButtonLong = new javax.swing.JToggleButton();
         jPanelCharter = new javax.swing.JPanel();
         jTextFieldCharterName = new javax.swing.JTextField();
+        jToolBar = new javax.swing.JToolBar();
+        jButtonPath = new javax.swing.JButton();
+        jTextFieldPath = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
@@ -185,7 +195,7 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
                 .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButtonLong)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDurationLayout.setVerticalGroup(
             jPanelDurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,9 +212,8 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
         jPanelCharterLayout.setHorizontalGroup(
             jPanelCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCharterLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextFieldCharterName, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldCharterName, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelCharterLayout.setVerticalGroup(
             jPanelCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,6 +222,23 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
+        jToolBar.setRollover(true);
+
+        jButtonPath.setText("Path:");
+        jButtonPath.setFocusable(false);
+        jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPathActionPerformed(evt);
+            }
+        });
+        jToolBar.add(jButtonPath);
+
+        jTextFieldPath.setEditable(false);
+        jTextFieldPath.setText("Path");
+        jToolBar.add(jTextFieldPath);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,13 +246,17 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelDuration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27))
-                    .addComponent(jPanelCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanelDuration, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelCharter, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -238,9 +268,10 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
                 .addComponent(jPanelDuration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                     .addComponent(jButtonConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -262,6 +293,18 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
     private void jButtonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfigActionPerformed
         config();
     }//GEN-LAST:event_jButtonConfigActionPerformed
+
+    private void jButtonPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPathActionPerformed
+
+        try {
+            File file = new File (System.getProperty("user.dir"));
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(file);
+            // TODO add your handling code here:
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonPathActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,12 +341,15 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup durationButtonGroup;
     private javax.swing.JButton jButtonConfig;
+    private javax.swing.JButton jButtonPath;
     private javax.swing.JButton jButtonStart;
     private javax.swing.JPanel jPanelCharter;
     private javax.swing.JPanel jPanelDuration;
     private javax.swing.JTextField jTextFieldCharterName;
+    private javax.swing.JTextField jTextFieldPath;
     private javax.swing.JToggleButton jToggleButtonLong;
     private javax.swing.JToggleButton jToggleButtonMedium;
     private javax.swing.JToggleButton jToggleButtonShort;
+    private javax.swing.JToolBar jToolBar;
     // End of variables declaration//GEN-END:variables
 }

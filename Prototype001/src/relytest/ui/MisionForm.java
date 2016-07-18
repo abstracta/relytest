@@ -7,6 +7,7 @@ package relytest.ui;
 
 import com.google.gson.Gson;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -85,6 +86,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         charterDto.setFolderNamePath(RunningPath + File.separator + charterDto.getFolderName());
         charterDto.setPicturePath(charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
         createMisionFolders();
+        jTextFieldPath.setText(charterDto.getFolderName());
 
         EnvironmentStats e = new EnvironmentStats();
         e.setFile(charterDto.getFolderNamePath() + File.separator + Summary);
@@ -447,6 +449,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jButtonPicture = new javax.swing.JButton();
         jButtonStop = new javax.swing.JButton();
         jButtonConfig = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+        jButtonPath = new javax.swing.JButton();
+        jTextFieldPath = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
@@ -636,6 +641,23 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addContainerGap())
         );
 
+        jToolBar1.setRollover(true);
+
+        jButtonPath.setText("Path:");
+        jButtonPath.setFocusable(false);
+        jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPathActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButtonPath);
+
+        jTextFieldPath.setEditable(false);
+        jTextFieldPath.setText("Path");
+        jToolBar1.add(jTextFieldPath);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -645,6 +667,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane2)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -653,8 +676,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                     .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getAccessibleContext().setAccessibleName("frameRelyTest");
@@ -775,6 +799,18 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         configFrm.setVisible(true);
     }//GEN-LAST:event_jButtonConfigActionPerformed
 
+    private void jButtonPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPathActionPerformed
+
+try {
+            File file = new File (charterDto.getFolderName());
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(file);
+            // TODO add your handling code here:
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }//GEN-LAST:event_jButtonPathActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -813,6 +849,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.ButtonGroup buttonGroupNotes;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonConfig;
+    private javax.swing.JButton jButtonPath;
     private javax.swing.JButton jButtonPause;
     private javax.swing.JButton jButtonPicture;
     private javax.swing.JButton jButtonStop;
@@ -822,6 +859,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaLog;
     private javax.swing.JTextArea jTextAreaNote;
+    private javax.swing.JTextField jTextFieldPath;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton jtbBug;
     private javax.swing.JToggleButton jtbIssue;
     private javax.swing.JToggleButton jtbNote;
