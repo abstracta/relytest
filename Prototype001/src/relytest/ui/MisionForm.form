@@ -38,10 +38,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="jPanelNoteSelection" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelNote" max="32767" attributes="0"/>
           </Group>
-          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane2" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -71,18 +71,18 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jtbIssue" pref="0" max="32767" attributes="0"/>
+                      <Component id="jtbIssue" pref="56" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jtbRisk" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="jtbRisk" alignment="0" pref="56" max="32767" attributes="0"/>
                           <Component id="jtbToDo" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jtbBug" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jtbNote" min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="jtbNote" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -247,15 +247,16 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="298" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" pref="224" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonPause" alignment="1" pref="140" max="32767" attributes="0"/>
-                      <Component id="jButtonPicture" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButtonStop" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButtonAdd" max="32767" attributes="0"/>
-                      <Component id="jButtonConfig" alignment="0" pref="140" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jButtonPause" alignment="0" pref="157" max="32767" attributes="0"/>
+                      <Component id="jButtonConfig" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButtonAdd" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jButtonPicture" max="32767" attributes="0"/>
+                      <Component id="jButtonStop" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -370,7 +371,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/tool.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Pause the session"/>
+            <Property name="toolTipText" type="java.lang.String" value="Opens the Configuration Window"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
