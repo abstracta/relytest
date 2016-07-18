@@ -77,12 +77,10 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Component id="jtbIssue" pref="56" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jtbRisk" alignment="0" pref="56" max="32767" attributes="0"/>
-                          <Component id="jtbToDo" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jtbBug" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jtbNote" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="jtbRisk" alignment="0" pref="56" max="32767" attributes="0"/>
+                      <Component id="jtbToDo" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jtbBug" alignment="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="jtbNote" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

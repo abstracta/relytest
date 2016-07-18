@@ -330,7 +330,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         String timeStamp = getDateNow(setStartTime);
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
-        jTextAreaLog.append(System.lineSeparator() + newLogLine);
+        jTextAreaLog.append(newLogLine+System.lineSeparator() );
         addNote(label, text, timeStamp);
     }
 
