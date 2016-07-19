@@ -76,6 +76,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter:"));
 
+        jSliderFocusOnCharter.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderFocusOnCharterStateChanged(evt);
+            }
+        });
+
         jLabel1.setText("Time of the session that was focused on the Charter.");
 
         javax.swing.GroupLayout jPanelFocusOnCharterLayout = new javax.swing.GroupLayout(jPanelFocusOnCharter);
@@ -258,6 +264,10 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             dispose();
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+    private void jSliderFocusOnCharterStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFocusOnCharterStateChanged
+        jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter ("+jSliderFocusOnCharter.getValue()+" %): "));
+    }//GEN-LAST:event_jSliderFocusOnCharterStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -287,6 +297,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new QuestionnaireForm(new CharterDto()).setVisible(true);
             }

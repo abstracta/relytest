@@ -87,6 +87,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JSlider" name="jSliderFocusOnCharter">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="jSliderFocusOnCharterStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

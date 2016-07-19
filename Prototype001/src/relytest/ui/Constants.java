@@ -65,4 +65,5 @@ public class Constants {
     // The possible look and feels
     public static final String[] LAF_NAMES = new String[]{"Acryl", "Aero", "Aluminium", "Bernstein", "Fast", "Graphite", "HiFi", "Luna", "McWin", "Mint", "Noire", "Smart", "Texture"};
 
+    public static final String HTML_TEMPLATE_FILE ="relyTest.ftl";
 }

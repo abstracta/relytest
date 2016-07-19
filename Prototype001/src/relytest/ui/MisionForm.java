@@ -49,13 +49,8 @@ import relytest.ui.common.StartBrowser;
 public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private final CharterDto charterDto;
-
-    //private String misionName;
-    //   private String charterName;
-    // private String folderName = "";
     private ArrayList<String> notesTypes = new ArrayList<>();
     private int selectedNoteType = 0;
-//    private String totalTime;
     private static Timer timer;
     private static Date date;
     private MainForm mainForm;
@@ -66,8 +61,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private final String ScreenShotsDir = "ScreenShots";
     private final String Summary = "Environment_Summary.txt";
     private static boolean paused = false;
-
-    //private String picturePath = "";
     private String paintApp = "mspaint.exe";
     private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
     private final IWriter writer = new Writer();
@@ -227,8 +220,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
             if (open) {
                 executePaint(charterDto.getPicturePath() + pic);
-            }
-            // jLabelEventLog.setText(Constants.LABEL_PICTURE_TAKEN);
+            }          
         }
     }
 
@@ -238,8 +230,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
-            writeToLog(getSelectedNote(), jTextAreaNote.getText());
-            //jLabelEventLog.setText("Your " + getSelectedNote() + " has been added.");
+            writeToLog(getSelectedNote(), jTextAreaNote.getText());           
         }
     }
 
@@ -259,7 +250,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         return str;
     }
 
-    private ArrayList<Note> notesTaken = new ArrayList<>();
+    private final ArrayList<Note> notesTaken = new ArrayList<>();
     GroupNote[] groupNotes = new GroupNote[7];
 
     private void initializeNotesGroup() {
@@ -286,7 +277,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 default:
                     groupNotes[x] = new GroupNote(Constants.LABEL_EVENT);
                     break;
-
             }
         }
     }
@@ -395,36 +385,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         }
     }
 
-//    private void loadNotes() {
-//        try {
-//            readXmlFile();
-//        } catch (ParserConfigurationException | SAXException | IOException e) {
-//        }
-//        if (notesTypes.isEmpty()) {
-//            notesTypes.add("Note");
-//            notesTypes.add("Bug");
-//            notesTypes.add("To do");
-//            notesTypes.add("Improvement");
-//        }
-//    }
-//    private void getNextNote() {
-//        if (!notesTypes.isEmpty()) {
-//            selectedNoteType++;
-//            if (notesTypes.size() <= selectedNoteType) {
-//                selectedNoteType = 0;
-//            }
-////            jLabelNoteType.setText(notesTypes.get(selectedNoteType));
-//        }
-//    }
-//    private void getPreviousNote() {
-//        if (!notesTypes.isEmpty()) {
-//            selectedNoteType--;
-//            if (0 > selectedNoteType) {
-//                selectedNoteType = notesTypes.size() - 1;
-//            }
-////            jLabelNoteType.setText(notesTypes.get(selectedNoteType));
-//        }
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -743,7 +703,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void jButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPauseActionPerformed
         paused = !paused;
-//        jLabelEventLog.setText("");
         if (paused) {
             jButtonPause.setText(Constants.LABEL_PAUSED + "...");
             jButtonPause.setToolTipText("Continue the session");
@@ -780,7 +739,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
         // TODO add your handling code here:
-
         PropertiesMgr p = new PropertiesMgr();
         Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_STOP_CHARTER));
         int dialogResult = JOptionPane.NO_OPTION;
@@ -788,17 +746,13 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit the Charter?", "Exit the Charter: " + charterDto.getName(), JOptionPane.YES_NO_OPTION);
         }
         if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
-
             printCloseChart();
-
             QuestionnaireForm qForm = new QuestionnaireForm(charterDto);
             qForm.setMainForm(mainForm);
             qForm.setLocationRelativeTo(null);
-            qForm.setVisible(true);
-            //mainForm.setVisible(true);
+            qForm.setVisible(true);           
             setVisible(false);
-            dispose();
-            
+            dispose();            
         }
     }//GEN-LAST:event_jButtonStopActionPerformed
 

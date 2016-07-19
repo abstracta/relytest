@@ -48,7 +48,7 @@
 
 <#if logNotes??>
 <div class="well">Charter Log:</div>
-<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show</button> </p>
+<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show Charter Log</button> </p>
 <div id="logNote" class="collapse">
 <#list logNotes as logNote>
 <ul>
@@ -62,9 +62,8 @@
 </#if>
 
 <div class="well">Summary:</div>
-<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#Summary">Show</button></p>
+<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#Summary">Show Summary</button></p>
 <div id="Summary" class="collapse">
-
 
 <#if labels0??>
 <div class="well">${label0}:</div>

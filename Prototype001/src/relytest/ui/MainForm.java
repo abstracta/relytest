@@ -18,7 +18,7 @@ import relytest.interfaces.IConfigFormLoad;
  *
  * @author Gabriela Sanchez - Miguel Sanchez
  */
-public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
+public final class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
 
     private ConfigForm configFrm;
 
@@ -68,9 +68,7 @@ public class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
             return hour + ":" + mins + ":00";
         }
     }
-    
-    
-    
+            
     private void start() {
         if (jTextFieldCharterName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the charter.");

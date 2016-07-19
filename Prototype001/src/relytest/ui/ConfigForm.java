@@ -15,7 +15,7 @@ import relytest.interfaces.IConfigFormLoad;
 public class ConfigForm extends javax.swing.JFrame {
 
     private static IConfigFormLoad _loadConfigForm;
-    private PropertiesMgr p = new PropertiesMgr();
+    private final PropertiesMgr p = new PropertiesMgr();
 
     /**
      * Creates new form ConfigForm
