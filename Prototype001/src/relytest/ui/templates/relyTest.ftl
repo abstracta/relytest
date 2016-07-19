@@ -143,21 +143,23 @@
 </div>
 </#if>
 </div>
+
+<!-- 
 <div class="btn-group btn-group-justified">
   <a href="http://blog.abstracta.com.uy/2016/06/testing-exploratorio-proyecto-de-grado.html" class="btn btn-primary">Blog Abstracta</a>
   <a href="https://github.com/abstracta/relytest" class="btn btn-primary">Code at Github</a>
 </div>
-
+-->
 <style>
 .bg-4 { 
     background-color: #2f2f2f;
     color: #ffffff;
 }
 </style>
-
+</body>
 <footer class="container-fluid bg-4 text-center">
   <p>RelyTest Made By <a href="http://abstracta.us">Abstracta.us</a></p> 
+<p> <a href="http://blog.abstracta.com.uy/2016/06/testing-exploratorio-proyecto-de-grado.html">Blog Abstracta</a>
+ <a href="https://github.com/abstracta/relytest">Code at Github</a></p> 
 </footer>
-
-</body>
 </html>
