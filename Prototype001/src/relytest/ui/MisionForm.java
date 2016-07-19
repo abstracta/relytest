@@ -97,6 +97,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
         DefaultCaret caret = (DefaultCaret) jTextAreaLog.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        jButtonConfig.setVisible(false);
     }
 
     @Override
@@ -553,7 +554,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         });
 
         jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/stopCharter.png"))); // NOI18N
-        jButtonStop.setToolTipText("Exit the charter");
+        jButtonStop.setToolTipText("Close the session");
         jButtonStop.setMaximumSize(new java.awt.Dimension(109, 52));
         jButtonStop.setMinimumSize(new java.awt.Dimension(109, 52));
         jButtonStop.setPreferredSize(new java.awt.Dimension(109, 52));
@@ -608,7 +609,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButtonPath.setText("Path:");
+        jButtonPath.setText("Workspace:");
         jButtonPath.setFocusable(false);
         jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -749,7 +750,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             printCloseChart();
             QuestionnaireForm qForm = new QuestionnaireForm(charterDto);
             qForm.setMainForm(mainForm);
-            qForm.setLocationRelativeTo(null);
+            qForm.pack();
+            qForm.setLocationRelativeTo(this);
             qForm.setVisible(true);           
             setVisible(false);
             dispose();            
@@ -759,7 +761,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void jButtonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfigActionPerformed
         // TODO add your handling code here:
         ConfigForm configFrm = new ConfigForm(this);
-        configFrm.setLocationRelativeTo(null);
+        configFrm.pack();
+        configFrm.setLocationRelativeTo(this);
         configFrm.setVisible(true);
     }//GEN-LAST:event_jButtonConfigActionPerformed
 

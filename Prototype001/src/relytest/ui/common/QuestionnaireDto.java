@@ -13,6 +13,10 @@ public class QuestionnaireDto {
     private int focusOnCharter;
     private String feelUsingRelyTest;
     private String navegability;
+    
+    private int timeOnConfiguration;
+    private int timeOnBugReport;
+    private int timeOnTesting;
 
     /**
      * @return the focusOnCharter
@@ -54,5 +58,47 @@ public class QuestionnaireDto {
      */
     public void setNavegability(String navegability) {
         this.navegability = navegability;
+    }
+
+    /**
+     * @return the timeOnConfiguration
+     */
+    public int getTimeOnConfiguration() {
+        return timeOnConfiguration;
+    }
+
+    /**
+     * @param timeOnConfiguration the timeOnConfiguration to set
+     */
+    public void setTimeOnConfiguration(int timeOnConfiguration) {
+        this.timeOnConfiguration = timeOnConfiguration;
+    }
+
+    /**
+     * @return the timeOnBugReport
+     */
+    public int getTimeOnBugReport() {
+        return timeOnBugReport;
+    }
+
+    /**
+     * @param timeOnBugReport the timeOnBugReport to set
+     */
+    public void setTimeOnBugReport(int timeOnBugReport) {
+        this.timeOnBugReport = timeOnBugReport;
+    }
+
+    /**
+     * @return the timeOnTesting
+     */
+    public int getTimeOnTesting() {
+        return timeOnTesting;
+    }
+
+    /**
+     * @param timeOnTesting the timeOnTesting to set
+     */
+    public void setTimeOnTesting(int timeOnTesting) {
+        this.timeOnTesting = timeOnTesting;
     }
 }

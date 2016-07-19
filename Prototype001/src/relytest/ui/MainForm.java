@@ -84,7 +84,8 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             mision.setMainForm(this);
             mision.Start();
             mision.show();
-            mision.setLocationRelativeTo(null);
+            mision.pack();
+            mision.setLocationRelativeTo(this);
             jTextFieldCharterName.setText("");
             this.setVisible(false);
         }
@@ -97,7 +98,8 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
 
     private void config() {
         configFrm = new ConfigForm(this);
-        configFrm.setLocationRelativeTo(null);
+        configFrm.pack();
+        configFrm.setLocationRelativeTo(this);
         configFrm.setVisible(true);
     }
 
@@ -205,6 +207,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Charter:"));
         jPanelCharter.setName("Charter"); // NOI18N
 
+        jTextFieldCharterName.setToolTipText("What are you going to test?");
         jTextFieldCharterName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCharterNameActionPerformed(evt);
@@ -229,7 +232,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jToolBar.setFloatable(false);
         jToolBar.setRollover(true);
 
-        jButtonPath.setText("Path:");
+        jButtonPath.setText("Workspace:");
         jButtonPath.setFocusable(false);
         jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

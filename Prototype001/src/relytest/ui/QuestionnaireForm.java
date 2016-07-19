@@ -32,6 +32,22 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderFocusOnCharter.setMinorTickSpacing(10);
         jSliderFocusOnCharter.setPaintTicks(true);
         jSliderFocusOnCharter.setPaintLabels(true);
+        
+        jSliderConfiguration.setMajorTickSpacing(10);
+        jSliderConfiguration.setMinorTickSpacing(10);
+        jSliderConfiguration.setPaintTicks(true);
+        jSliderConfiguration.setPaintLabels(true);
+        
+        jSliderBugReport.setMajorTickSpacing(10);
+        jSliderBugReport.setMinorTickSpacing(10);
+        jSliderBugReport.setPaintTicks(true);
+        jSliderBugReport.setPaintLabels(true);
+        
+        jSliderTesting.setMajorTickSpacing(10);
+        jSliderTesting.setMinorTickSpacing(10);
+        jSliderTesting.setPaintTicks(true);
+        jSliderTesting.setPaintLabels(true);
+        
         charterDto = aCharterDto;
         
         ButtonGroup groupFeel = new ButtonGroup();
@@ -42,6 +58,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     groupNav.add(jRadioButtonNavegabilityBad);
     groupNav.add(jRadioButtonNavegabilityExcelent);
     groupNav.add(jRadioButtonNavegabilityGood);
+    
+    jLabelFocusCharterTip.setText("Time of the session that was focused on the Charter: "+charterDto.getName());
     }
 
     /**
@@ -55,7 +73,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jPanelFocusOnCharter = new javax.swing.JPanel();
         jSliderFocusOnCharter = new javax.swing.JSlider();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelFocusCharterTip = new javax.swing.JLabel();
         jPanelFeelUsingTheApp = new javax.swing.JPanel();
         jRadioButtonFeelBad = new javax.swing.JRadioButton();
         jRadioButtonFeelGood = new javax.swing.JRadioButton();
@@ -64,10 +82,18 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jRadioButtonNavegabilityBad = new javax.swing.JRadioButton();
         jRadioButtonNavegabilityGood = new javax.swing.JRadioButton();
         jRadioButtonNavegabilityExcelent = new javax.swing.JRadioButton();
+        jPanelConfigTime = new javax.swing.JPanel();
+        jSliderConfiguration = new javax.swing.JSlider();
+        jLabelConfig = new javax.swing.JLabel();
+        jLabelBugReport = new javax.swing.JLabel();
+        jSliderBugReport = new javax.swing.JSlider();
+        jLabelTesting = new javax.swing.JLabel();
+        jSliderTesting = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         jButtonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(451, 544));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -76,13 +102,17 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter:"));
 
+        jSliderFocusOnCharter.setMajorTickSpacing(10);
+        jSliderFocusOnCharter.setMinorTickSpacing(10);
+        jSliderFocusOnCharter.setPaintLabels(true);
+        jSliderFocusOnCharter.setPaintTicks(true);
         jSliderFocusOnCharter.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderFocusOnCharterStateChanged(evt);
             }
         });
 
-        jLabel1.setText("Time of the session that was focused on the Charter.");
+        jLabelFocusCharterTip.setText("Time of the session that was focused on the Charter.");
 
         javax.swing.GroupLayout jPanelFocusOnCharterLayout = new javax.swing.GroupLayout(jPanelFocusOnCharter);
         jPanelFocusOnCharter.setLayout(jPanelFocusOnCharterLayout);
@@ -92,16 +122,15 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelFocusOnCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSliderFocusOnCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                    .addComponent(jLabelFocusCharterTip, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelFocusOnCharterLayout.setVerticalGroup(
             jPanelFocusOnCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFocusOnCharterLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jSliderFocusOnCharter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelFocusCharterTip, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How do you feel using RelyTest?"));
@@ -128,12 +157,11 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanelFeelUsingTheAppLayout.setVerticalGroup(
             jPanelFeelUsingTheAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFeelUsingTheAppLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelFeelUsingTheAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonFeelBad)
                     .addComponent(jRadioButtonFeelGood)
-                    .addComponent(jRadioButtonFeelExcelent))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonFeelExcelent)))
         );
 
         jPanelNavegability.setBorder(javax.swing.BorderFactory.createTitledBorder("How about the navegability?"));
@@ -160,12 +188,87 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanelNavegabilityLayout.setVerticalGroup(
             jPanelNavegabilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNavegabilityLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelNavegabilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonNavegabilityBad)
                     .addComponent(jRadioButtonNavegabilityGood)
-                    .addComponent(jRadioButtonNavegabilityExcelent))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jRadioButtonNavegabilityExcelent)))
+        );
+
+        jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spent your time?"));
+
+        jSliderConfiguration.setMajorTickSpacing(10);
+        jSliderConfiguration.setMinorTickSpacing(10);
+        jSliderConfiguration.setPaintLabels(true);
+        jSliderConfiguration.setPaintTicks(true);
+        jSliderConfiguration.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderConfigurationStateChanged(evt);
+            }
+        });
+        jSliderConfiguration.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSliderConfigurationPropertyChange(evt);
+            }
+        });
+
+        jLabelConfig.setText("Time spent on configuration (%):");
+
+        jLabelBugReport.setText("Time researching and reporting bugs (%):");
+
+        jSliderBugReport.setMajorTickSpacing(10);
+        jSliderBugReport.setMinorTickSpacing(10);
+        jSliderBugReport.setPaintLabels(true);
+        jSliderBugReport.setPaintTicks(true);
+        jSliderBugReport.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderBugReportStateChanged(evt);
+            }
+        });
+
+        jLabelTesting.setText("Time Testing (%):");
+
+        jSliderTesting.setMajorTickSpacing(10);
+        jSliderTesting.setMinorTickSpacing(10);
+        jSliderTesting.setPaintLabels(true);
+        jSliderTesting.setPaintTicks(true);
+        jSliderTesting.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderTestingStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelConfigTimeLayout = new javax.swing.GroupLayout(jPanelConfigTime);
+        jPanelConfigTime.setLayout(jPanelConfigTimeLayout);
+        jPanelConfigTimeLayout.setHorizontalGroup(
+            jPanelConfigTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabelBugReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelConfigTimeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelConfigTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSliderConfiguration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSliderBugReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSliderTesting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTesting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelConfigTimeLayout.setVerticalGroup(
+            jPanelConfigTimeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConfigTimeLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabelConfig)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSliderConfiguration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelBugReport)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSliderBugReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTesting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSliderTesting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
         );
 
         jButtonSave.setText("Save");
@@ -179,16 +282,17 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButtonSave)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 19, Short.MAX_VALUE)
-                .addComponent(jButtonSave))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSave)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,20 +302,24 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             .addComponent(jPanelFocusOnCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelFeelUsingTheApp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelNavegability, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelConfigTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelFocusOnCharter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelFocusOnCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelFeelUsingTheApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelNavegability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelConfigTime, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanelFocusOnCharter.getAccessibleContext().setAccessibleName("");
@@ -229,6 +337,11 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         QuestionnaireDto qDto = new QuestionnaireDto();
         qDto.setFocusOnCharter(jSliderFocusOnCharter.getValue());
+        
+        qDto.setTimeOnTesting(jSliderTesting.getValue());
+        qDto.setTimeOnConfiguration(jSliderConfiguration.getValue());
+        qDto.setTimeOnBugReport(jSliderBugReport.getValue());
+        
         String feeling;
         if (jRadioButtonFeelBad.isSelected()) {
             feeling = "Bad";
@@ -258,7 +371,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        mainForm.pack();
+        mainForm.setLocationRelativeTo(this);
         mainForm.setVisible(true);
             setVisible(false);
             dispose();
@@ -267,6 +381,25 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private void jSliderFocusOnCharterStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFocusOnCharterStateChanged
         jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter ("+jSliderFocusOnCharter.getValue()+" %): "));
     }//GEN-LAST:event_jSliderFocusOnCharterStateChanged
+
+    private void jSliderConfigurationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationStateChanged
+        // TODO add your handling code here:
+        jLabelConfig.setText("Time spent on configuration (%"+jSliderConfiguration.getValue()+"):");
+    }//GEN-LAST:event_jSliderConfigurationStateChanged
+
+    private void jSliderBugReportStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderBugReportStateChanged
+        // TODO add your handling code here:
+        jLabelBugReport.setText("Time researching and reporting bugs (%"+jSliderBugReport.getValue()+"):");
+    }//GEN-LAST:event_jSliderBugReportStateChanged
+
+    private void jSliderTestingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderTestingStateChanged
+        // TODO add your handling code here:
+        jLabelTesting.setText("Time Testing (%"+jSliderTesting.getValue()+"):");
+    }//GEN-LAST:event_jSliderTestingStateChanged
+
+    private void jSliderConfigurationPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jSliderConfigurationPropertyChange
 
     /**
      * @param args the command line arguments
@@ -306,8 +439,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSave;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelBugReport;
+    private javax.swing.JLabel jLabelConfig;
+    private javax.swing.JLabel jLabelFocusCharterTip;
+    private javax.swing.JLabel jLabelTesting;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelConfigTime;
     private javax.swing.JPanel jPanelFeelUsingTheApp;
     private javax.swing.JPanel jPanelFocusOnCharter;
     private javax.swing.JPanel jPanelNavegability;
@@ -317,7 +454,10 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonNavegabilityBad;
     private javax.swing.JRadioButton jRadioButtonNavegabilityExcelent;
     private javax.swing.JRadioButton jRadioButtonNavegabilityGood;
+    private javax.swing.JSlider jSliderBugReport;
+    private javax.swing.JSlider jSliderConfiguration;
     private javax.swing.JSlider jSliderFocusOnCharter;
+    private javax.swing.JSlider jSliderTesting;
     // End of variables declaration//GEN-END:variables
 
     /**

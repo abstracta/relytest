@@ -356,7 +356,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/stopCharter.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Exit the charter"/>
+            <Property name="toolTipText" type="java.lang.String" value="Close the session"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[109, 52]"/>
             </Property>
@@ -395,7 +395,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButtonPath">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Path:"/>
+            <Property name="text" type="java.lang.String" value="Workspace:"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
