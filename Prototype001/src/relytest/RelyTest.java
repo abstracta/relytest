@@ -7,7 +7,7 @@ package relytest;
 
 import relytest.ui.Constants;
 import relytest.ui.LookAndFeelMgr;
-import relytest.ui.MainForm;
+import relytest.ui.folder.MainForm;
 import relytest.ui.PropertiesMgr;
 
 /**

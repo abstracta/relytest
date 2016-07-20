@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relytest.ui;
+package relytest.ui.folder;
 
 import com.google.gson.Gson;
 import java.io.File;
@@ -93,7 +93,6 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jButtonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(451, 544));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);

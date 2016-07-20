@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relytest.ui;
+package relytest.ui.folder;
 
 import java.awt.Window;
 import java.util.Enumeration;
@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.AbstractButton;
 import javax.swing.SwingUtilities;
+import relytest.ui.Constants;
+import relytest.ui.LookAndFeelMgr;
+import relytest.ui.PropertiesMgr;
 
 /**
  *

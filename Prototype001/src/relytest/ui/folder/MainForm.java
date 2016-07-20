@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relytest.ui;
+package relytest.ui.folder;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.ui.Constants;
+import relytest.ui.PropertiesMgr;
 
 /**
  *

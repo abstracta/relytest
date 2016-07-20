@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package relytest.ui;
+package relytest.ui.folder;
 
 import com.google.gson.Gson;
 import java.awt.Color;
@@ -40,6 +40,9 @@ import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 import javax.swing.text.DefaultCaret;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.ui.Constants;
+import relytest.ui.HtmlPrinter;
+import relytest.ui.PropertiesMgr;
 import relytest.ui.common.StartBrowser;
 
 /**
