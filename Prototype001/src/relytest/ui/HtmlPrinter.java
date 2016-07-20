@@ -62,13 +62,15 @@ public class HtmlPrinter implements IPrinter {
                 input.put("logNotes", dto.getNotesTaken());
             }
             for (int i = 0; i < 5; i++) {
-                input.put("label" + i, dto.getGroupNotes()[i].getLabel());
+                input.put("label" + i, dto.getGroupNotes()[i].getLabel());                              
                 if (!dto.getGroupNotes()[i].notes.isEmpty()) {
+                     input.put("label" + i+"badge", dto.getGroupNotes()[i].notes.size()); 
                     input.put("labels" + i, dto.getGroupNotes()[i].notes);
                 }
             }
 
             if (!dto.getGroupNotes()[5].notes.isEmpty()) {
+                input.put("label" + 5+"badge", dto.getGroupNotes()[5].notes.size()); 
                 input.put("screenprints", dto.getGroupNotes()[5].notes);
             }
             // 2.2. Get the template

@@ -50,14 +50,16 @@
 <div class="well">Charter Log:</div>
 <p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#logNote">Show Charter Log</button> </p>
 <div id="logNote" class="collapse">
+<ul class="list-group">
 <#list logNotes as logNote>
-<ul>
-<p>${logNote.timeStamp}- <strong>[${logNote.label}]</strong>- ${logNote.text} </p>
+
+<li class="list-group-item">${logNote.timeStamp}- <strong>[${logNote.label}]</strong>- ${logNote.text} 
 <#if logNote.label == "Picture Taken">
-<img class="img-responsive" src=ScreenShots/${logNote.text} alt="Chania">
+<img class="img-responsive" src=ScreenShots/${logNote.text} alt=ScreenShots/${logNote.text}>
 </#if>
-</ul>
+</li>
 </#list>
+</ul>
 </div>
 </#if>
 
@@ -69,8 +71,10 @@
 
 <p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#categories">Show categories</button></p>
 <div id="categories" class="collapse">
+<ul class="list-group">
 
 <#if labels0??>
+<li class="list-group-item"><span class="badge">${label0badge}</span>
 <div class="well">${label0}:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#label0">Show</button>
 <div id="label0" class="collapse">
@@ -80,9 +84,12 @@
 </ul>
 </#list>
 </div>
+</li>
 </#if>
 
+
 <#if labels1??>
+<li class="list-group-item"><span class="badge">${label1badge}</span>
 <div class="well">${label1}:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#label1">Show</button>
 <div id="label1" class="collapse">
@@ -92,9 +99,11 @@
 </ul>
 </#list>
 </div>
+</li>
 </#if>
 
 <#if labels2??>
+<li class="list-group-item"><span class="badge">${label2badge}</span>
 <div class="well">${label2}:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#label2">Show</button>
 <div id="label2" class="collapse">
@@ -104,9 +113,11 @@
  </ul>
 </#list>
 </div>
+</li>
 </#if>
 
 <#if labels3??>
+<li class="list-group-item"><span class="badge">${label3badge}</span>
 <div class="well">${label3}:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#label3">Show</button>
 <div id="label3" class="collapse">
@@ -116,9 +127,11 @@
  </ul>
 </#list>
 </div>
+</li>
 </#if>
 
 <#if labels4??>
+<li class="list-group-item"><span class="badge">${label4badge}</span>
 <div class="well">${label4}:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#label04">Show</button>
 <div id="label04" class="collapse">
@@ -128,9 +141,10 @@
  </ul>
 </#list>
 </div>
+</li>
 </#if>
-</ul>
  <#if screenprints??>	
+<li class="list-group-item"><span class="badge">${label5badge}</span>
 <div class="well">List of screenprints:</div>
 <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#screenPrints">Show the images</button>
 <div id="screenPrints" class="collapse">
@@ -141,12 +155,14 @@
   <img class="img-responsive" src=ScreenShots/${print.text} alt="Chania">
  -->
 
- <img src=ScreenShots/${print.text} class="img-rounded" alt="Cinque Terre" width="304" height="236">
+ <img src=ScreenShots/${print.text} class="img-rounded" alt=ScreenShots/${print.text} width="304" height="236">
 </a>
 </#list>
 </ul>
 </div>
+</li>
 </#if>
+</ul>
 </div>
 </div>
 </div>

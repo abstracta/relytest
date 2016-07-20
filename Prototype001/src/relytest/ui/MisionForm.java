@@ -666,7 +666,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void lastWriteToLog() {
         Date now = new Date();
 
-        long sec = (now.getTime() - calStart.getTime().getTime()) / 1000;
+        long sec = (now.getTime() - calStart.getTime().getTime() +1) / 1000;
 
         long min = sec / 60;
         if (min > 0) {
