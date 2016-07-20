@@ -52,7 +52,7 @@
 <div id="logNote" class="collapse">
 <#list logNotes as logNote>
 <ul>
-<p>${logNote.timeStamp}- [${logNote.label}]- ${logNote.text} </p>
+<p>${logNote.timeStamp}- <strong>[${logNote.label}]</strong>- ${logNote.text} </p>
 <#if logNote.label == "Picture Taken">
 <img class="img-responsive" src=ScreenShots/${logNote.text} alt="Chania">
 </#if>
@@ -61,9 +61,14 @@
 </div>
 </#if>
 
-<div class="well">Summary:</div>
-<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#Summary">Show Summary</button></p>
-<div id="Summary" class="collapse">
+<div class="panel panel-default">
+  <div class="panel-heading">Group by categories:</div>
+  <div class="panel-body">
+
+
+
+<p><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#categories">Show categories</button></p>
+<div id="categories" class="collapse">
 
 <#if labels0??>
 <div class="well">${label0}:</div>
@@ -143,7 +148,8 @@
 </div>
 </#if>
 </div>
-
+</div>
+</div>
 <!-- 
 <div class="btn-group btn-group-justified">
   <a href="http://blog.abstracta.com.uy/2016/06/testing-exploratorio-proyecto-de-grado.html" class="btn btn-primary">Blog Abstracta</a>
