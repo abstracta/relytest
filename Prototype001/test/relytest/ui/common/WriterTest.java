@@ -43,7 +43,7 @@ public class WriterTest {
     @Test
     public void testWriteToFile() {
         System.out.println("writeToFile");
-        String file = "D:\\REPOSITORIO\\Proyecto\\relytest\\Prototype001\\build\\classes\\relytest";
+        String file = "D:\\tmp\\Proyecto\\relytest\\Prototype001\\build\\classes\\relytest";
         String text = "lot of text";
         Writer instance = new Writer();
         boolean expResult = false;
@@ -51,5 +51,17 @@ public class WriterTest {
         assertEquals(expResult, result);
 
     }
-    
+    /**
+     * Test of writeToFile method, of class Writer.
+     */
+    @Test
+    public void testWriteToFile2() {
+        System.out.println("writeToFile");
+        String file = "C:\\tmp\\relytest.txt";
+        String text = "lot of text";
+        Writer instance = new Writer();
+        boolean expResult = true;
+        boolean result = instance.writeToFile(file, text);
+        assertEquals(expResult, result);
+    }    
 }

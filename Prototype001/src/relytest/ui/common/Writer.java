@@ -25,6 +25,7 @@ public class Writer implements IWriter {
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter out = new PrintWriter(bw)) {
             out.println(text);
+            ok=true;
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
         }

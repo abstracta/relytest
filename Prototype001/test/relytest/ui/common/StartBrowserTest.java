@@ -44,8 +44,8 @@ public class StartBrowserTest {
     public void testStart() {
         System.out.println("start");
         String url = "www.relytest.com";
-        StartBrowser instance = new StartBrowser();
-        instance.start(url);
+//        StartBrowser instance = new StartBrowser();
+//        instance.start(url);
      
     }    
 }
