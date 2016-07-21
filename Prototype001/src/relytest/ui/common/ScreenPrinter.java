@@ -5,12 +5,10 @@
  */
 package relytest.ui.common;
 
-import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;

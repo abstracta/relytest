@@ -431,7 +431,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new QuestionnaireForm(new CharterDto()).setVisible(true);
+                new QuestionnaireForm(new CharterDto("no name")).setVisible(true);
             }
         });
     }

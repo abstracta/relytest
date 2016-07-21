@@ -812,7 +812,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MisionForm(new CharterDto()).setVisible(true);
+                new MisionForm(new CharterDto("No name")).setVisible(true);
             }
         });
     }

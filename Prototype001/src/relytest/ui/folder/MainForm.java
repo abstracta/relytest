@@ -76,9 +76,8 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             showMessageDialog(this, "Please insert the name of the charter.");
         } else {
             String charterName = jTextFieldCharterName.getText().replaceAll("[^a-zA-Z0-9.-]", "_");
-            CharterDto dto = new CharterDto();
+            CharterDto dto = new CharterDto(jTextFieldCharterName.getText());
             dto.setCharterFileName(charterName);
-            dto.setName(jTextFieldCharterName.getText());
             dto.setTotalTime(getTotalTime());
             MisionForm mision = new MisionForm(dto);
                

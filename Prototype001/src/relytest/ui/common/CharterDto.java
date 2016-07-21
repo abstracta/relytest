@@ -12,6 +12,10 @@ import java.util.ArrayList;
  * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class CharterDto {
+
+    public CharterDto(String name) {
+        this.name = name;
+    }
      private String name;
      private String charterFileName;
      private String folderNamePath;
