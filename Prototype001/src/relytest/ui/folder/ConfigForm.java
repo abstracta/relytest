@@ -7,6 +7,8 @@ package relytest.ui.folder;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.internationalization.LanguageController;
+import relytest.internationalization.Texts;
 import relytest.ui.Constants;
 import relytest.ui.PropertiesMgr;
 
@@ -21,74 +23,92 @@ public class ConfigForm extends javax.swing.JFrame {
 
     /**
      * Creates new form ConfigForm
+     *
      * @param loadForm
      */
     public ConfigForm(IConfigFormLoad loadForm) {
         initComponents();
         _loadConfigForm = loadForm;
         loadValues();
+        loadLanguage();
         jButtonLaF.setVisible(false);
     }
 
+    private void loadLanguage() {
+        LanguageController lCon = new LanguageController();
+        jLabelName.setText(lCon.getValue(Texts.ConfigForm_jLabelName));
+        jCheckBoxOpenImageEditor.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxOpenImageEditor));
+        jCheckBoxHideRelyTest.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxHideRelyTest));
+        jCheckBoxTakePicAfterBug.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxTakePicAfterBug));
+        jCheckBoxLaunchBrowserAfterCharterEnds.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxLaunchBrowserAfterCharterEnds));
+        jCheckBoxConfirmStopCharter.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxConfirmStopCharter));
+        jLabelShortTimeValue.setText(lCon.getValue(Texts.ConfigForm_jLabelShortTimeValue));
+        jLabelMediumTimeValue.setText(lCon.getValue(Texts.ConfigForm_jLabelMediumTimeValue));
+        jLabelLongTimeValue.setText(lCon.getValue(Texts.ConfigForm_jLabelLongTimeValue));
+        jButtonSave.setText(lCon.getValue(Texts.ConfigForm_jButtonSave));
+        jCheckBoxConfirmExitRelyTest.setText(lCon.getValue(Texts.ConfigForm_jCheckBoxConfirmExitRelyTest));
+        setTitle(lCon.getValue(Texts.ConfigForm_Title));
+    }
+
     private void loadValues() {
-       
+
         String name = p.getValue(Constants.KEY_NAME);
         Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
         jCheckBoxOpenImageEditor.setSelected(open);
         jTextFieldName.setText(name);
         Boolean hide = Boolean.valueOf(p.getValue(Constants.KEY_HIDE_RELY_TEST));
         jCheckBoxHideRelyTest.setSelected(hide);
-        
+
         Boolean takePic = Boolean.valueOf(p.getValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG));
         jCheckBoxTakePicAfterBug.setSelected(takePic);
-        
+
         Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_STOP_CHARTER));
         jCheckBoxConfirmStopCharter.setSelected(confirm);
-        
+
         confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_EXIT_RELYTEST));
         jCheckBoxConfirmExitRelyTest.setSelected(confirm);
-        
-         Boolean launchBrowser = Boolean.valueOf(p.getValue(Constants.KEY_LAUNCH_BROWSER));
+
+        Boolean launchBrowser = Boolean.valueOf(p.getValue(Constants.KEY_LAUNCH_BROWSER));
         jCheckBoxLaunchBrowserAfterCharterEnds.setSelected(launchBrowser);
-        
+
         String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
         jSpinnerShort.setValue(i);
-         i = Integer.parseInt( p.getValue(Constants.KEY_LONG_TIME));
-         jSpinnerLong.setValue(i);
-         
-          i = Integer.parseInt( p.getValue(Constants.KEY_MEDIUM_TIME));
-         jSpinnerMedium.setValue(i);
+        i = Integer.parseInt(p.getValue(Constants.KEY_LONG_TIME));
+        jSpinnerLong.setValue(i);
+
+        i = Integer.parseInt(p.getValue(Constants.KEY_MEDIUM_TIME));
+        jSpinnerMedium.setValue(i);
     }
 
     private void save() {
         if (jTextFieldName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the user.");
         } else {
-           
+
             p.setValue(Constants.KEY_NAME, jTextFieldName.getText());
             Boolean open = jCheckBoxOpenImageEditor.isSelected();
             p.setValue(Constants.KEY_OPEN_IMAGE_EDITOR, open.toString());
             Boolean hideRelyTest = jCheckBoxHideRelyTest.isSelected();
             p.setValue(Constants.KEY_HIDE_RELY_TEST, hideRelyTest.toString());
-            
+
             Boolean takePic = jCheckBoxTakePicAfterBug.isSelected();
             p.setValue(Constants.KEY_TAKE_PICTURE_AFTER_BUG, takePic.toString());
-            
+
             Boolean confirm = jCheckBoxConfirmStopCharter.isSelected();
             p.setValue(Constants.KEY_CONFIRM_STOP_CHARTER, confirm.toString());
-            
+
             confirm = jCheckBoxConfirmExitRelyTest.isSelected();
             p.setValue(Constants.KEY_CONFIRM_EXIT_RELYTEST, confirm.toString());
-            
-             Boolean launchBrowser = jCheckBoxLaunchBrowserAfterCharterEnds.isSelected();
+
+            Boolean launchBrowser = jCheckBoxLaunchBrowserAfterCharterEnds.isSelected();
             p.setValue(Constants.KEY_LAUNCH_BROWSER, launchBrowser.toString());
-        
-            p.setValue(Constants.KEY_SHORT_TIME,  jSpinnerShort.getValue().toString());
-            p.setValue(Constants.KEY_LONG_TIME,  jSpinnerLong.getValue().toString());
-             p.setValue(Constants.KEY_MEDIUM_TIME,  jSpinnerMedium.getValue().toString());
-            
-            _loadConfigForm.loadTimes();            
+
+            p.setValue(Constants.KEY_SHORT_TIME, jSpinnerShort.getValue().toString());
+            p.setValue(Constants.KEY_LONG_TIME, jSpinnerLong.getValue().toString());
+            p.setValue(Constants.KEY_MEDIUM_TIME, jSpinnerMedium.getValue().toString());
+
+            _loadConfigForm.loadTimes();
             this.setVisible(false);
         }
     }
@@ -276,9 +296,9 @@ public class ConfigForm extends javax.swing.JFrame {
     private void jButtonLaFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLaFActionPerformed
         // TODO add your handling code here:
         LookAndFeelForm laf = new LookAndFeelForm();
-              laf.setLocationRelativeTo(null);  
-              this.setVisible(false);
-              laf.setVisible(true);
+        laf.setLocationRelativeTo(null);
+        this.setVisible(false);
+        laf.setVisible(true);
     }//GEN-LAST:event_jButtonLaFActionPerformed
 
     /**
