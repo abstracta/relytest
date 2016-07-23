@@ -23,8 +23,27 @@ public enum Texts {
     ConfigForm_jCheckBoxConfirmExitRelyTest,
     ConfigForm_Title,
     
-    MainFrom_Title,
+    MainForm_Title,
     MainForm_jPanelCharter,
     MainForm_jPanelDuration,
     MainForm_jButtonPath,
+    MainForm_jToggleButtonShort,
+    MainForm_jToggleButtonMedium,
+    MainForm_jToggleButtonLong,
+    
+    MisionForm_Title,
+    
+    Msg_InsertNameCharter,
+    Msg_ElapsedTimePassExpectedTime,
+    
+    Duration,
+    Unit_Min,
+    Unit_Second,
+    
+    Exit_RelyTest,
+    Question_Exit_RelyTest,
+    Exit_Session,
+    Question_Exit_Session,
+    PauseSession,
+    ContinueSession,
 }

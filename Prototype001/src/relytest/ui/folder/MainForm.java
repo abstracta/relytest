@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.internationalization.LanguageController;
+import relytest.internationalization.Texts;
 import relytest.ui.Constants;
 import relytest.ui.PropertiesMgr;
 
@@ -23,6 +25,7 @@ import relytest.ui.PropertiesMgr;
 public final class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
 
     private ConfigForm configFrm;
+    private final LanguageController lCon = new LanguageController();
 
     /**
      * Creates new form MainForm
@@ -32,18 +35,26 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         loadTimes();
         
         jTextFieldPath.setText(System.getProperty("user.dir"));
+        loadLanguage();
     }
 
+    private void loadLanguage() {        
+        setTitle(lCon.getValue(Texts.MainForm_Title));
+        jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jPanelCharter)));
+        jPanelDuration.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jPanelDuration)));
+        jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));        
+    }
+    
     @Override
     public void loadTimes() {
-        PropertiesMgr p = new PropertiesMgr();
+        PropertiesMgr p = new PropertiesMgr();       
         String value = p.getValue(Constants.KEY_SHORT_TIME);
         Integer i = Integer.parseInt(value);
-        jToggleButtonShort.setText("Short " + i + " Mins");
+        jToggleButtonShort.setText(lCon.getValue(Texts.MainForm_jToggleButtonShort)+" " + i + " Mins");
         i = Integer.parseInt(p.getValue(Constants.KEY_LONG_TIME));
-        jToggleButtonLong.setText("Long " + i + " Mins");
+        jToggleButtonLong.setText(lCon.getValue(Texts.MainForm_jToggleButtonLong)+" " + i + " Mins");
         i = Integer.parseInt(p.getValue(Constants.KEY_MEDIUM_TIME));
-        jToggleButtonMedium.setText("Med. " + i + " Mins");
+        jToggleButtonMedium.setText(lCon.getValue(Texts.MainForm_jToggleButtonMedium)+" " + i + " Mins");
     }
 
     private String getTotalTime() {
@@ -73,7 +84,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             
     private void start() {
         if (jTextFieldCharterName.getText().equals("")) {
-            showMessageDialog(this, "Please insert the name of the charter.");
+            showMessageDialog(this, lCon.getValue(Texts.Msg_InsertNameCharter));
         } else {
             String charterName = jTextFieldCharterName.getText().replaceAll("[^a-zA-Z0-9.-]", "_");
             CharterDto dto = new CharterDto(jTextFieldCharterName.getText());
@@ -81,7 +92,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             dto.setTotalTime(getTotalTime());
             MisionForm mision = new MisionForm(dto);
                
-            mision.setTitle("RelyTest - Charter: " + charterName);
+            mision.setTitle(lCon.getValue(Texts.MisionForm_Title)+ " "+ charterName);
             mision.setMainForm(this);
             mision.Start();
             mision.show();
