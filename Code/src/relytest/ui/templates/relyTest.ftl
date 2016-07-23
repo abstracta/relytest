@@ -16,8 +16,7 @@
   
   <div class="container">
   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Exploratory Testing Tip</button>
-
+ 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -40,10 +39,6 @@
 </div>
   
   
-</div>
-<div class="alert alert-success fade in">
-<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Success!</strong> Your charter was great!
 </div>
 
 <#if logNotes??>
