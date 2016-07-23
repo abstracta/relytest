@@ -40,10 +40,11 @@ import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 import javax.swing.text.DefaultCaret;
 import relytest.interfaces.IConfigFormLoad;
+import relytest.internationalization.LanguageController;
+import relytest.internationalization.Texts;
 import relytest.ui.Constants;
 import relytest.ui.HtmlPrinter;
 import relytest.ui.PropertiesMgr;
-import relytest.ui.common.StartBrowser;
 
 /**
  *
@@ -70,7 +71,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private final Calendar calStart = Calendar.getInstance();
 
     private final Color defaultColor;
-
+    private final LanguageController lCon = new LanguageController();
     /**
      * Creates new form MisionForm
      *
@@ -101,8 +102,12 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         DefaultCaret caret = (DefaultCaret) jTextAreaLog.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jButtonConfig.setVisible(false);
+        loadLanguage();
     }
 
+     private void loadLanguage() {        
+         jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));
+    }
     @Override
     public void loadTimes() {
 
@@ -159,7 +164,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 jButtonPause.setText(sdf.format(date));
                 elapsedTimePassExpected = sdf.format(date).equals("00:00:00");
                 if (elapsedTimePassExpected) {
-                    writeToLog(Constants.LABEL_ELAPSED_TIME_PASS_EXPECTED_TIME, "The elapsed time passed the expected time for the session.");
+                    writeToLog(lCon.getValue(Texts.Msg_ElapsedTimePassExpectedTime), lCon.getValue(Texts.Msg_ElapsedTimePassExpectedTime));
                 }
             }
         } else {
@@ -673,9 +678,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
         long min = sec / 60;
         if (min > 0) {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + min + " min : " + (sec - min * 60) + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - "+lCon.getValue(Texts.Duration)+": " + min + " "+lCon.getValue(Texts.Unit_Min)+" : " + (sec - min * 60) + " "+lCon.getValue(Texts.Unit_Second)+".");
         } else {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - Duration: " + sec + " sec.");
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - "+lCon.getValue(Texts.Duration)+": " + sec + " "+lCon.getValue(Texts.Unit_Second)+".");
         }
     }
 
@@ -691,7 +696,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_EXIT_RELYTEST));
         int dialogResult = JOptionPane.NO_OPTION;
         if (confirm) {
-            dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit RelyTest?", "Exit RelyTest", JOptionPane.YES_NO_OPTION);
+            dialogResult = JOptionPane.showConfirmDialog(this, lCon.getValue(Texts.Question_Exit_RelyTest), lCon.getValue(Texts.Exit_RelyTest), JOptionPane.YES_NO_OPTION);
         }
         if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
             printCloseChart();
@@ -715,7 +720,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         } else {
             jButtonPause.setBackground(defaultColor);
             writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
-            jButtonPause.setToolTipText("Pause the session");
+            jButtonPause.setToolTipText(lCon.getValue(Texts.PauseSession));
             enableAllControls(true);
         }
     }//GEN-LAST:event_jButtonPauseActionPerformed
@@ -747,7 +752,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         Boolean confirm = Boolean.valueOf(p.getValue(Constants.KEY_CONFIRM_STOP_CHARTER));
         int dialogResult = JOptionPane.NO_OPTION;
         if (confirm) {
-            dialogResult = JOptionPane.showConfirmDialog(this, "Would You Like to Exit the Charter?", "Exit the Charter: " + charterDto.getName(), JOptionPane.YES_NO_OPTION);
+            dialogResult = JOptionPane.showConfirmDialog(this, lCon.getValue(Texts.Question_Exit_Session), lCon.getValue(Texts.Exit_Session), JOptionPane.YES_NO_OPTION);
         }
         if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
             printCloseChart();

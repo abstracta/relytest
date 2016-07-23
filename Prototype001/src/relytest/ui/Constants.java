@@ -42,7 +42,6 @@ public class Constants {
     public static  final String LABEL_PICTURE_TAKEN = "Picture Taken";
     public static  final String LABEL_SESSION_STARTED = "Session Started";
     public static  final String LABEL_SESSION_FINISHED="Session Finished";
-    public static  final String LABEL_ELAPSED_TIME_PASS_EXPECTED_TIME = "Elapsed Time Pass Expected";
     public static  final String LABEL_EVENT="Event";
     public static  final String LABEL_PAUSED="Paused";
     public static  final String LABEL_CONTINUE="Continue";
