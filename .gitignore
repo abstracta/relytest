@@ -37,3 +37,10 @@ Prototype001/null/log.json
 Prototype001/null/notes.json
 Prototype001/Properties.properties
 Prototype001/Relytest_en_US.properties
+/Code/build/
+/Code/dist/
+/Code/nbproject/private/
+Code/null/
+Code/Properties.properties
+Code/NoteTypes.txt
+Code/Relytest_en_US.properties

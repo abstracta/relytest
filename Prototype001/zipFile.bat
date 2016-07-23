@@ -1,1 +1,0 @@
-"c:\Program Files\7-Zip\7z.exe" a RelyTest.7z D:\REPOSITORIO\Proyecto\relytest\Prototype001\dist\
