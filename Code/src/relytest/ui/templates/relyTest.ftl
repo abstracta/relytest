@@ -12,7 +12,6 @@
 <body>
 <div class="jumbotron text-center">
   <h1>Charter: ${charterName}</h1>
-  <p>The content of the charter.</p> 
   
   <div class="container">
   <!-- Trigger the modal with a button -->
