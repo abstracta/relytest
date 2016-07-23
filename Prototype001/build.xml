@@ -13,6 +13,8 @@
     <target name="-post-jar"> 
         <copy file="src/resources/props/Properties.properties" flatten="true" todir="${dist.dir}"/> 
         <copy file="src/resources/props/Relytest_en_US.properties" flatten="true" todir="${dist.dir}"/> 
+        <copy file="src/resources/props/Properties.properties" flatten="true" todir="."/> 
+        <copy file="src/resources/props/Relytest_en_US.properties" flatten="true" todir="."/> 
     </target> 
     <!--
 
