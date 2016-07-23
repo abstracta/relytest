@@ -9,6 +9,18 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
+<style>
+  /* Icon when the collapsible content is shown */
+  .btn:after {
+    font-family: "Glyphicons Halflings";
+    content: "\e114";
+  }
+  /* Icon when the collapsible content is hidden */
+  .btn.collapsed:after {
+    content: "\e080";
+  }
+</style>
+
 <body>
 <div class="jumbotron text-center">
   <h1>Charter: ${charterName}</h1>
@@ -37,7 +49,7 @@
 
 <#if logNotes??>
 <div class="well"><H2>Charter Log:</H2>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#logNote">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#logNote"></button>
 </div>
 <div id="logNote" class="collapse">
 <ul class="list-group">
@@ -55,7 +67,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading"><H2>Group by categories:</H2>
- <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#categories">+</button>
+ <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#categories"></button>
 </div>
  <div class="panel-body">
 <div id="categories" class="collapse">
@@ -64,7 +76,7 @@
 <#if labels0??>
 <li class="list-group-item"><span class="badge">${label0badge}</span>
 <div class="well"><H3>${label0}:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#label0">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label0"></button>
 </div>
 <div id="label0" class="collapse">
 <#list labels0 as label00>
@@ -79,7 +91,7 @@
 <#if labels1??>
 <li class="list-group-item"><span class="badge">${label1badge}</span>
 <div class="well"><H3>${label1}:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#label1">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label1"></button>
 </div>
 <div id="label1" class="collapse">
 <#list labels1 as label01>
@@ -94,7 +106,7 @@
 <#if labels2??>
 <li class="list-group-item"><span class="badge">${label2badge}</span>
 <div class="well"><H3>${label2}:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#label2">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label2"></button>
 </div>
 <div id="label2" class="collapse">
  <#list labels2 as label02>
@@ -109,7 +121,7 @@
 <#if labels3??>
 <li class="list-group-item"><span class="badge">${label3badge}</span>
 <div class="well"><H3>${label3}:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#label3">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label3"></button>
 </div>
 <div id="label3" class="collapse">
  <#list labels3 as label03>
@@ -124,7 +136,7 @@
 <#if labels4??>
 <li class="list-group-item"><span class="badge">${label4badge}</span>
 <div class="well"><H3>${label4}:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#label04">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label04"></button>
 </div>
 <div id="label04" class="collapse">
  <#list labels4 as label04>
@@ -138,7 +150,7 @@
  <#if screenprints??>	
 <li class="list-group-item"><span class="badge">${label5badge}</span>
 <div class="well"><H3>List of screenprints:</H3>
-<button type="button" class="btn btn-default" data-toggle="collapse" data-target="#screenPrints">+</button>
+<button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#screenPrints"></button>
 </div>
 <div id="screenPrints" class="collapse">
 <ul>
@@ -161,6 +173,7 @@
     color: #ffffff;
 }
 </style>
+
 </body>
 <footer class="container-fluid bg-4 text-center">
   <p>RelyTest Made By <a href="http://abstracta.us">Abstracta.us</a></p> 
