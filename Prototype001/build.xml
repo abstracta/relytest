@@ -10,6 +10,10 @@
 <project name="RelyTest" default="default" basedir=".">
     <description>Builds, tests, and runs the project RelyTest.</description>
     <import file="nbproject/build-impl.xml"/>
+    <target name="-post-jar"> 
+        <copy file="src/resources/props/Properties.properties" flatten="true" todir="${dist.dir}"/> 
+        <copy file="src/resources/props/Relytest_en_US.properties" flatten="true" todir="${dist.dir}"/> 
+    </target> 
     <!--
 
     There exist several targets which are by default empty and which can be 
