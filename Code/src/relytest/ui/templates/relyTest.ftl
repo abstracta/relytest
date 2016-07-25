@@ -48,7 +48,7 @@
 </div>
 
 <#if logNotes??>
-<div class="well"><H2>Charter Log:</H2>
+<div class="well"><H2>Session Log:</H2>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#logNote"></button>
 </div>
 <div id="logNote" class="collapse">
