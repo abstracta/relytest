@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.ButtonGroup;
+import relytest.internationalization.LanguageController;
+import relytest.internationalization.Texts;
 import relytest.ui.common.CharterDto;
 import relytest.ui.common.QuestionnaireDto;
 import relytest.ui.common.StartBrowser;
@@ -25,6 +27,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
      */
     private MainForm mainForm;
     private final CharterDto charterDto;
+    private final LanguageController lCon = new LanguageController();
 
     public QuestionnaireForm(CharterDto aCharterDto) {
         initComponents();
@@ -32,34 +35,40 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderFocusOnCharter.setMinorTickSpacing(10);
         jSliderFocusOnCharter.setPaintTicks(true);
         jSliderFocusOnCharter.setPaintLabels(true);
-        
+
         jSliderConfiguration.setMajorTickSpacing(10);
         jSliderConfiguration.setMinorTickSpacing(10);
         jSliderConfiguration.setPaintTicks(true);
         jSliderConfiguration.setPaintLabels(true);
-        
+
         jSliderBugReport.setMajorTickSpacing(10);
         jSliderBugReport.setMinorTickSpacing(10);
         jSliderBugReport.setPaintTicks(true);
         jSliderBugReport.setPaintLabels(true);
-        
+
         jSliderTesting.setMajorTickSpacing(10);
         jSliderTesting.setMinorTickSpacing(10);
         jSliderTesting.setPaintTicks(true);
         jSliderTesting.setPaintLabels(true);
-        
+
         charterDto = aCharterDto;
-        
+
         ButtonGroup groupFeel = new ButtonGroup();
-    groupFeel.add(jRadioButtonFeelBad);
-    groupFeel.add(jRadioButtonFeelExcelent);
-    groupFeel.add(jRadioButtonFeelGood);
+        groupFeel.add(jRadioButtonFeelBad);
+        groupFeel.add(jRadioButtonFeelExcelent);
+        groupFeel.add(jRadioButtonFeelGood);
         ButtonGroup groupNav = new ButtonGroup();
-    groupNav.add(jRadioButtonNavegabilityBad);
-    groupNav.add(jRadioButtonNavegabilityExcelent);
-    groupNav.add(jRadioButtonNavegabilityGood);
-    
-    jLabelFocusCharterTip.setText("Time of the session that was focused on the Charter: "+charterDto.getName());
+        groupNav.add(jRadioButtonNavegabilityBad);
+        groupNav.add(jRadioButtonNavegabilityExcelent);
+        groupNav.add(jRadioButtonNavegabilityGood);
+
+        loadLanguage();
+    }
+
+    private void loadLanguage() {
+        jButtonSave.setText(lCon.getValue(Texts.Save));
+        jButtonSaveAndOpen.setText(lCon.getValue(Texts.SaveAndOpenReport));
+        jLabelFocusCharterTip.setText(lCon.getValue(Texts.TimeOfSessionFocusedOnCharter) + ": " + charterDto.getName());
     }
 
     /**
@@ -91,6 +100,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderTesting = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         jButtonSave = new javax.swing.JButton();
+        jButtonSaveAndOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -277,6 +287,13 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             }
         });
 
+        jButtonSaveAndOpen.setText("Save and Open Report");
+        jButtonSaveAndOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveAndOpenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -284,13 +301,17 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonSaveAndOpen)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSave)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSave)
+                    .addComponent(jButtonSaveAndOpen))
                 .addContainerGap())
         );
 
@@ -332,15 +353,19 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:
+    private void startBrowser() {
+        StartBrowser st = new StartBrowser();
+        st.start(charterDto.getPathHtml());
+    }
+
+    private void saveQuestionnaire() {
         QuestionnaireDto qDto = new QuestionnaireDto();
         qDto.setFocusOnCharter(jSliderFocusOnCharter.getValue());
-        
+
         qDto.setTimeOnTesting(jSliderTesting.getValue());
         qDto.setTimeOnConfiguration(jSliderConfiguration.getValue());
         qDto.setTimeOnBugReport(jSliderBugReport.getValue());
-        
+
         String feeling;
         if (jRadioButtonFeelBad.isSelected()) {
             feeling = "Bad";
@@ -360,9 +385,6 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         }
         qDto.setNavegability(nav);
 
-        StartBrowser st = new StartBrowser();
-        st.start(charterDto.getPathHtml());
-        
         Gson gson = new Gson();
         //2. Convert object to JSON string and save into a file directly
         try (FileWriter fwriter = new FileWriter(charterDto.getFolderName() + File.separator + "Questionnaire.json", false)) {
@@ -373,32 +395,43 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         mainForm.pack();
         mainForm.setLocationRelativeTo(this);
         mainForm.setVisible(true);
-            setVisible(false);
-            dispose();
+        setVisible(false);
+        dispose();
+    }
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        // TODO add your handling code here:      
+        saveQuestionnaire();
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jSliderFocusOnCharterStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFocusOnCharterStateChanged
-        jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter ("+jSliderFocusOnCharter.getValue()+" %): "));
+        jPanelFocusOnCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Focus on the Charter (" + jSliderFocusOnCharter.getValue() + " %): "));
     }//GEN-LAST:event_jSliderFocusOnCharterStateChanged
 
     private void jSliderConfigurationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationStateChanged
         // TODO add your handling code here:
-        jLabelConfig.setText("Time spent on configuration (%"+jSliderConfiguration.getValue()+"):");
+        jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
     }//GEN-LAST:event_jSliderConfigurationStateChanged
 
     private void jSliderBugReportStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderBugReportStateChanged
         // TODO add your handling code here:
-        jLabelBugReport.setText("Time researching and reporting bugs (%"+jSliderBugReport.getValue()+"):");
+        jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
     }//GEN-LAST:event_jSliderBugReportStateChanged
 
     private void jSliderTestingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderTestingStateChanged
         // TODO add your handling code here:
-        jLabelTesting.setText("Time Testing (%"+jSliderTesting.getValue()+"):");
+        jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
     }//GEN-LAST:event_jSliderTestingStateChanged
 
     private void jSliderConfigurationPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jSliderConfigurationPropertyChange
+
+    private void jButtonSaveAndOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveAndOpenActionPerformed
+        // TODO add your handling code here:
+        startBrowser();
+        saveQuestionnaire();
+    }//GEN-LAST:event_jButtonSaveAndOpenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -438,6 +471,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSave;
+    private javax.swing.JButton jButtonSaveAndOpen;
     private javax.swing.JLabel jLabelBugReport;
     private javax.swing.JLabel jLabelConfig;
     private javax.swing.JLabel jLabelFocusCharterTip;

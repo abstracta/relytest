@@ -46,4 +46,7 @@ public enum Texts {
     Question_Exit_Session,
     PauseSession,
     ContinueSession,
+    Save,
+    SaveAndOpenReport,
+    TimeOfSessionFocusedOnCharter,
 }
