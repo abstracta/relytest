@@ -178,7 +178,7 @@
 <footer class="container-fluid bg-4 text-center">
   <p>RelyTest Made By <a href="http://abstracta.us">Abstracta.us</a></p> 
 <p> 
- <a href="https://github.com/abstracta/relytest">Code at Github</a>
+ <a href="https://github.com/abstracta/relytest">Code at Github</a> / 
 <a href="http://blog.abstracta.com.uy/2016/06/testing-exploratorio-proyecto-de-grado.html">Blog Abstracta</a>
 </p> 
 </footer>
