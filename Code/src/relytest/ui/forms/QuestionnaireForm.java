@@ -60,11 +60,13 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         groupFeel.add(jRadioButtonFeelBad);
         groupFeel.add(jRadioButtonFeelExcelent);
         groupFeel.add(jRadioButtonFeelGood);
+        groupFeel.add(jRadioButtonFeelNoAnswer);
         ButtonGroup groupNav = new ButtonGroup();
         groupNav.add(jRadioButtonNavegabilityBad);
         groupNav.add(jRadioButtonNavegabilityExcelent);
         groupNav.add(jRadioButtonNavegabilityGood);
-
+        groupNav.add(jRadioButtonNavNoAnswer);
+        
         jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
         jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
         jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
