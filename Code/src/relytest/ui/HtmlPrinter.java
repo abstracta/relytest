@@ -59,12 +59,25 @@ public class HtmlPrinter implements IPrinter {
             input.put("OSname", dto.getDetails().getPlanification().getOperatingSystem());
             input.put("OSversion", dto.getDetails().getPlanification().getOperatingSystemVersion());
             input.put("OSarch", dto.getDetails().getPlanification().getOperatingSystemArch());
+
+            input.put("UserName", dto.getDetails().getPlanification().getUserName());
+            input.put("UserLanguage", dto.getDetails().getPlanification().getUserLanguage());
+            input.put("UserTimezone", dto.getDetails().getPlanification().getUserTimezone());
+            input.put("UserCountry", dto.getDetails().getPlanification().getUserCountry());
+
             input.put("Browser", dto.getDetails().getPlanification().getBrowser());
             dto.getDetails().getExecution().setNumberOfBugs(dto.getGroupNotes()[0].notes.size());
+            dto.getDetails().getExecution().setNumberOfNotes(dto.getGroupNotes()[1].notes.size());
+            dto.getDetails().getExecution().setNumberOfToDo(dto.getGroupNotes()[2].notes.size());
+            dto.getDetails().getExecution().setNumberOfProblems(dto.getGroupNotes()[3].notes.size());
             dto.getDetails().getExecution().setNumberOfRisks(dto.getGroupNotes()[4].notes.size());
 
             input.put("numBugs", dto.getDetails().getExecution().getNumberOfBugs());
             input.put("numRisks", dto.getDetails().getExecution().getNumberOfRisks());
+            input.put("numNotes", dto.getDetails().getExecution().getNumberOfNotes());
+            input.put("numProblems", dto.getDetails().getExecution().getNumberOfProblems());
+            input.put("numToDo", dto.getDetails().getExecution().getNumberOfToDo());
+
             input.put("RealDuration", dto.getDetails().getExecution().getRealDuration());
 
             input.put("FocusOnCharter", dto.getDetails().getMetrics().getFocusOnCharter());

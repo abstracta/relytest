@@ -25,6 +25,9 @@ public class ExecutionDto {
      private String realDuration;
      private int numberOfBugs;
      private int numberOfRisks;
+     private int numberOfNotes;
+     private int numberOfProblems;
+     private int numberOfToDo;
 
     /**
      * @return the realDuration
@@ -66,5 +69,47 @@ public class ExecutionDto {
      */
     public void setNumberOfRisks(int numberOfRisks) {
         this.numberOfRisks = numberOfRisks;
+    }
+
+    /**
+     * @return the numberOfNotes
+     */
+    public int getNumberOfNotes() {
+        return numberOfNotes;
+    }
+
+    /**
+     * @param numberOfNotes the numberOfNotes to set
+     */
+    public void setNumberOfNotes(int numberOfNotes) {
+        this.numberOfNotes = numberOfNotes;
+    }
+
+    /**
+     * @return the numberOfProblems
+     */
+    public int getNumberOfProblems() {
+        return numberOfProblems;
+    }
+
+    /**
+     * @param numberOfProblems the numberOfProblems to set
+     */
+    public void setNumberOfProblems(int numberOfProblems) {
+        this.numberOfProblems = numberOfProblems;
+    }
+
+    /**
+     * @return the numberOfToDo
+     */
+    public int getNumberOfToDo() {
+        return numberOfToDo;
+    }
+
+    /**
+     * @param numberOfToDo the numberOfToDo to set
+     */
+    public void setNumberOfToDo(int numberOfToDo) {
+        this.numberOfToDo = numberOfToDo;
     }
 }

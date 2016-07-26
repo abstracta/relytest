@@ -22,7 +22,7 @@ public class EnvironmentStats extends Thread {
 
     public EnvironmentStats(PlanificationDto planification) {
         this.writer = new Writer();
-        planificationDto=planification;
+        planificationDto = planification;
     }
 
     @Override
@@ -33,11 +33,17 @@ public class EnvironmentStats extends Thread {
         writer.writeToFile(getFile(), str);
     }
 
-    private void loadPlanDto(){
+    private void loadPlanDto() {
         planificationDto.setOperatingSystem(System.getProperty("os.name"));
         planificationDto.setOperatingSystemArch(System.getProperty("os.arch"));
         planificationDto.setOperatingSystemVersion(System.getProperty("os.version"));
+
+        planificationDto.setUserName(System.getProperty("user.name"));
+        planificationDto.setUserLanguage(System.getProperty("user.language"));
+        planificationDto.setUserTimezone(System.getProperty("user.timezone"));
+        planificationDto.setUserCountry(System.getProperty("user.country"));
     }
+
     private String getSOInfo() {
         StringBuilder str = new StringBuilder();
         str.append(Separator).append(System.getProperty(NewLine));

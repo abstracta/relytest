@@ -6,7 +6,6 @@
 package relytest.ui.forms;
 
 import com.google.gson.Gson;
-import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -95,10 +94,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jRadioButtonFeelBad = new javax.swing.JRadioButton();
         jRadioButtonFeelGood = new javax.swing.JRadioButton();
         jRadioButtonFeelExcelent = new javax.swing.JRadioButton();
+        jRadioButtonFeelNoAnswer = new javax.swing.JRadioButton();
         jPanelNavegability = new javax.swing.JPanel();
         jRadioButtonNavegabilityBad = new javax.swing.JRadioButton();
         jRadioButtonNavegabilityGood = new javax.swing.JRadioButton();
         jRadioButtonNavegabilityExcelent = new javax.swing.JRadioButton();
+        jRadioButtonNavNoAnswer = new javax.swing.JRadioButton();
         jPanelConfigTime = new javax.swing.JPanel();
         jSliderConfiguration = new javax.swing.JSlider();
         jLabelConfig = new javax.swing.JLabel();
@@ -126,6 +127,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderFocusOnCharter.setMinorTickSpacing(10);
         jSliderFocusOnCharter.setPaintLabels(true);
         jSliderFocusOnCharter.setPaintTicks(true);
+        jSliderFocusOnCharter.setValue(0);
         jSliderFocusOnCharter.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderFocusOnCharterStateChanged(evt);
@@ -157,10 +159,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jRadioButtonFeelBad.setText("Bad");
 
-        jRadioButtonFeelGood.setSelected(true);
         jRadioButtonFeelGood.setText("Good");
 
         jRadioButtonFeelExcelent.setText("Excelent");
+
+        jRadioButtonFeelNoAnswer.setSelected(true);
+        jRadioButtonFeelNoAnswer.setText("No Answer");
 
         javax.swing.GroupLayout jPanelFeelUsingTheAppLayout = new javax.swing.GroupLayout(jPanelFeelUsingTheApp);
         jPanelFeelUsingTheApp.setLayout(jPanelFeelUsingTheAppLayout);
@@ -172,6 +176,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addComponent(jRadioButtonFeelGood)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButtonFeelExcelent)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonFeelNoAnswer)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelFeelUsingTheAppLayout.setVerticalGroup(
@@ -181,17 +187,20 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addGroup(jPanelFeelUsingTheAppLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonFeelBad)
                     .addComponent(jRadioButtonFeelGood)
-                    .addComponent(jRadioButtonFeelExcelent)))
+                    .addComponent(jRadioButtonFeelExcelent)
+                    .addComponent(jRadioButtonFeelNoAnswer)))
         );
 
         jPanelNavegability.setBorder(javax.swing.BorderFactory.createTitledBorder("How about the navegability?"));
 
         jRadioButtonNavegabilityBad.setText("Bad");
 
-        jRadioButtonNavegabilityGood.setSelected(true);
         jRadioButtonNavegabilityGood.setText("Good");
 
         jRadioButtonNavegabilityExcelent.setText("Excelent");
+
+        jRadioButtonNavNoAnswer.setSelected(true);
+        jRadioButtonNavNoAnswer.setText("No Answer");
 
         javax.swing.GroupLayout jPanelNavegabilityLayout = new javax.swing.GroupLayout(jPanelNavegability);
         jPanelNavegability.setLayout(jPanelNavegabilityLayout);
@@ -203,6 +212,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addComponent(jRadioButtonNavegabilityGood)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButtonNavegabilityExcelent)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButtonNavNoAnswer)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelNavegabilityLayout.setVerticalGroup(
@@ -212,7 +223,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addGroup(jPanelNavegabilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonNavegabilityBad)
                     .addComponent(jRadioButtonNavegabilityGood)
-                    .addComponent(jRadioButtonNavegabilityExcelent)))
+                    .addComponent(jRadioButtonNavegabilityExcelent)
+                    .addComponent(jRadioButtonNavNoAnswer)))
         );
 
         jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spent your time?"));
@@ -221,7 +233,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderConfiguration.setMinorTickSpacing(10);
         jSliderConfiguration.setPaintLabels(true);
         jSliderConfiguration.setPaintTicks(true);
-        jSliderConfiguration.setValue(10);
+        jSliderConfiguration.setValue(0);
         jSliderConfiguration.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderConfigurationStateChanged(evt);
@@ -241,7 +253,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderBugReport.setMinorTickSpacing(10);
         jSliderBugReport.setPaintLabels(true);
         jSliderBugReport.setPaintTicks(true);
-        jSliderBugReport.setValue(45);
+        jSliderBugReport.setValue(0);
         jSliderBugReport.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderBugReportStateChanged(evt);
@@ -254,7 +266,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderTesting.setMinorTickSpacing(10);
         jSliderTesting.setPaintLabels(true);
         jSliderTesting.setPaintTicks(true);
-        jSliderTesting.setValue(45);
+        jSliderTesting.setValue(0);
         jSliderTesting.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderTestingStateChanged(evt);
@@ -405,16 +417,16 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         IPrinter printer = new HtmlPrinter();
         printer.print(charterDto);
     }
-
+private int totalTimeSum=0;
     private boolean isTimeSumCorrect(boolean showMessageDialog) {
-        int total = jSliderConfiguration.getValue() + jSliderBugReport.getValue() + jSliderTesting.getValue();
-        boolean ok = total == 100;
+        totalTimeSum = jSliderConfiguration.getValue() + jSliderBugReport.getValue() + jSliderTesting.getValue();
+        boolean ok = totalTimeSum == 100;
         if (!ok && showMessageDialog) {
             showMessageDialog(this, "The sum of: "
                     + System.lineSeparator() + "- Time spent configuration, "
                     + System.lineSeparator() + "- Time spent reporting bugs and"
                     + System.lineSeparator() + "- Time spent testing"
-                    + System.lineSeparator() + "should be 100. But the actual value is: " + total);
+                    + System.lineSeparator() + "should be 100. But the actual value is: " + totalTimeSum);
         }
         return ok;
     }
@@ -434,20 +446,24 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         charterDto.getDetails().getPlanification().setBrowser(jTextPaneBrowser.getText());
         String feeling;
         if (jRadioButtonFeelBad.isSelected()) {
-            feeling = "Bad";
+            feeling = lCon.getValue(Texts.Bad);
         } else if (jRadioButtonFeelGood.isSelected()) {
-            feeling = "Good";
-        } else {
-            feeling = "Excelent";
+            feeling = lCon.getValue(Texts.Good);
+        } else if (jRadioButtonFeelExcelent.isSelected()){
+            feeling = lCon.getValue(Texts.Excelent);
+        }else{
+            feeling = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setFeelUsingRelyTest(feeling);
         String nav;
         if (jRadioButtonNavegabilityBad.isSelected()) {
-            nav = "Bad";
+            nav = lCon.getValue(Texts.Bad);
         } else if (jRadioButtonNavegabilityGood.isSelected()) {
-            nav = "Good";
-        } else {
-            nav = "Excelent";
+            nav = lCon.getValue(Texts.Good);
+        } else if (jRadioButtonNavegabilityExcelent.isSelected()){
+            nav = lCon.getValue(Texts.Excelent);
+        }else{
+            nav = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setNavegability(nav);
 
@@ -490,10 +506,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
             jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
             jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spent your time? (Sum = "+totalTimeSum+" %)"));
         } else {
             jLabelTesting.setText("<html>Time Testing <font color='red'>(%" + jSliderTesting.getValue() + "</font>):</html>");
              jLabelBugReport.setText("<html>Time researching and reporting bugs <font color='red'>(%" + jSliderBugReport.getValue() + "</font>):</html>");
             jLabelConfig.setText("<html>Time spent on configuration <font color='red'>(%" + jSliderConfiguration.getValue() + "</font>):</html>");
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("<html>How did you spent your time? (<font color='red'>Sum = "+totalTimeSum+" %</font>)</html>"));
         }
     }
     
@@ -573,6 +591,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonFeelBad;
     private javax.swing.JRadioButton jRadioButtonFeelExcelent;
     private javax.swing.JRadioButton jRadioButtonFeelGood;
+    private javax.swing.JRadioButton jRadioButtonFeelNoAnswer;
+    private javax.swing.JRadioButton jRadioButtonNavNoAnswer;
     private javax.swing.JRadioButton jRadioButtonNavegabilityBad;
     private javax.swing.JRadioButton jRadioButtonNavegabilityExcelent;
     private javax.swing.JRadioButton jRadioButtonNavegabilityGood;

@@ -83,6 +83,23 @@
 				<td><strong>OS Arch:</strong></td>
 				<td>${OSarch}</td>
 			</tr>
+                        <tr>
+				<td><strong>User Name:</strong></td>
+				<td>${UserName}</td>
+			</tr>
+                        <tr>
+				<td><strong>User Language:</strong></td>
+				<td>${UserLanguage}</td>
+			</tr>
+                        <tr>
+				<td><strong>User Timezone:</strong></td>
+				<td>${UserTimezone}</td>
+			</tr>
+                        <tr>
+				<td><strong>User Country:</strong></td>
+				<td>${UserCountry}</td>
+			</tr>
+
                         <#if Browser != "<No browser used>">
 			<tr>
 				<td><strong>Browser:</strong> </td>
@@ -100,12 +117,24 @@
 					<td>${RealDuration}</td>
 				</tr>
                                 <tr>
+					<td><strong>#Notes:</strong></td>
+					<td>${numNotes}</td>
+				</tr>
+                                <tr>
 					<td><strong>#Bugs:</strong></td>
 					<td>${numBugs}</td>
 				</tr>
                                 <tr>
 					<td><strong>#Risks:</strong></td>
 					<td>${numRisks}</td>
+				</tr>
+                                <tr>
+					<td><strong>#Problems:</strong></td>
+					<td>${numProblems}</td>
+				</tr>
+                                <tr>
+					<td><strong>#ToDo:</strong></td>
+					<td>${numToDo}</td>
 				</tr>
 			</tbody>
 			</table>
@@ -114,20 +143,20 @@
 			<table class="table table-striped">
 			<tbody>
 				<tr>
-					<td><strong>Focus on charter (%):</strong></td>
-					<td>${FocusOnCharter}</td>
+					<td><strong>Focus on charter:</strong></td>
+					<td>${FocusOnCharter} %</td>
 				</tr>
                                 <tr>
 					<td><strong>Time spent configuration:</strong></td>
-					<td>${TimeSpentConfiguration}</td>
+					<td>${TimeSpentConfiguration} %</td>
 				</tr>
                                 <tr>
 					<td><strong>Time spent reporting bugs:</strong></td>
-					<td>${TimeSpentReportingBugs}</td>
+					<td>${TimeSpentReportingBugs} %</td>
 				</tr>
                                 <tr>
 					<td><strong>Time spent testing:</strong></td>
-					<td>${getTimeSpentTesting}</td>
+					<td>${getTimeSpentTesting} %</td>
 				</tr>
 			</tbody>
 			</table>

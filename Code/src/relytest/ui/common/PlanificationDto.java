@@ -30,6 +30,11 @@ public class PlanificationDto {
     private String operatingSystemVersion;
     private String browser;
 
+    private String userName;
+    private String userLanguage;
+    private String userTimezone;
+    private String userCountry;
+
     /**
      * @return the tester
      */
@@ -112,5 +117,61 @@ public class PlanificationDto {
      */
     public void setOperatingSystemVersion(String operatingSystemVersion) {
         this.operatingSystemVersion = operatingSystemVersion;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the userLanguage
+     */
+    public String getUserLanguage() {
+        return userLanguage;
+    }
+
+    /**
+     * @param userLanguage the userLanguage to set
+     */
+    public void setUserLanguage(String userLanguage) {
+        this.userLanguage = userLanguage;
+    }
+
+    /**
+     * @return the userTimezone
+     */
+    public String getUserTimezone() {
+        return userTimezone;
+    }
+
+    /**
+     * @param userTimezone the userTimezone to set
+     */
+    public void setUserTimezone(String userTimezone) {
+        this.userTimezone = userTimezone;
+    }
+
+    /**
+     * @return the userCountry
+     */
+    public String getUserCountry() {
+        return userCountry;
+    }
+
+    /**
+     * @param userCountry the userCountry to set
+     */
+    public void setUserCountry(String userCountry) {
+        this.userCountry = userCountry;
     }
 }

@@ -49,4 +49,8 @@ public enum Texts {
     Save,
     SaveAndOpenReport,
     TimeOfSessionFocusedOnCharter,
+    Bad,
+    Good,
+    Excelent,
+    NoAnswer,
 }
