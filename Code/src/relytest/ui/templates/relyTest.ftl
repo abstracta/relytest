@@ -47,6 +47,97 @@
 </div>    
 </div>
 
+<div class="well"><H2>Details:</H2>
+</div>
+<div class="container" >
+<table class="table table-bordered">
+    <thead class="thead-inverse">
+      <tr>
+        <th><h3>Planification</h3></th>
+        <th><h3>Execution</h3></th>
+        <th><h3>Metrics</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+		<table class="table table-striped">
+			<tbody>
+			<tr>
+				<td><strong>Tester:</strong></td>
+				<td>${Tester}</td>
+			</tr>      
+			<tr>
+				<td><strong>Duration:</strong></td>
+				<td>${PlanDuration}</td>
+			</tr>
+			<tr>
+				<td><strong>Operating System:</strong></td>
+				<td>${OSname}</td>
+			</tr>
+                        <tr>
+				<td><strong>OS Version:</strong></td>
+				<td>${OSversion}</td>
+			</tr>
+                        <tr>
+				<td><strong>OS Arch:</strong></td>
+				<td>${OSarch}</td>
+			</tr>
+                        <#if Browser != "<No browser used>">
+			<tr>
+				<td><strong>Browser:</strong> </td>
+				<td>${Browser}</td> 
+			</tr>
+                        </#if>
+			</tbody>
+		</table>			
+		</td>
+		<td>
+			<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td><strong>Real Duration:</strong></td>
+					<td>${RealDuration}</td>
+				</tr>
+                                <tr>
+					<td><strong>#Bugs:</strong></td>
+					<td>${numBugs}</td>
+				</tr>
+                                <tr>
+					<td><strong>#Risks:</strong></td>
+					<td>${numRisks}</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+                <td>
+			<table class="table table-striped">
+			<tbody>
+				<tr>
+					<td><strong>Focus on charter (%):</strong></td>
+					<td>${FocusOnCharter}</td>
+				</tr>
+                                <tr>
+					<td><strong>Time spent configuration:</strong></td>
+					<td>${TimeSpentConfiguration}</td>
+				</tr>
+                                <tr>
+					<td><strong>Time spent reporting bugs:</strong></td>
+					<td>${TimeSpentReportingBugs}</td>
+				</tr>
+                                <tr>
+					<td><strong>Time spent testing:</strong></td>
+					<td>${getTimeSpentTesting}</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 <#if logNotes??>
 <div class="well"><H2>Session Log:</H2>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#logNote"></button>

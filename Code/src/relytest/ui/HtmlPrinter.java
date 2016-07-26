@@ -54,6 +54,24 @@ public class HtmlPrinter implements IPrinter {
             // 2.1. Prepare the template input:
             Map<String, Object> input = new HashMap<>();
 
+            input.put("Tester", dto.getDetails().getPlanification().getTester());
+            input.put("PlanDuration", dto.getDetails().getPlanification().getDuration());
+            input.put("OSname", dto.getDetails().getPlanification().getOperatingSystem());
+            input.put("OSversion", dto.getDetails().getPlanification().getOperatingSystemVersion());
+            input.put("OSarch", dto.getDetails().getPlanification().getOperatingSystemArch());
+            input.put("Browser", dto.getDetails().getPlanification().getBrowser());
+            dto.getDetails().getExecution().setNumberOfBugs(dto.getGroupNotes()[0].notes.size());
+            dto.getDetails().getExecution().setNumberOfRisks(dto.getGroupNotes()[4].notes.size());
+
+            input.put("numBugs", dto.getDetails().getExecution().getNumberOfBugs());
+            input.put("numRisks", dto.getDetails().getExecution().getNumberOfRisks());
+            input.put("RealDuration", dto.getDetails().getExecution().getRealDuration());
+
+            input.put("FocusOnCharter", dto.getDetails().getMetrics().getFocusOnCharter());
+            input.put("TimeSpentConfiguration", dto.getDetails().getMetrics().getTimeSpentConfiguration());
+            input.put("TimeSpentReportingBugs", dto.getDetails().getMetrics().getTimeSpentReportingBugs());
+            input.put("getTimeSpentTesting", dto.getDetails().getMetrics().getTimeSpentTesting());
+
             input.put("title", "RelyTest Summary");
 
             input.put("charterName", dto.getName());
@@ -62,15 +80,15 @@ public class HtmlPrinter implements IPrinter {
                 input.put("logNotes", dto.getNotesTaken());
             }
             for (int i = 0; i < 5; i++) {
-                input.put("label" + i, dto.getGroupNotes()[i].getLabel());                              
+                input.put("label" + i, dto.getGroupNotes()[i].getLabel());
                 if (!dto.getGroupNotes()[i].notes.isEmpty()) {
-                     input.put("label" + i+"badge", dto.getGroupNotes()[i].notes.size()); 
+                    input.put("label" + i + "badge", dto.getGroupNotes()[i].notes.size());
                     input.put("labels" + i, dto.getGroupNotes()[i].notes);
                 }
             }
 
             if (!dto.getGroupNotes()[5].notes.isEmpty()) {
-                input.put("label" + 5+"badge", dto.getGroupNotes()[5].notes.size()); 
+                input.put("label" + 5 + "badge", dto.getGroupNotes()[5].notes.size());
                 input.put("screenprints", dto.getGroupNotes()[5].notes);
             }
             // 2.2. Get the template

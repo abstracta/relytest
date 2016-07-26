@@ -15,6 +15,7 @@ public class CharterDto {
 
     public CharterDto(String name) {
         this.name = name;
+        details=new DetailsDto();
     }
      private String name;
      private String charterFileName;
@@ -25,6 +26,7 @@ public class CharterDto {
      private String folderName;
      private GroupNote[] groupNotes;
      private ArrayList<Note> notesTaken;
+     private DetailsDto details;
 
     /**
      * @return the name
@@ -154,5 +156,19 @@ public class CharterDto {
      */
     public void setNotesTaken(ArrayList<Note> notesTaken) {
         this.notesTaken = notesTaken;
+    }
+
+    /**
+     * @return the details
+     */
+    public DetailsDto getDetails() {
+        return details;
+    }
+
+    /**
+     * @param details the details to set
+     */
+    public void setDetails(DetailsDto details) {
+        this.details = details;
     }
 }

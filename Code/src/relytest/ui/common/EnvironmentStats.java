@@ -18,18 +18,26 @@ public class EnvironmentStats extends Thread {
     private final String NewLine = "line.separator";
     private final IWriter writer;
     private String file;
+    PlanificationDto planificationDto;
 
-    public EnvironmentStats() {
+    public EnvironmentStats(PlanificationDto planification) {
         this.writer = new Writer();
+        planificationDto=planification;
     }
 
     @Override
     public void run() {
 
+        loadPlanDto();
         String str = getSOInfo();
         writer.writeToFile(getFile(), str);
     }
 
+    private void loadPlanDto(){
+        planificationDto.setOperatingSystem(System.getProperty("os.name"));
+        planificationDto.setOperatingSystemArch(System.getProperty("os.arch"));
+        planificationDto.setOperatingSystemVersion(System.getProperty("os.version"));
+    }
     private String getSOInfo() {
         StringBuilder str = new StringBuilder();
         str.append(Separator).append(System.getProperty(NewLine));

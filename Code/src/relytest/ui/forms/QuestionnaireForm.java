@@ -6,12 +6,16 @@
 package relytest.ui.forms;
 
 import com.google.gson.Gson;
+import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.ButtonGroup;
+import static javax.swing.JOptionPane.showMessageDialog;
+import relytest.interfaces.IPrinter;
 import relytest.internationalization.LanguageController;
 import relytest.internationalization.Texts;
+import relytest.ui.HtmlPrinter;
 import relytest.ui.common.CharterDto;
 import relytest.ui.common.QuestionnaireDto;
 import relytest.ui.common.StartBrowser;
@@ -62,6 +66,10 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         groupNav.add(jRadioButtonNavegabilityExcelent);
         groupNav.add(jRadioButtonNavegabilityGood);
 
+        jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
+        jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
+        jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
+
         loadLanguage();
     }
 
@@ -101,6 +109,9 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButtonSave = new javax.swing.JButton();
         jButtonSaveAndOpen = new javax.swing.JButton();
+        jPanelBrowser = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPaneBrowser = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -210,6 +221,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderConfiguration.setMinorTickSpacing(10);
         jSliderConfiguration.setPaintLabels(true);
         jSliderConfiguration.setPaintTicks(true);
+        jSliderConfiguration.setValue(10);
         jSliderConfiguration.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderConfigurationStateChanged(evt);
@@ -229,6 +241,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderBugReport.setMinorTickSpacing(10);
         jSliderBugReport.setPaintLabels(true);
         jSliderBugReport.setPaintTicks(true);
+        jSliderBugReport.setValue(45);
         jSliderBugReport.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderBugReportStateChanged(evt);
@@ -241,6 +254,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderTesting.setMinorTickSpacing(10);
         jSliderTesting.setPaintLabels(true);
         jSliderTesting.setPaintTicks(true);
+        jSliderTesting.setValue(45);
         jSliderTesting.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderTestingStateChanged(evt);
@@ -315,6 +329,32 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanelBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder("Browser used?"));
+
+        jTextPaneBrowser.setText("<No browser used>");
+        jTextPaneBrowser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextPaneBrowserMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextPaneBrowser);
+
+        javax.swing.GroupLayout jPanelBrowserLayout = new javax.swing.GroupLayout(jPanelBrowser);
+        jPanelBrowser.setLayout(jPanelBrowserLayout);
+        jPanelBrowserLayout.setHorizontalGroup(
+            jPanelBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBrowserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        jPanelBrowserLayout.setVerticalGroup(
+            jPanelBrowserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBrowserLayout.createSequentialGroup()
+                .addGap(0, 11, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -326,12 +366,15 @@ public class QuestionnaireForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jPanelBrowser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelFocusOnCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelFocusOnCharter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelBrowser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelFeelUsingTheApp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelNavegability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,6 +401,24 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         st.start(charterDto.getPathHtml());
     }
 
+    private void printHtml() {
+        IPrinter printer = new HtmlPrinter();
+        printer.print(charterDto);
+    }
+
+    private boolean isTimeSumCorrect(boolean showMessageDialog) {
+        int total = jSliderConfiguration.getValue() + jSliderBugReport.getValue() + jSliderTesting.getValue();
+        boolean ok = total == 100;
+        if (!ok && showMessageDialog) {
+            showMessageDialog(this, "The sum of: "
+                    + System.lineSeparator() + "- Time spent configuration, "
+                    + System.lineSeparator() + "- Time spent reporting bugs and"
+                    + System.lineSeparator() + "- Time spent testing"
+                    + System.lineSeparator() + "should be 100. But the actual value is: " + total);
+        }
+        return ok;
+    }
+
     private void saveQuestionnaire() {
         QuestionnaireDto qDto = new QuestionnaireDto();
         qDto.setFocusOnCharter(jSliderFocusOnCharter.getValue());
@@ -366,6 +427,11 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         qDto.setTimeOnConfiguration(jSliderConfiguration.getValue());
         qDto.setTimeOnBugReport(jSliderBugReport.getValue());
 
+        charterDto.getDetails().getMetrics().setFocusOnCharter("" + jSliderFocusOnCharter.getValue());
+        charterDto.getDetails().getMetrics().setTimeSpentConfiguration("" + jSliderConfiguration.getValue());
+        charterDto.getDetails().getMetrics().setTimeSpentReportingBugs("" + jSliderBugReport.getValue());
+        charterDto.getDetails().getMetrics().setTimeSpentTesting("" + jSliderTesting.getValue());
+        charterDto.getDetails().getPlanification().setBrowser(jTextPaneBrowser.getText());
         String feeling;
         if (jRadioButtonFeelBad.isSelected()) {
             feeling = "Bad";
@@ -400,8 +466,11 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     }
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:      
-        saveQuestionnaire();
+        // TODO add your handling code here:     
+        if (isTimeSumCorrect(true)) {
+            saveQuestionnaire();
+            printHtml();
+        }
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private void jSliderFocusOnCharterStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderFocusOnCharterStateChanged
@@ -409,29 +478,48 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jSliderFocusOnCharterStateChanged
 
     private void jSliderConfigurationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationStateChanged
-        // TODO add your handling code here:
-        jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
+         updateTimeJlabels();
     }//GEN-LAST:event_jSliderConfigurationStateChanged
 
     private void jSliderBugReportStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderBugReportStateChanged
-        // TODO add your handling code here:
-        jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
+        updateTimeJlabels();
     }//GEN-LAST:event_jSliderBugReportStateChanged
 
+    private void updateTimeJlabels(){
+        if (isTimeSumCorrect(false)) {
+            jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
+            jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
+            jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
+        } else {
+            jLabelTesting.setText("<html>Time Testing <font color='red'>(%" + jSliderTesting.getValue() + "</font>):</html>");
+             jLabelBugReport.setText("<html>Time researching and reporting bugs <font color='red'>(%" + jSliderBugReport.getValue() + "</font>):</html>");
+            jLabelConfig.setText("<html>Time spent on configuration <font color='red'>(%" + jSliderConfiguration.getValue() + "</font>):</html>");
+        }
+    }
+    
     private void jSliderTestingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderTestingStateChanged
-        // TODO add your handling code here:
-        jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
+        updateTimeJlabels();
     }//GEN-LAST:event_jSliderTestingStateChanged
 
     private void jSliderConfigurationPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jSliderConfigurationPropertyChange
 
+
     private void jButtonSaveAndOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveAndOpenActionPerformed
-        // TODO add your handling code here:
-        startBrowser();
-        saveQuestionnaire();
+        if (isTimeSumCorrect(true)) {
+            saveQuestionnaire();
+            printHtml();
+            startBrowser();
+        }
     }//GEN-LAST:event_jButtonSaveAndOpenActionPerformed
+
+    private void jTextPaneBrowserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextPaneBrowserMouseClicked
+        // TODO add your handling code here:
+        if (jTextPaneBrowser.getText().equals("<No browser used>")) {
+            jTextPaneBrowser.setText("");
+        }
+    }//GEN-LAST:event_jTextPaneBrowserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -477,6 +565,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelFocusCharterTip;
     private javax.swing.JLabel jLabelTesting;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelBrowser;
     private javax.swing.JPanel jPanelConfigTime;
     private javax.swing.JPanel jPanelFeelUsingTheApp;
     private javax.swing.JPanel jPanelFocusOnCharter;
@@ -487,10 +576,12 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonNavegabilityBad;
     private javax.swing.JRadioButton jRadioButtonNavegabilityExcelent;
     private javax.swing.JRadioButton jRadioButtonNavegabilityGood;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSliderBugReport;
     private javax.swing.JSlider jSliderConfiguration;
     private javax.swing.JSlider jSliderFocusOnCharter;
     private javax.swing.JSlider jSliderTesting;
+    private javax.swing.JTextPane jTextPaneBrowser;
     // End of variables declaration//GEN-END:variables
 
     /**

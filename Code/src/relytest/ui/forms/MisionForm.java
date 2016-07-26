@@ -72,6 +72,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private final Color defaultColor;
     private final LanguageController lCon = new LanguageController();
+
     /**
      * Creates new form MisionForm
      *
@@ -86,7 +87,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         createMisionFolders();
         jTextFieldPath.setText(charterDto.getFolderName());
 
-        EnvironmentStats e = new EnvironmentStats();
+        EnvironmentStats e = new EnvironmentStats(charterDto.getDetails().getPlanification());
         e.setFile(charterDto.getFolderNamePath() + File.separator + Summary);
         e.start();
         defaultColor = jButtonPause.getBackground();
@@ -105,9 +106,10 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         loadLanguage();
     }
 
-     private void loadLanguage() {        
-         jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));
+    private void loadLanguage() {
+        jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));
     }
+
     @Override
     public void loadTimes() {
 
@@ -229,7 +231,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             Boolean open = Boolean.valueOf(p.getValue(Constants.KEY_OPEN_IMAGE_EDITOR));
             if (open) {
                 executePaint(charterDto.getPicturePath() + pic);
-            }          
+            }
         }
     }
 
@@ -239,7 +241,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void writeNote() {
         if (!jTextAreaNote.getText().equals("")) {
-            writeToLog(getSelectedNote(), jTextAreaNote.getText());           
+            writeToLog(getSelectedNote(), jTextAreaNote.getText());
         }
     }
 
@@ -332,15 +334,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
         jTextAreaLog.append(newLogLine + System.lineSeparator());
         addNote(label, text, timeStamp);
-    }
-
-    private void printHtml() {
-        IPrinter printer = new HtmlPrinter();
-        charterDto.setGroupNotes(groupNotes);
-        charterDto.setNotesTaken(notesTaken);
-        charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
-
-        printer.print(charterDto);                
     }
 
     private void printNotes() {
@@ -674,20 +667,27 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void lastWriteToLog() {
         Date now = new Date();
 
-        long sec = (now.getTime() - calStart.getTime().getTime() +1) / 1000;
+        long sec = (now.getTime() - calStart.getTime().getTime() + 1) / 1000;
 
         long min = sec / 60;
+        String duration;
         if (min > 0) {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - "+lCon.getValue(Texts.Duration)+": " + min + " "+lCon.getValue(Texts.Unit_Min)+" : " + (sec - min * 60) + " "+lCon.getValue(Texts.Unit_Second)+".");
+            duration = +min + " " + lCon.getValue(Texts.Unit_Min) + " : " + (sec - min * 60) + " " + lCon.getValue(Texts.Unit_Second);
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - " + lCon.getValue(Texts.Duration) + ": " + duration + ".");
         } else {
-            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - "+lCon.getValue(Texts.Duration)+": " + sec + " "+lCon.getValue(Texts.Unit_Second)+".");
+            duration = sec + " " + lCon.getValue(Texts.Unit_Second);
+            writeToLog(Constants.LABEL_SESSION_FINISHED, Constants.LABEL_SESSION_FINISHED + " - " + lCon.getValue(Texts.Duration) + ": " + duration + ".");
         }
+        PropertiesMgr p = new PropertiesMgr();
+        String tester = p.getValue(Constants.KEY_NAME);
+        charterDto.getDetails().getPlanification().setTester(tester);
+        charterDto.getDetails().getExecution().setRealDuration(duration);
+
     }
 
     private void printCloseChart() {
         lastWriteToLog();
         printNotes();
-        printHtml();
     }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -755,14 +755,17 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             dialogResult = JOptionPane.showConfirmDialog(this, lCon.getValue(Texts.Question_Exit_Session), lCon.getValue(Texts.Exit_Session), JOptionPane.YES_NO_OPTION);
         }
         if (!confirm || dialogResult == JOptionPane.YES_OPTION) {
+            charterDto.setGroupNotes(groupNotes);
+            charterDto.setNotesTaken(notesTaken);
+            charterDto.setPathHtml(RunningPath + File.separator + charterDto.getFolderName() + File.separator + "RelyTest_Charter_Report.html");
             printCloseChart();
             QuestionnaireForm qForm = new QuestionnaireForm(charterDto);
             qForm.setMainForm(mainForm);
             qForm.pack();
             qForm.setLocationRelativeTo(this);
-            qForm.setVisible(true);           
+            qForm.setVisible(true);
             setVisible(false);
-            dispose();            
+            dispose();
         }
     }//GEN-LAST:event_jButtonStopActionPerformed
 
@@ -780,7 +783,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             if (Desktop.isDesktopSupported()) {
                 File file = new File(charterDto.getFolderName());
                 Desktop desktop = Desktop.getDesktop();
-                desktop.open(file);           
+                desktop.open(file);
             }
             // TODO add your handling code here:
         } catch (IOException ex) {

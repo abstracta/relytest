@@ -90,6 +90,8 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             CharterDto dto = new CharterDto(jTextFieldCharterName.getText());
             dto.setCharterFileName(charterName);
             dto.setTotalTime(getTotalTime());
+            dto.getDetails().getPlanification().setDuration(getTotalTime());
+            
             MisionForm mision = new MisionForm(dto);
                
             mision.setTitle(lCon.getValue(Texts.MisionForm_Title)+ " "+ charterName);
