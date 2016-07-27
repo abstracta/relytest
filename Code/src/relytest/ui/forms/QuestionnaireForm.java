@@ -160,7 +160,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addComponent(jLabelFocusCharterTip, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How do you feel using RelyTest?"));
+        jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How do you feel using the system under test?"));
 
         jRadioButtonFeelBad.setText("Bad");
 
