@@ -29,7 +29,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import relytest.interfaces.IPrinter;
 import relytest.interfaces.IScreenPrinter;
 import relytest.interfaces.IWriter;
 import relytest.ui.common.CharterDto;
@@ -43,7 +42,6 @@ import relytest.interfaces.IConfigFormLoad;
 import relytest.internationalization.LanguageController;
 import relytest.internationalization.Texts;
 import relytest.ui.Constants;
-import relytest.ui.HtmlPrinter;
 import relytest.ui.PropertiesMgr;
 
 /**
@@ -330,9 +328,10 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void writeToLog(String label, String text) {
         boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
         String timeStamp = getDateNow(setStartTime);
+        jTextAreaLog.append(" > [" + label + "] " + text + System.lineSeparator());
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
-        jTextAreaLog.append(newLogLine + System.lineSeparator());
+        
         addNote(label, text, timeStamp);
     }
 
