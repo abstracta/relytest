@@ -71,9 +71,6 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="jButtonStart">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="ff" red="66" type="rgb"/>
-        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/resources/start.png"/>
         </Property>

@@ -142,7 +142,6 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
 
-        jButtonStart.setBackground(new java.awt.Color(102, 255, 102));
         jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/start.png"))); // NOI18N
         jButtonStart.setToolTipText("Starts a New Charter");
         jButtonStart.setFocusPainted(false);
