@@ -30,10 +30,13 @@ public class QuestionnaireForm extends javax.swing.JFrame {
      */
     private MainForm mainForm;
     private final CharterDto charterDto;
-    private final LanguageController lCon = new LanguageController();
+    private final LanguageController lCon;
 
     public QuestionnaireForm(CharterDto aCharterDto) {
+        
         initComponents();
+        this.lCon = new LanguageController();
+        
         jSliderFocusOnCharter.setMajorTickSpacing(10);
         jSliderFocusOnCharter.setMinorTickSpacing(10);
         jSliderFocusOnCharter.setPaintTicks(true);

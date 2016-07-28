@@ -19,7 +19,7 @@ import relytest.ui.PropertiesMgr;
 public class ConfigForm extends javax.swing.JFrame {
 
     private static IConfigFormLoad _loadConfigForm;
-    private final PropertiesMgr p = new PropertiesMgr();
+    private final PropertiesMgr p;
 
     /**
      * Creates new form ConfigForm
@@ -27,6 +27,7 @@ public class ConfigForm extends javax.swing.JFrame {
      * @param loadForm
      */
     public ConfigForm(IConfigFormLoad loadForm) {
+        this.p = new PropertiesMgr();
         initComponents();
         _loadConfigForm = loadForm;
         loadValues();
