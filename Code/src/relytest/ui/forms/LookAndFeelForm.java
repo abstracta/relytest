@@ -24,8 +24,8 @@ public class LookAndFeelForm extends javax.swing.JFrame {
     /**
      * Creates new form LookAndFeelForm
      */
-    private Map<String, Integer> mapLaF;
-    private PropertiesMgr p;
+    private final Map<String, Integer> mapLaF;
+    private final PropertiesMgr p;
 
     public LookAndFeelForm() {
         initComponents();
