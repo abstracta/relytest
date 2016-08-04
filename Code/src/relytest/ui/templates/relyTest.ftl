@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/gif" href="resources/ORT.jpg" />
   <title>${title} - ${charterName}</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +23,7 @@
 </style>
 
 <body>
-<div class="jumbotron text-center">
+<div class="jumbotron text-center bg-3">
   <h1>Charter: ${charterName}</h1>
   <div class="container">
   <!-- Trigger the modal with a button -->
@@ -47,7 +48,7 @@
 </div>    
 </div>
 
-<div class="well"><H2>Details:</H2>
+<div class="well bg-2"><H2>Details:</H2>
 </div>
 <div class="container" >
 <table class="table table-bordered">
@@ -168,7 +169,7 @@
 
 
 <#if logNotes??>
-<div class="well"><H2>Session Log:</H2>
+<div class="well bg-2"><H2>Session Log:</H2>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#logNote"></button>
 </div>
 <div id="logNote" class="collapse">
@@ -185,7 +186,7 @@
 </div>
 </#if>
 
-<div class="panel panel-default">
+<div class="panel bg-2">
   <div class="panel-heading"><H2>Group by categories:</H2>
  <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#categories"></button>
 </div>
@@ -195,13 +196,13 @@
 
 <#if labels0??>
 <li class="list-group-item"><span class="badge">${label0badge}</span>
-<div class="well"><H3>${label0}:</H3>
+<div class="well bg-2"><H3>${label0}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label0"></button>
 </div>
 <div id="label0" class="collapse">
 <#list labels0 as label00>
 <ul>
-<p>${label00.id}- ${label00.text} </p>
+<p class="bg-5">${label00.id}- ${label00.text} </p>
 </ul>
 </#list>
 </div>
@@ -210,13 +211,13 @@
 
 <#if labels1??>
 <li class="list-group-item"><span class="badge">${label1badge}</span>
-<div class="well"><H3>${label1}:</H3>
+<div class="well bg-2"><H3>${label1}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label1"></button>
 </div>
 <div id="label1" class="collapse">
 <#list labels1 as label01>
 <ul>
-<p>${label01.id}- ${label01.text} </p>
+<p class="bg-5">${label01.id}- ${label01.text} </p>
 </ul>
 </#list>
 </div>
@@ -225,13 +226,13 @@
 
 <#if labels2??>
 <li class="list-group-item"><span class="badge">${label2badge}</span>
-<div class="well"><H3>${label2}:</H3>
+<div class="well bg-2"><H3>${label2}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label2"></button>
 </div>
 <div id="label2" class="collapse">
  <#list labels2 as label02>
   <ul>
- <p>${label02.id}- ${label02.text} </p>
+ <p class="bg-5">${label02.id}- ${label02.text} </p>
  </ul>
 </#list>
 </div>
@@ -240,13 +241,13 @@
 
 <#if labels3??>
 <li class="list-group-item"><span class="badge">${label3badge}</span>
-<div class="well"><H3>${label3}:</H3>
+<div class="well bg-2"><H3>${label3}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label3"></button>
 </div>
 <div id="label3" class="collapse">
  <#list labels3 as label03>
   <ul>
- <p>${label03.id}- ${label03.text} </p>
+ <p class="bg-5">${label03.id}- ${label03.text} </p>
  </ul>
 </#list>
 </div>
@@ -255,13 +256,13 @@
 
 <#if labels4??>
 <li class="list-group-item"><span class="badge">${label4badge}</span>
-<div class="well"><H3>${label4}:</H3>
+<div class="well bg-2"><H3>${label4}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label04"></button>
 </div>
 <div id="label04" class="collapse">
  <#list labels4 as label04>
   <ul>
- <p>${label04.id}- ${label04.text} </p>
+ <p class="bg-5">${label04.id}- ${label04.text} </p>
  </ul>
 </#list>
 </div>
@@ -269,7 +270,7 @@
 </#if>
  <#if screenprints??>	
 <li class="list-group-item"><span class="badge">${label5badge}</span>
-<div class="well"><H3>List of screenprints:</H3>
+<div class="well bg-2"><H3>List of screenprints:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#screenPrints"></button>
 </div>
 <div id="screenPrints" class="collapse">
@@ -288,9 +289,22 @@
 </div>
 </div>
 <style>
+
+.bg-2 { 
+    background-color: #45688F;
+    color: #ffffff;
+}
+.bg-3 { 
+    background-color: #163665;
+    color: #ffffff;
+}
 .bg-4 { 
     background-color: #2f2f2f;
     color: #ffffff;
+}
+.bg-5 { 
+    background-color: #ffffff;
+    color: #163665;
 }
 </style>
 

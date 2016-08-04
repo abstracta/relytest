@@ -10,6 +10,9 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -102,6 +105,17 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         jButtonConfig.setVisible(false);
         loadLanguage();
+
+        jTextAreaNote.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                int code = ke.getKeyCode();
+                int modifiers = ke.getModifiers();
+                if (code == KeyEvent.VK_ENTER && modifiers == KeyEvent.CTRL_MASK) {
+                    addNewNote();
+                }
+            }
+        });
     }
 
     private void loadLanguage() {
@@ -331,7 +345,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextAreaLog.append(" > [" + label + "] " + text + System.lineSeparator());
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
-        
+
         addNote(label, text, timeStamp);
     }
 
@@ -657,11 +671,17 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     }//GEN-LAST:event_jButtonPictureActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        writeNote();
-
-        jTextAreaNote.setText("");
-        jButtonAdd.setEnabled(false);
+        addNewNote();
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void addNewNote() {
+        if (jButtonAdd.isEnabled()) {
+            writeNote();
+
+            jTextAreaNote.setText("");
+            jButtonAdd.setEnabled(false);
+        }
+    }
 
     private void lastWriteToLog() {
         Date now = new Date();
