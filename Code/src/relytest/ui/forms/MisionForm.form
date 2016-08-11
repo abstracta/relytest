@@ -588,7 +588,7 @@
             <Component class="javax.swing.JButton" name="jButtonPlay">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/Stop.png"/>
+                  <Image iconType="3" name="/resources/Pause.png"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Close the session"/>
                 <Property name="borderPainted" type="boolean" value="false"/>

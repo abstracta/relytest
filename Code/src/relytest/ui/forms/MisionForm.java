@@ -671,7 +671,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Stop.png"))); // NOI18N
+        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Pause.png"))); // NOI18N
         jButtonPlay.setToolTipText("Close the session");
         jButtonPlay.setBorderPainted(false);
         jButtonPlay.setContentAreaFilled(false);
