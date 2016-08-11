@@ -32,24 +32,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" pref="439" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="df" green="df" red="df" type="rgb"/>
+        </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[440, 368]"/>
         </Property>
@@ -93,7 +90,7 @@
                               </Group>
                               <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="63" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jCheckBoxConfirmStopCharter" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxLaunchBrowserAfterCharterEnds" min="-2" max="-2" attributes="0"/>
@@ -134,7 +131,7 @@
                           <Component id="jCheckBoxConfirmExitRelyTest" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabelShortTimeValue" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="jSpinnerShort" min="-2" max="-2" attributes="0"/>
@@ -177,11 +174,17 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxOpenImageEditor">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Open image editor after a picture is taken"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxHideRelyTest">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Hide RelyTest when taking a picture"/>
           </Properties>
         </Component>
@@ -231,21 +234,33 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxTakePicAfterBug">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Take picture after adding a Bug"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxConfirmStopCharter">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Confirm to Stop Charter"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxConfirmExitRelyTest">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Confirm to Exit RelyTest"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxLaunchBrowserAfterCharterEnds">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="df" green="df" red="df" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Launch Browser At End"/>
           </Properties>
         </Component>

@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,6 +24,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 import javax.swing.Timer;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -51,8 +54,8 @@ import relytest.ui.PropertiesMgr;
 public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private final CharterDto charterDto;
-    private ArrayList<String> notesTypes = new ArrayList<>();
-    private int selectedNoteType = 0;
+    private final ArrayList<String> notesTypes = new ArrayList<>();
+    private final int selectedNoteType = 0;
     private static Timer timer;
     private static Date date;
     private MainForm mainForm;
@@ -70,6 +73,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private final Color defaultColor;
     private final LanguageController lCon = new LanguageController();
+    
+    private final java.awt.Color colorSelected =new java.awt.Color(223, 223, 223);
+    private final java.awt.Color colorDeselected = new java.awt.Color(69, 104, 143);
 
     /**
      * Creates new form MisionForm
@@ -88,7 +94,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         EnvironmentStats e = new EnvironmentStats(charterDto.getDetails().getPlanification());
         e.setFile(charterDto.getFolderNamePath() + File.separator + Summary);
         e.start();
-        defaultColor = jButtonPause.getBackground();
+        defaultColor = jButtonClock.getBackground();
 
         loadProperties();
         initializeNotesGroup();
@@ -100,12 +106,35 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
         DefaultCaret caret = (DefaultCaret) jTextAreaLog.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        jButtonConfig.setVisible(false);
+        //jButtonConfig.setVisible(false);
         loadLanguage();
+
+        jTextAreaNote.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                int code = ke.getKeyCode();
+                int modifiers = ke.getModifiers();
+                if (code == KeyEvent.VK_ENTER && modifiers == KeyEvent.CTRL_MASK) {
+                    addNewNote();
+                }
+            }
+        });
+        
+       setButtonsDefaultColor();
+    }
+    
+    private void setButtonsDefaultColor(){
+         switchImage(jtbBug) ;
+         switchImage(jtbNote) ;
+         switchImage(jtbProblem) ;
+         switchImage(jtbRisk) ;
+         switchImage(jtbToDo) ;
     }
 
     private void loadLanguage() {
-        jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));
+        jButtonPath.setText("");
+        jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
+
     }
 
     @Override
@@ -117,7 +146,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         PropertiesMgr p = new PropertiesMgr();
         jtbNote.setVisible(displayButton(p, Constants.KEY_BUTTON_NOTE));
         jtbBug.setVisible(displayButton(p, Constants.KEY_BUTTON_BUG));
-        jtbIssue.setVisible(displayButton(p, Constants.KEY_BUTTON_PROBLEM));
+        jtbProblem.setVisible(displayButton(p, Constants.KEY_BUTTON_PROBLEM));
         jtbRisk.setVisible(displayButton(p, Constants.KEY_BUTTON_RISK));
         jtbToDo.setVisible(displayButton(p, Constants.KEY_BUTTON_TODO));
 
@@ -155,13 +184,13 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
             if (elapsedTimePassExpected) {
                 cal.add(Calendar.SECOND, +1);
-                jButtonPause.setBackground(Color.RED);
+                jButtonClock.setBackground(Color.RED);
                 date = cal.getTime();
-                jButtonPause.setText("-" + sdf.format(date));
+                jButtonClock.setText("-" + sdf.format(date));
             } else {
                 cal.add(Calendar.SECOND, -1);
                 date = cal.getTime();
-                jButtonPause.setText(sdf.format(date));
+                jButtonClock.setText(sdf.format(date));
                 elapsedTimePassExpected = sdf.format(date).equals("00:00:00");
                 if (elapsedTimePassExpected) {
                     writeToLog(lCon.getValue(Texts.Msg_ElapsedTimePassExpectedTime), lCon.getValue(Texts.Msg_ElapsedTimePassExpectedTime));
@@ -173,10 +202,10 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     }
 
     private void ChangeBackgroundColor() {
-        if (defaultColor.equals(jButtonPause.getBackground())) {
-            jButtonPause.setBackground(Color.YELLOW);
+        if (defaultColor.equals(jButtonClock.getBackground())) {
+            jButtonClock.setBackground(Color.YELLOW);
         } else {
-            jButtonPause.setBackground(defaultColor);
+            jButtonClock.setBackground(defaultColor);
         }
     }
 
@@ -251,7 +280,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             str = Constants.LABEL_NOTE;
         } else if (jtbToDo.isSelected()) {
             str = Constants.LABEL_ToDo;
-        } else if (jtbIssue.isSelected()) {
+        } else if (jtbProblem.isSelected()) {
             str = Constants.LABEL_PROBLEM;
         } else {
             str = Constants.LABEL_RISK;
@@ -331,7 +360,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextAreaLog.append(" > [" + label + "] " + text + System.lineSeparator());
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
-        
+
         addNote(label, text, timeStamp);
     }
 
@@ -396,28 +425,43 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void initComponents() {
 
         buttonGroupNotes = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         jPanelNoteSelection = new javax.swing.JPanel();
         jtbNote = new javax.swing.JToggleButton();
         jtbBug = new javax.swing.JToggleButton();
         jtbToDo = new javax.swing.JToggleButton();
         jtbRisk = new javax.swing.JToggleButton();
-        jtbIssue = new javax.swing.JToggleButton();
+        jtbProblem = new javax.swing.JToggleButton();
+        jPanelNote = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaLog = new javax.swing.JTextArea();
-        jPanelNote = new javax.swing.JPanel();
+        jButtonStop = new javax.swing.JButton();
+        jButtonPicture = new javax.swing.JButton();
+        jButtonAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaNote = new javax.swing.JTextArea();
-        jButtonAdd = new javax.swing.JButton();
-        jButtonPause = new javax.swing.JButton();
-        jButtonPicture = new javax.swing.JButton();
-        jButtonStop = new javax.swing.JButton();
-        jButtonConfig = new javax.swing.JButton();
-        jToolBar1 = new javax.swing.JToolBar();
-        jButtonPath = new javax.swing.JButton();
+        jButtonClock = new javax.swing.JButton();
+        jPanelWorkspace = new javax.swing.JPanel();
         jTextFieldPath = new javax.swing.JTextField();
+        jButtonPath = new javax.swing.JButton();
+        jButtonPlay = new javax.swing.JButton();
+        jToolBar1 = new javax.swing.JToolBar();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
+        setBackground(new java.awt.Color(16, 36, 65));
+        setForeground(new java.awt.Color(16, 36, 65));
         setName("frameRelyTest"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -428,133 +472,106 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             }
         });
 
-        jPanelNoteSelection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanelNoteSelection.setBackground(new java.awt.Color(223, 223, 223));
 
-        jtbNote.setBackground(new java.awt.Color(255, 255, 153));
+        jtbNote.setBackground(new java.awt.Color(69, 104, 143));
         buttonGroupNotes.add(jtbNote);
-        jtbNote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/note.png"))); // NOI18N
+        jtbNote.setForeground(new java.awt.Color(255, 255, 255));
+        jtbNote.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Note.png"))); // NOI18N
         jtbNote.setSelected(true);
         jtbNote.setToolTipText("Select the Note label");
-        jtbNote.setMaximumSize(new java.awt.Dimension(97, 23));
-        jtbNote.setMinimumSize(new java.awt.Dimension(97, 23));
+        jtbNote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jtbNote.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbNote.setMaximumSize(new java.awt.Dimension(80, 23));
+        jtbNote.setMinimumSize(new java.awt.Dimension(80, 23));
+        jtbNote.setName("jtbNote"); // NOI18N
         jtbNote.setPreferredSize(new java.awt.Dimension(80, 23));
-        jtbNote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtbNoteActionPerformed(evt);
+        jtbNote.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jtbNoteItemStateChanged(evt);
             }
         });
 
-        jtbBug.setBackground(new java.awt.Color(255, 255, 153));
+        jtbBug.setBackground(new java.awt.Color(69, 104, 143));
         buttonGroupNotes.add(jtbBug);
-        jtbBug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/bug.png"))); // NOI18N
+        jtbBug.setForeground(new java.awt.Color(255, 255, 255));
+        jtbBug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Bug.png"))); // NOI18N
         jtbBug.setToolTipText("Select the Bug label");
-        jtbBug.setMaximumSize(new java.awt.Dimension(97, 23));
-        jtbBug.setMinimumSize(new java.awt.Dimension(97, 23));
+        jtbBug.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jtbBug.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbBug.setMaximumSize(new java.awt.Dimension(80, 23));
+        jtbBug.setMinimumSize(new java.awt.Dimension(80, 23));
+        jtbBug.setName("jtbBug"); // NOI18N
         jtbBug.setPreferredSize(new java.awt.Dimension(80, 23));
+        jtbBug.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jtbBugItemStateChanged(evt);
+            }
+        });
 
-        jtbToDo.setBackground(new java.awt.Color(255, 255, 153));
+        jtbToDo.setBackground(new java.awt.Color(69, 104, 143));
         buttonGroupNotes.add(jtbToDo);
+        jtbToDo.setForeground(new java.awt.Color(255, 255, 255));
         jtbToDo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/ToDo.png"))); // NOI18N
         jtbToDo.setToolTipText("Select the ToDo label");
-        jtbToDo.setMaximumSize(new java.awt.Dimension(97, 23));
+        jtbToDo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jtbToDo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbToDo.setMaximumSize(new java.awt.Dimension(80, 23));
+        jtbToDo.setMinimumSize(new java.awt.Dimension(80, 23));
+        jtbToDo.setName("jtbToDo"); // NOI18N
         jtbToDo.setPreferredSize(new java.awt.Dimension(80, 23));
+        jtbToDo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbToDoStateChanged(evt);
+            }
+        });
 
-        jtbRisk.setBackground(new java.awt.Color(255, 255, 153));
+        jtbRisk.setBackground(new java.awt.Color(69, 104, 143));
         buttonGroupNotes.add(jtbRisk);
-        jtbRisk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/risk.png"))); // NOI18N
+        jtbRisk.setForeground(new java.awt.Color(255, 255, 255));
+        jtbRisk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Risk.png"))); // NOI18N
         jtbRisk.setToolTipText("Select the Risk label");
-        jtbRisk.setMaximumSize(new java.awt.Dimension(97, 23));
-        jtbRisk.setMinimumSize(new java.awt.Dimension(59, 23));
+        jtbRisk.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jtbRisk.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbRisk.setMaximumSize(new java.awt.Dimension(80, 23));
+        jtbRisk.setMinimumSize(new java.awt.Dimension(80, 23));
+        jtbRisk.setName("jtbRisk"); // NOI18N
         jtbRisk.setPreferredSize(new java.awt.Dimension(80, 23));
+        jtbRisk.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbRiskStateChanged(evt);
+            }
+        });
 
-        jtbIssue.setBackground(new java.awt.Color(255, 255, 153));
-        buttonGroupNotes.add(jtbIssue);
-        jtbIssue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/error.png"))); // NOI18N
-        jtbIssue.setToolTipText("Select the Problem label");
-        jtbIssue.setMaximumSize(new java.awt.Dimension(97, 23));
-        jtbIssue.setPreferredSize(new java.awt.Dimension(80, 23));
+        jtbProblem.setBackground(new java.awt.Color(69, 104, 143));
+        buttonGroupNotes.add(jtbProblem);
+        jtbProblem.setForeground(new java.awt.Color(255, 255, 255));
+        jtbProblem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Problem.png"))); // NOI18N
+        jtbProblem.setToolTipText("Select the Problem label");
+        jtbProblem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jtbProblem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtbProblem.setMaximumSize(new java.awt.Dimension(80, 23));
+        jtbProblem.setMinimumSize(new java.awt.Dimension(80, 23));
+        jtbProblem.setName("jtbProblem"); // NOI18N
+        jtbProblem.setPreferredSize(new java.awt.Dimension(80, 23));
+        jtbProblem.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jtbProblemStateChanged(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanelNoteSelectionLayout = new javax.swing.GroupLayout(jPanelNoteSelection);
-        jPanelNoteSelection.setLayout(jPanelNoteSelectionLayout);
-        jPanelNoteSelectionLayout.setHorizontalGroup(
-            jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNoteSelectionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jtbIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(jtbToDo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelNoteSelectionLayout.setVerticalGroup(
-            jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
-                .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbBug, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtbRisk, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtbIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jPanelNote.setBackground(new java.awt.Color(223, 223, 223));
 
         jTextAreaLog.setEditable(false);
         jTextAreaLog.setColumns(20);
         jTextAreaLog.setRows(5);
         jScrollPane2.setViewportView(jTextAreaLog);
 
-        jPanelNote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jTextAreaNote.setColumns(20);
-        jTextAreaNote.setRows(5);
-        jTextAreaNote.setAutoscrolls(false);
-        jTextAreaNote.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextAreaNoteKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTextAreaNote);
-
-        jButtonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Add.png"))); // NOI18N
-        jButtonAdd.setToolTipText("Add the note to your notes collection");
-        jButtonAdd.setEnabled(false);
-        jButtonAdd.setFocusPainted(false);
-        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAddActionPerformed(evt);
-            }
-        });
-
-        jButtonPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/timer.png"))); // NOI18N
-        jButtonPause.setText("Pause");
-        jButtonPause.setToolTipText("Pause the session");
-        jButtonPause.setFocusPainted(false);
-        jButtonPause.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPauseActionPerformed(evt);
-            }
-        });
-
-        jButtonPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Camara.png"))); // NOI18N
-        jButtonPicture.setToolTipText("Take a Picture");
-        jButtonPicture.setFocusPainted(false);
-        jButtonPicture.setMaximumSize(new java.awt.Dimension(109, 52));
-        jButtonPicture.setMinimumSize(new java.awt.Dimension(109, 52));
-        jButtonPicture.setOpaque(false);
-        jButtonPicture.setPreferredSize(new java.awt.Dimension(109, 52));
-        jButtonPicture.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonPictureActionPerformed(evt);
-            }
-        });
-
-        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/stopCharter.png"))); // NOI18N
+        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Stop.png"))); // NOI18N
         jButtonStop.setToolTipText("Close the session");
+        jButtonStop.setBorderPainted(false);
+        jButtonStop.setContentAreaFilled(false);
+        jButtonStop.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonStop.setMaximumSize(new java.awt.Dimension(109, 52));
         jButtonStop.setMinimumSize(new java.awt.Dimension(109, 52));
         jButtonStop.setPreferredSize(new java.awt.Dimension(109, 52));
@@ -564,52 +581,66 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             }
         });
 
-        jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/tool.png"))); // NOI18N
-        jButtonConfig.setToolTipText("Opens the Configuration Window");
-        jButtonConfig.setFocusPainted(false);
-        jButtonConfig.addActionListener(new java.awt.event.ActionListener() {
+        jButtonPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Prt. Sc..png"))); // NOI18N
+        jButtonPicture.setToolTipText("Take a Picture");
+        jButtonPicture.setBorderPainted(false);
+        jButtonPicture.setContentAreaFilled(false);
+        jButtonPicture.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPicture.setFocusPainted(false);
+        jButtonPicture.setMaximumSize(new java.awt.Dimension(109, 52));
+        jButtonPicture.setMinimumSize(new java.awt.Dimension(109, 52));
+        jButtonPicture.setPreferredSize(new java.awt.Dimension(109, 52));
+        jButtonPicture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConfigActionPerformed(evt);
+                jButtonPictureActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanelNoteLayout = new javax.swing.GroupLayout(jPanelNote);
-        jPanelNote.setLayout(jPanelNoteLayout);
-        jPanelNoteLayout.setHorizontalGroup(
-            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNoteLayout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonAdd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                    .addComponent(jButtonConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPause, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonStop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanelNoteLayout.setVerticalGroup(
-            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNoteLayout.createSequentialGroup()
-                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNoteLayout.createSequentialGroup()
-                        .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonConfig)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonPause)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
+        jButtonAdd.setBackground(new java.awt.Color(69, 104, 143));
+        jButtonAdd.setForeground(new java.awt.Color(16, 36, 65));
+        jButtonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Add.png"))); // NOI18N
+        jButtonAdd.setToolTipText("Add the note to your notes collection");
+        jButtonAdd.setBorder(null);
+        jButtonAdd.setBorderPainted(false);
+        jButtonAdd.setContentAreaFilled(false);
+        jButtonAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAdd.setEnabled(false);
+        jButtonAdd.setFocusPainted(false);
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
 
-        jToolBar1.setFloatable(false);
-        jToolBar1.setRollover(true);
+        jTextAreaNote.setColumns(20);
+        jTextAreaNote.setRows(5);
+        jTextAreaNote.setToolTipText("Take your notes");
+        jTextAreaNote.setAutoscrolls(false);
+        jTextAreaNote.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jTextAreaNote.setMaximumSize(new java.awt.Dimension(164, 94));
+        jTextAreaNote.setMinimumSize(new java.awt.Dimension(164, 94));
+        jTextAreaNote.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextAreaNoteKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextAreaNote);
 
-        jButtonPath.setText("Workspace:");
+        jButtonClock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Chronometer.png"))); // NOI18N
+        jButtonClock.setToolTipText("Pause the session");
+        jButtonClock.setBorderPainted(false);
+        jButtonClock.setContentAreaFilled(false);
+        jButtonClock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonClock.setFocusPainted(false);
+
+        jTextFieldPath.setEditable(false);
+        jTextFieldPath.setText("Path");
+
+        jButtonPath.setIcon(new javax.swing.ImageIcon(getClass().getResource("/relytest/ui/forms/Folder.png"))); // NOI18N
+        jButtonPath.setToolTipText("Take a look at your workspace");
+        jButtonPath.setBorderPainted(false);
+        jButtonPath.setContentAreaFilled(false);
+        jButtonPath.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonPath.setFocusable(false);
         jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -618,34 +649,136 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 jButtonPathActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButtonPath);
 
-        jTextFieldPath.setEditable(false);
-        jTextFieldPath.setText("Path");
-        jToolBar1.add(jTextFieldPath);
+        javax.swing.GroupLayout jPanelWorkspaceLayout = new javax.swing.GroupLayout(jPanelWorkspace);
+        jPanelWorkspace.setLayout(jPanelWorkspaceLayout);
+        jPanelWorkspaceLayout.setHorizontalGroup(
+            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+        jPanelWorkspaceLayout.setVerticalGroup(
+            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Stop.png"))); // NOI18N
+        jButtonPlay.setToolTipText("Close the session");
+        jButtonPlay.setBorderPainted(false);
+        jButtonPlay.setContentAreaFilled(false);
+        jButtonPlay.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPlay.setMaximumSize(new java.awt.Dimension(109, 52));
+        jButtonPlay.setMinimumSize(new java.awt.Dimension(109, 52));
+        jButtonPlay.setPreferredSize(new java.awt.Dimension(109, 52));
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelNoteLayout = new javax.swing.GroupLayout(jPanelNote);
+        jPanelNote.setLayout(jPanelNoteLayout);
+        jPanelNoteLayout.setHorizontalGroup(
+            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                                .addComponent(jButtonClock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+                            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                                        .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                        .addComponent(jPanelWorkspace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelNoteSelection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanelNoteLayout.setVerticalGroup(
+            jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanelNoteLayout.createSequentialGroup()
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                        .addComponent(jButtonClock)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jButtonAdd))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelWorkspace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        javax.swing.GroupLayout jPanelNoteSelectionLayout = new javax.swing.GroupLayout(jPanelNoteSelection);
+        jPanelNoteSelection.setLayout(jPanelNoteSelectionLayout);
+        jPanelNoteSelectionLayout.setHorizontalGroup(
+            jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNoteSelectionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jtbRisk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtbToDo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtbNote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jtbProblem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelNoteSelectionLayout.setVerticalGroup(
+            jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
+                        .addComponent(jtbNote, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jtbBug, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtbToDo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtbRisk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtbProblem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanelNoteSelection, java.awt.BorderLayout.CENTER);
+
+        jToolBar1.setBackground(new java.awt.Color(223, 223, 223));
+        jToolBar1.setFloatable(false);
+        jToolBar1.setRollover(true);
+        getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
         getAccessibleContext().setAccessibleName("frameRelyTest");
 
@@ -657,11 +790,16 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     }//GEN-LAST:event_jButtonPictureActionPerformed
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        writeNote();
-
-        jTextAreaNote.setText("");
-        jButtonAdd.setEnabled(false);
+        addNewNote();
     }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void addNewNote() {
+        if (jButtonAdd.isEnabled()) {
+            writeNote();
+            jTextAreaNote.setText("");
+            jButtonAdd.setEnabled(false);
+        }
+    }
 
     private void lastWriteToLog() {
         Date now = new Date();
@@ -705,31 +843,12 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void jtbNoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbNoteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtbNoteActionPerformed
-
-    private void jButtonPauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPauseActionPerformed
-        paused = !paused;
-        if (paused) {
-            jButtonPause.setText(Constants.LABEL_PAUSED + "...");
-            jButtonPause.setToolTipText("Continue the session");
-            writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
-            enableAllControls(false);
-        } else {
-            jButtonPause.setBackground(defaultColor);
-            writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
-            jButtonPause.setToolTipText(lCon.getValue(Texts.PauseSession));
-            enableAllControls(true);
-        }
-    }//GEN-LAST:event_jButtonPauseActionPerformed
-
     private void enableAllControls(boolean enable) {
         jButtonAdd.setEnabled(enable && !jTextAreaNote.getText().isEmpty());
         jButtonPicture.setEnabled(enable);
         jTextAreaNote.setEnabled(enable);
         jtbBug.setEnabled(enable);
-        jtbIssue.setEnabled(enable);
+        jtbProblem.setEnabled(enable);
         jtbNote.setEnabled(enable);
         jtbRisk.setEnabled(enable);
         jtbToDo.setEnabled(enable);
@@ -768,14 +887,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         }
     }//GEN-LAST:event_jButtonStopActionPerformed
 
-    private void jButtonConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfigActionPerformed
-        // TODO add your handling code here:
-        ConfigForm configFrm = new ConfigForm(this);
-        configFrm.pack();
-        configFrm.setLocationRelativeTo(this);
-        configFrm.setVisible(true);
-    }//GEN-LAST:event_jButtonConfigActionPerformed
-
     private void jButtonPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPathActionPerformed
 
         try {
@@ -789,6 +900,62 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPathActionPerformed
+
+    private void jtbNoteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jtbNoteItemStateChanged
+        // TODO add your handling code here:
+        switchImage(jtbNote);
+    }//GEN-LAST:event_jtbNoteItemStateChanged
+
+    private void jtbBugItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jtbBugItemStateChanged
+        // TODO add your handling code here:
+        switchImage(jtbBug);
+    }//GEN-LAST:event_jtbBugItemStateChanged
+
+    private void jtbToDoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbToDoStateChanged
+        // TODO add your handling code here:
+        switchImage(jtbToDo);
+    }//GEN-LAST:event_jtbToDoStateChanged
+
+    private void jtbRiskStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbRiskStateChanged
+        // TODO add your handling code here:
+        switchImage(jtbRisk);
+    }//GEN-LAST:event_jtbRiskStateChanged
+
+    private void jtbProblemStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jtbProblemStateChanged
+        // TODO add your handling code here:
+        switchImage(jtbProblem);
+    }//GEN-LAST:event_jtbProblemStateChanged
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        // TODO add your handling code here:
+        paused = !paused;
+        if (paused) {
+            //jButtonPause.setText(Constants.LABEL_PAUSED + "...");
+            jButtonPlay.setToolTipText("Continue the session");
+            writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
+            enableAllControls(false);
+            jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Play.png")));
+        } else {
+          //  jButtonClock.setBackground(defaultColor);
+            writeToLog(Constants.LABEL_CONTINUE, Constants.LABEL_CONTINUE);
+            jButtonPlay.setToolTipText(lCon.getValue(Texts.PauseSession));
+            enableAllControls(true);
+            jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Pause.png")));
+        }
+    }//GEN-LAST:event_jButtonPlayActionPerformed
+    
+    
+    
+
+    private void switchImage(JToggleButton button) {
+        if (!button.isSelected()) {
+            button.setBackground(colorSelected);
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + button.getName() + "Selected.png")));
+        } else {
+            button.setBackground(colorDeselected);
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/" + button.getName() + "Deselected.png")));
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -827,13 +994,15 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupNotes;
     private javax.swing.JButton jButtonAdd;
-    private javax.swing.JButton jButtonConfig;
+    private javax.swing.JButton jButtonClock;
     private javax.swing.JButton jButtonPath;
-    private javax.swing.JButton jButtonPause;
     private javax.swing.JButton jButtonPicture;
+    private javax.swing.JButton jButtonPlay;
     private javax.swing.JButton jButtonStop;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelNote;
     private javax.swing.JPanel jPanelNoteSelection;
+    private javax.swing.JPanel jPanelWorkspace;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaLog;
@@ -841,8 +1010,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.JTextField jTextFieldPath;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton jtbBug;
-    private javax.swing.JToggleButton jtbIssue;
     private javax.swing.JToggleButton jtbNote;
+    private javax.swing.JToggleButton jtbProblem;
     private javax.swing.JToggleButton jtbRisk;
     private javax.swing.JToggleButton jtbToDo;
     // End of variables declaration//GEN-END:variables

@@ -120,6 +120,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jLabelHowManySessions = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(223, 223, 223));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -133,6 +134,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderFocusOnCharter.setPaintLabels(true);
         jSliderFocusOnCharter.setPaintTicks(true);
         jSliderFocusOnCharter.setValue(0);
+        jSliderFocusOnCharter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSliderFocusOnCharter.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderFocusOnCharterStateChanged(evt);
@@ -160,16 +162,25 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addComponent(jLabelFocusCharterTip, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How do you feel using the system under test?"));
+        jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you feel using the system under test?"));
 
         jRadioButtonFeelBad.setText("Bad");
+        jRadioButtonFeelBad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jRadioButtonFeelGood.setText("Good");
+        jRadioButtonFeelGood.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jRadioButtonFeelExcelent.setText("Excelent");
+        jRadioButtonFeelExcelent.setText("Excellent");
+        jRadioButtonFeelExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonFeelExcelent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonFeelExcelentActionPerformed(evt);
+            }
+        });
 
         jRadioButtonFeelNoAnswer.setSelected(true);
         jRadioButtonFeelNoAnswer.setText("No Answer");
+        jRadioButtonFeelNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanelFeelUsingTheAppLayout = new javax.swing.GroupLayout(jPanelFeelUsingTheApp);
         jPanelFeelUsingTheApp.setLayout(jPanelFeelUsingTheAppLayout);
@@ -196,16 +207,20 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                     .addComponent(jRadioButtonFeelNoAnswer)))
         );
 
-        jPanelNavegability.setBorder(javax.swing.BorderFactory.createTitledBorder("How about the navegability?"));
+        jPanelNavegability.setBorder(javax.swing.BorderFactory.createTitledBorder("What about the navegability?"));
 
         jRadioButtonNavegabilityBad.setText("Bad");
+        jRadioButtonNavegabilityBad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jRadioButtonNavegabilityGood.setText("Good");
+        jRadioButtonNavegabilityGood.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jRadioButtonNavegabilityExcelent.setText("Excelent");
+        jRadioButtonNavegabilityExcelent.setText("Excellent");
+        jRadioButtonNavegabilityExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jRadioButtonNavNoAnswer.setSelected(true);
         jRadioButtonNavNoAnswer.setText("No Answer");
+        jRadioButtonNavNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanelNavegabilityLayout = new javax.swing.GroupLayout(jPanelNavegability);
         jPanelNavegability.setLayout(jPanelNavegabilityLayout);
@@ -239,6 +254,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderConfiguration.setPaintLabels(true);
         jSliderConfiguration.setPaintTicks(true);
         jSliderConfiguration.setValue(0);
+        jSliderConfiguration.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSliderConfiguration.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderConfigurationStateChanged(evt);
@@ -259,6 +275,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderBugReport.setPaintLabels(true);
         jSliderBugReport.setPaintTicks(true);
         jSliderBugReport.setValue(0);
+        jSliderBugReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSliderBugReport.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderBugReportStateChanged(evt);
@@ -272,6 +289,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderTesting.setPaintLabels(true);
         jSliderTesting.setPaintTicks(true);
         jSliderTesting.setValue(0);
+        jSliderTesting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSliderTesting.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderTestingStateChanged(evt);
@@ -312,6 +330,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         );
 
         jButtonSave.setText("Save");
+        jButtonSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveActionPerformed(evt);
@@ -319,6 +338,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         });
 
         jButtonSaveAndOpen.setText("Save and Open Report");
+        jButtonSaveAndOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSaveAndOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveAndOpenActionPerformed(evt);
@@ -373,6 +393,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Do you need more sessions?"));
+
+        jSpinnerHowManySessions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabelHowManySessions.setText("How many?");
 
@@ -430,6 +452,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         );
 
         jPanelFocusOnCharter.getAccessibleContext().setAccessibleName("");
+        jPanelNavegability.getAccessibleContext().setAccessibleName("What about the navegability?");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -570,6 +593,10 @@ private int totalTimeSum=0;
             jTextPaneBrowser.setText("");
         }
     }//GEN-LAST:event_jTextPaneBrowserMouseClicked
+
+    private void jRadioButtonFeelExcelentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFeelExcelentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonFeelExcelentActionPerformed
 
     /**
      * @param args the command line arguments

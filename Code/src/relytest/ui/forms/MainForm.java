@@ -41,8 +41,10 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
     private void loadLanguage() {        
         setTitle(lCon.getValue(Texts.MainForm_Title));
         jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jPanelCharter)));
-        jPanelDuration.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jPanelDuration)));
-        jButtonPath.setText(lCon.getValue(Texts.MainForm_jButtonPath));        
+        jPanelDuration.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jPanelDuration)));       
+        jButtonPath.setText("");
+        jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
+        
     }
     
     @Override
@@ -127,7 +129,6 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
     private void initComponents() {
 
         durationButtonGroup = new javax.swing.ButtonGroup();
-        jButtonStart = new javax.swing.JButton();
         jButtonConfig = new javax.swing.JButton();
         jPanelDuration = new javax.swing.JPanel();
         jToggleButtonShort = new javax.swing.JToggleButton();
@@ -136,26 +137,20 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jPanelCharter = new javax.swing.JPanel();
         jTextFieldCharterName = new javax.swing.JTextField();
         jToolBar = new javax.swing.JToolBar();
-        jButtonPath = new javax.swing.JButton();
+        jPanelWorkspace = new javax.swing.JPanel();
         jTextFieldPath = new javax.swing.JTextField();
+        jButtonPath = new javax.swing.JButton();
+        jButtonStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RelyTest");
+        setBackground(new java.awt.Color(223, 223, 223));
+        setForeground(new java.awt.Color(223, 223, 223));
 
-        jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/start.png"))); // NOI18N
-        jButtonStart.setToolTipText("Starts a New Charter");
-        jButtonStart.setFocusPainted(false);
-        jButtonStart.setMaximumSize(new java.awt.Dimension(113, 23));
-        jButtonStart.setMinimumSize(new java.awt.Dimension(113, 23));
-        jButtonStart.setPreferredSize(new java.awt.Dimension(113, 23));
-        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonStartActionPerformed(evt);
-            }
-        });
-
-        jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/tool.png"))); // NOI18N
+        jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Tool.png"))); // NOI18N
         jButtonConfig.setToolTipText("Opens the Configuration Window");
+        jButtonConfig.setBorderPainted(false);
+        jButtonConfig.setContentAreaFilled(false);
         jButtonConfig.setFocusPainted(false);
         jButtonConfig.setMaximumSize(new java.awt.Dimension(113, 23));
         jButtonConfig.setMinimumSize(new java.awt.Dimension(113, 23));
@@ -166,11 +161,15 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             }
         });
 
+        jPanelDuration.setBackground(new java.awt.Color(223, 223, 223));
         jPanelDuration.setBorder(javax.swing.BorderFactory.createTitledBorder("Duration:"));
 
+        jToggleButtonShort.setBackground(new java.awt.Color(69, 104, 143));
         durationButtonGroup.add(jToggleButtonShort);
+        jToggleButtonShort.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButtonShort.setSelected(true);
         jToggleButtonShort.setText("Short (15min)");
+        jToggleButtonShort.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jToggleButtonShort.setFocusPainted(false);
         jToggleButtonShort.setMaximumSize(new java.awt.Dimension(113, 23));
         jToggleButtonShort.setMinimumSize(new java.awt.Dimension(113, 23));
@@ -181,16 +180,25 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             }
         });
 
+        jToggleButtonMedium.setBackground(new java.awt.Color(69, 104, 143));
         durationButtonGroup.add(jToggleButtonMedium);
+        jToggleButtonMedium.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButtonMedium.setText("Medium (30min)");
+        jToggleButtonMedium.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jToggleButtonMedium.setFocusPainted(false);
         jToggleButtonMedium.setMaximumSize(new java.awt.Dimension(113, 23));
         jToggleButtonMedium.setMinimumSize(new java.awt.Dimension(113, 23));
         jToggleButtonMedium.setPreferredSize(new java.awt.Dimension(113, 23));
 
+        jToggleButtonLong.setBackground(new java.awt.Color(69, 104, 143));
         durationButtonGroup.add(jToggleButtonLong);
+        jToggleButtonLong.setForeground(new java.awt.Color(255, 255, 255));
         jToggleButtonLong.setText("Long (60min)");
+        jToggleButtonLong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jToggleButtonLong.setFocusPainted(false);
+        jToggleButtonLong.setMaximumSize(new java.awt.Dimension(113, 23));
+        jToggleButtonLong.setMinimumSize(new java.awt.Dimension(113, 23));
+        jToggleButtonLong.setPreferredSize(new java.awt.Dimension(113, 23));
         jToggleButtonLong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButtonLongActionPerformed(evt);
@@ -202,21 +210,23 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jPanelDurationLayout.setHorizontalGroup(
             jPanelDurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDurationLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButtonShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButtonLong)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToggleButtonLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanelDurationLayout.setVerticalGroup(
             jPanelDurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToggleButtonShort, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-            .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToggleButtonLong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelDurationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jToggleButtonMedium, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButtonLong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButtonShort, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanelCharter.setBackground(new java.awt.Color(223, 223, 223));
         jPanelCharter.setBorder(javax.swing.BorderFactory.createTitledBorder("Charter:"));
         jPanelCharter.setName("Charter"); // NOI18N
 
@@ -232,20 +242,28 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jPanelCharterLayout.setHorizontalGroup(
             jPanelCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCharterLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextFieldCharterName, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jTextFieldCharterName)
+                .addContainerGap())
         );
         jPanelCharterLayout.setVerticalGroup(
             jPanelCharterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCharterLayout.createSequentialGroup()
                 .addComponent(jTextFieldCharterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jToolBar.setFloatable(false);
         jToolBar.setRollover(true);
 
-        jButtonPath.setText("Workspace:");
+        jTextFieldPath.setEditable(false);
+        jTextFieldPath.setText("Path");
+
+        jButtonPath.setIcon(new javax.swing.ImageIcon(getClass().getResource("/relytest/ui/forms/Folder.png"))); // NOI18N
+        jButtonPath.setToolTipText("Take a look at your workspace");
+        jButtonPath.setBorderPainted(false);
+        jButtonPath.setContentAreaFilled(false);
+        jButtonPath.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonPath.setFocusable(false);
         jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -254,45 +272,86 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
                 jButtonPathActionPerformed(evt);
             }
         });
-        jToolBar.add(jButtonPath);
 
-        jTextFieldPath.setEditable(false);
-        jTextFieldPath.setText("Path");
-        jToolBar.add(jTextFieldPath);
+        javax.swing.GroupLayout jPanelWorkspaceLayout = new javax.swing.GroupLayout(jPanelWorkspace);
+        jPanelWorkspace.setLayout(jPanelWorkspaceLayout);
+        jPanelWorkspaceLayout.setHorizontalGroup(
+            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+        jPanelWorkspaceLayout.setVerticalGroup(
+            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Start.png"))); // NOI18N
+        jButtonStart.setToolTipText("Starts a New Charter");
+        jButtonStart.setFocusPainted(false);
+        jButtonStart.setMaximumSize(new java.awt.Dimension(113, 23));
+        jButtonStart.setMinimumSize(new java.awt.Dimension(113, 23));
+        jButtonStart.setPreferredSize(new java.awt.Dimension(113, 23));
+        jButtonStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addComponent(jToolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelDuration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelCharter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanelDuration, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelCharter, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanelWorkspace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addComponent(jPanelCharter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jPanelDuration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonStart, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(jButtonConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelWorkspace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -315,6 +374,11 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         config();
     }//GEN-LAST:event_jButtonConfigActionPerformed
 
+    private void jTextFieldCharterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCharterNameActionPerformed
+        // TODO add your handling code here:
+        start();
+    }//GEN-LAST:event_jTextFieldCharterNameActionPerformed
+
     private void jButtonPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPathActionPerformed
 
         try {
@@ -326,11 +390,6 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPathActionPerformed
-
-    private void jTextFieldCharterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCharterNameActionPerformed
-        // TODO add your handling code here:
-        start();
-    }//GEN-LAST:event_jTextFieldCharterNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,6 +430,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
     private javax.swing.JButton jButtonStart;
     private javax.swing.JPanel jPanelCharter;
     private javax.swing.JPanel jPanelDuration;
+    private javax.swing.JPanel jPanelWorkspace;
     private javax.swing.JTextField jTextFieldCharterName;
     private javax.swing.JTextField jTextFieldPath;
     private javax.swing.JToggleButton jToggleButtonLong;

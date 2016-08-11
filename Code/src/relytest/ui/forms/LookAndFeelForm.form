@@ -7,6 +7,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="title" type="java.lang.String" value="Look and Feel"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="df" green="df" red="df" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

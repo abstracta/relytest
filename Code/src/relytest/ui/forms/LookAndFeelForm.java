@@ -89,6 +89,7 @@ public class LookAndFeelForm extends javax.swing.JFrame {
         jRadioButtonTexture = new javax.swing.JRadioButton();
 
         setTitle("Look and Feel");
+        setBackground(new java.awt.Color(223, 223, 223));
 
         jButtonUpdate.setText("Update");
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
