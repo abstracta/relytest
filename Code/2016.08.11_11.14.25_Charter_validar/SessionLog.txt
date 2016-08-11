@@ -1,0 +1,8 @@
+2016.08.11_11.14.25 > [Session Started] Session Started
+2016.08.11_11.15.07 > [Note] gfhgfhgfhgf
+2016.08.11_11.15.12 > [ToDo] fhgfhgfhgf
+2016.08.11_11.15.22 > [ToDo] m.,m
+2016.08.11_11.15.31 > [Paused] Paused
+2016.08.11_11.15.33 > [Continue] Continue
+2016.08.11_11.16.25 > [Picture Taken] Pic_2016.08.11_11.16.24.jpg
+2016.08.11_11.19.18 > [Session Finished] Session Finished - Duration: 4 min : 52 sec.

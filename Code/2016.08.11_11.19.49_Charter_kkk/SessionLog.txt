@@ -1,0 +1,2 @@
+2016.08.11_11.19.49 > [Session Started] Session Started
+2016.08.11_11.20.39 > [Session Finished] Session Finished - Duration: 49 sec.

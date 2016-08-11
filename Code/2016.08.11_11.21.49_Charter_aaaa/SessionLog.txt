@@ -1,0 +1,21 @@
+2016.08.11_11.21.49 > [Session Started] Session Started
+2016.08.11_11.22.11 > [Problem] lkjkl
+
+
+lkj;l
+2016.08.11_11.22.18 > [Problem] dfdf
+
+
+2016.08.11_11.22.27 > [Problem] dddddddddddddddddddddddddddddddddddddddddd
+2016.08.11_11.22.32 > [Problem] xxxx
+
+2016.08.11_11.22.35 > [Problem] ccc
+2016.08.11_11.22.48 > [Problem] dffd
+
+2016.08.11_11.22.51 > [Problem] cvcv
+2016.08.11_11.22.53 > [Problem] fff
+2016.08.11_11.24.16 > [Paused] Paused
+2016.08.11_11.24.24 > [Continue] Continue
+2016.08.11_11.24.26 > [Paused] Paused
+2016.08.11_11.24.30 > [Continue] Continue
+2016.08.11_11.25.41 > [Session Finished] Session Finished - Duration: 3 min : 52 sec.
