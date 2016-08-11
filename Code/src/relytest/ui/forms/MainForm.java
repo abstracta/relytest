@@ -25,12 +25,13 @@ import relytest.ui.PropertiesMgr;
 public final class MainForm extends javax.swing.JFrame implements IConfigFormLoad{
 
     private ConfigForm configFrm;
-    private final LanguageController lCon = new LanguageController();
+    private final LanguageController lCon;
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
+        this.lCon = new LanguageController();
         initComponents();
         loadTimes();
         

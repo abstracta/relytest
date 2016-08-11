@@ -1,7 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2016 Gabriela Sanchez - Miguel Sanchez
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package relytest.ui.forms;
 
@@ -19,7 +31,7 @@ import relytest.ui.PropertiesMgr;
 public class ConfigForm extends javax.swing.JFrame {
 
     private static IConfigFormLoad _loadConfigForm;
-    private final PropertiesMgr p = new PropertiesMgr();
+    private final PropertiesMgr p;
 
     /**
      * Creates new form ConfigForm
@@ -27,6 +39,7 @@ public class ConfigForm extends javax.swing.JFrame {
      * @param loadForm
      */
     public ConfigForm(IConfigFormLoad loadForm) {
+        this.p = new PropertiesMgr();
         initComponents();
         _loadConfigForm = loadForm;
         loadValues();
