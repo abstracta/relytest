@@ -32,6 +32,8 @@ public enum Texts {
     MainForm_jToggleButtonLong,
     
     MisionForm_Title,
+    MisionForm_AlwaysOnTop,
+    MisionForm_Shortcut,
     
     Msg_InsertNameCharter,
     Msg_ElapsedTimePassExpectedTime,

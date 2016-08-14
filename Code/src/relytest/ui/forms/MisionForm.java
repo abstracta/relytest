@@ -24,7 +24,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
@@ -117,12 +116,15 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 int code = ke.getKeyCode();
                 int modifiers = ke.getModifiers();
                 if (code == KeyEvent.VK_ENTER && modifiers == KeyEvent.CTRL_MASK) {
-                    addNewNote();
+                    if(jCheckBoxAddNoteShortcut.isSelected()){
+                         addNewNote();
+                    }                   
                 }
             }
         });
         
        setButtonsDefaultColor();
+       this.setAlwaysOnTop(jCheckBoxAlwaysOnTop.isSelected());
     }
     
     private void setButtonsDefaultColor(){
@@ -451,6 +453,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jToolBar2 = new javax.swing.JToolBar();
         jButtonPath = new javax.swing.JButton();
         jTextFieldPath = new javax.swing.JTextField();
+        jCheckBoxAddNoteShortcut = new javax.swing.JCheckBox();
+        jCheckBoxAlwaysOnTop = new javax.swing.JCheckBox();
         jToolBar1 = new javax.swing.JToolBar();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -741,6 +745,19 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextFieldPath.setText("Path");
         jToolBar2.add(jTextFieldPath);
 
+        jCheckBoxAddNoteShortcut.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jCheckBoxAddNoteShortcut.setSelected(true);
+        jCheckBoxAddNoteShortcut.setText("Ctrl+Enter adds a note");
+
+        jCheckBoxAlwaysOnTop.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jCheckBoxAlwaysOnTop.setSelected(true);
+        jCheckBoxAlwaysOnTop.setText("Always on top");
+        jCheckBoxAlwaysOnTop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxAlwaysOnTopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelNoteSelectionLayout = new javax.swing.GroupLayout(jPanelNoteSelection);
         jPanelNoteSelection.setLayout(jPanelNoteSelectionLayout);
         jPanelNoteSelectionLayout.setHorizontalGroup(
@@ -754,10 +771,16 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                     .addComponent(jtbNote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtbProblem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jCheckBoxAddNoteShortcut)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCheckBoxAlwaysOnTop))
+                    .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
@@ -776,7 +799,11 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtbProblem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxAddNoteShortcut)
+                    .addComponent(jCheckBoxAlwaysOnTop))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -938,7 +965,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         paused = !paused;
         if (paused) {
             //jButtonPause.setText(Constants.LABEL_PAUSED + "...");
-            jButtonPlay.setToolTipText("Continue the session");
+            jButtonPlay.setToolTipText(lCon.getValue(Texts.ContinueSession));
             writeToLog(Constants.LABEL_PAUSED, Constants.LABEL_PAUSED);
             enableAllControls(false);
             jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Play.png")));
@@ -956,18 +983,20 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         System.out.println("size"+this.getSize());
         if("<".equals(jButtonHide.getText())){
             jButtonHide.setText(">");
-            this.setSize(630, 229);
+            this.setSize(600, 258);
         }else{
             jButtonHide.setText("<");
-            this.setSize(911, 229);
+            this.setSize(911, 258);
         }
         jTextAreaLog.setVisible(!jTextAreaLog.isVisible());
         jScrollPane2.setVisible(!jScrollPane2.isVisible());
     }//GEN-LAST:event_jButtonHideActionPerformed
-    
-    
-    
 
+    private void jCheckBoxAlwaysOnTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAlwaysOnTopActionPerformed
+        // TODO add your handling code here:
+        this.setAlwaysOnTop(jCheckBoxAlwaysOnTop.isSelected());
+    }//GEN-LAST:event_jCheckBoxAlwaysOnTopActionPerformed
+       
     private void switchImage(JToggleButton button) {
         if (!button.isSelected()) {
             button.setBackground(colorSelected);
@@ -1022,6 +1051,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.JButton jButtonPicture;
     private javax.swing.JButton jButtonPlay;
     private javax.swing.JButton jButtonStop;
+    private javax.swing.JCheckBox jCheckBoxAddNoteShortcut;
+    private javax.swing.JCheckBox jCheckBoxAlwaysOnTop;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelNote;
     private javax.swing.JPanel jPanelNoteSelection;
