@@ -7,10 +7,13 @@ package relytest.ui.forms;
 
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.plaf.ColorUIResource;
@@ -39,6 +42,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         
         jTextFieldPath.setText(System.getProperty("user.dir"));
         loadLanguage();
+        
     }
 
     private void loadLanguage() {        
@@ -110,7 +114,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             mision.setLocationRelativeTo(this);
             jTextFieldCharterName.setText("");
             this.setVisible(false);
-        }
+        }                       
     }
 
     public boolean isAlphaNumeric(String s) {
