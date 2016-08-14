@@ -5,8 +5,6 @@
  */
 package relytest;
 
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 import relytest.ui.Constants;
 import relytest.ui.LookAndFeelMgr;
 import relytest.ui.forms.MainForm;
