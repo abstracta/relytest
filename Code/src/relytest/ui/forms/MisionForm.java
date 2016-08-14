@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
@@ -445,6 +447,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextAreaNote = new javax.swing.JTextArea();
         jButtonClock = new javax.swing.JButton();
         jButtonPlay = new javax.swing.JButton();
+        jButtonHide = new javax.swing.JButton();
         jToolBar2 = new javax.swing.JToolBar();
         jButtonPath = new javax.swing.JButton();
         jTextFieldPath = new javax.swing.JTextField();
@@ -656,6 +659,13 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             }
         });
 
+        jButtonHide.setText("<");
+        jButtonHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHideActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelNoteLayout = new javax.swing.GroupLayout(jPanelNote);
         jPanelNote.setLayout(jPanelNoteLayout);
         jPanelNoteLayout.setHorizontalGroup(
@@ -663,8 +673,10 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             .addGroup(jPanelNoteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(jButtonHide, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -696,9 +708,15 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                         .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(40, 40, 40)
-                .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNoteLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNoteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonHide)
+                        .addContainerGap())))
         );
 
         jToolBar2.setRollover(true);
@@ -738,7 +756,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -930,6 +950,20 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Pause.png")));
         }
     }//GEN-LAST:event_jButtonPlayActionPerformed
+
+    private void jButtonHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHideActionPerformed
+        // TODO add your handling code here:
+        System.out.println("size"+this.getSize());
+        if("<".equals(jButtonHide.getText())){
+            jButtonHide.setText(">");
+            this.setSize(630, 229);
+        }else{
+            jButtonHide.setText("<");
+            this.setSize(911, 229);
+        }
+        jTextAreaLog.setVisible(!jTextAreaLog.isVisible());
+        jScrollPane2.setVisible(!jScrollPane2.isVisible());
+    }//GEN-LAST:event_jButtonHideActionPerformed
     
     
     
@@ -983,6 +1017,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.ButtonGroup buttonGroupNotes;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonClock;
+    private javax.swing.JButton jButtonHide;
     private javax.swing.JButton jButtonPath;
     private javax.swing.JButton jButtonPicture;
     private javax.swing.JButton jButtonPlay;
