@@ -96,7 +96,6 @@
 				<td><strong>User Country:</strong></td>
 				<td>${UserCountry}</td>
 			</tr>
-
                         <#if Browser != "">
 			<tr>
 				<td><strong>Environment Details:</strong> </td>
