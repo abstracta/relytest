@@ -50,6 +50,7 @@ public enum Texts {
     Question_Exit_Session,
     PauseSession,
     ContinueSession,
+    OpenTheWorkspace,
     Save,
     SaveAndOpenReport,
     TimeOfSessionFocusedOnCharter,

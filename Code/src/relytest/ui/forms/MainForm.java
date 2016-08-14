@@ -50,6 +50,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         
         jButtonStart.setToolTipText(lCon.getValue(Texts.MainForm_startNewCharter));
         jButtonConfig.setToolTipText(lCon.getValue(Texts.MainForm_openConfigForm));
+        jButtonPath.setToolTipText(lCon.getValue(Texts.OpenTheWorkspace));
     }
     
     @Override
