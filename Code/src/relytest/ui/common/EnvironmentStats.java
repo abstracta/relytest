@@ -51,9 +51,11 @@ public class EnvironmentStats extends Thread {
         planificationDto.setOperatingSystemVersion(System.getProperty("os.version"));
 
         planificationDto.setUserName(System.getProperty("user.name"));
-        planificationDto.setUserLanguage(System.getProperty("user.language"));
+        LanguageCodes lc = new LanguageCodes();
+        planificationDto.setUserLanguage(lc.getLanguage(System.getProperty("user.language")));
         planificationDto.setUserTimezone(System.getProperty("user.timezone"));
-        planificationDto.setUserCountry(System.getProperty("user.country"));
+        CountryCodes cc = new CountryCodes();
+        planificationDto.setUserCountry(cc.getCountry( System.getProperty("user.country")));
     }
 
     private String getSOInfo() {

@@ -90,7 +90,7 @@
                               </Group>
                               <Component id="jCheckBoxTakePicAfterBug" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="63" max="32767" attributes="0"/>
+                          <EmptySpace pref="53" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jCheckBoxConfirmStopCharter" min="-2" max="-2" attributes="0"/>
                               <Component id="jCheckBoxLaunchBrowserAfterCharterEnds" min="-2" max="-2" attributes="0"/>
@@ -253,7 +253,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="df" green="df" red="df" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Confirm to Exit RelyTest"/>
+            <Property name="text" type="java.lang.String" value="Confirm to Finish RelyTest"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxLaunchBrowserAfterCharterEnds">

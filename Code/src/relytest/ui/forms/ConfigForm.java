@@ -205,7 +205,7 @@ public class ConfigForm extends javax.swing.JFrame {
         jCheckBoxConfirmStopCharter.setText("Confirm to Stop Charter");
 
         jCheckBoxConfirmExitRelyTest.setBackground(new java.awt.Color(223, 223, 223));
-        jCheckBoxConfirmExitRelyTest.setText("Confirm to Exit RelyTest");
+        jCheckBoxConfirmExitRelyTest.setText("Confirm to Finish RelyTest");
 
         jCheckBoxLaunchBrowserAfterCharterEnds.setBackground(new java.awt.Color(223, 223, 223));
         jCheckBoxLaunchBrowserAfterCharterEnds.setText("Launch Browser At End");
@@ -240,7 +240,7 @@ public class ConfigForm extends javax.swing.JFrame {
                                     .addComponent(jSpinnerMedium)
                                     .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jCheckBoxTakePicAfterBug))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxConfirmStopCharter)
                             .addComponent(jCheckBoxLaunchBrowserAfterCharterEnds)

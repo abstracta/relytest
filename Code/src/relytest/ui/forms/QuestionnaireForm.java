@@ -1,7 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2016 Gabriela Sanchez - Miguel Sanchez
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 package relytest.ui.forms;
 
@@ -75,6 +87,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
 
         loadLanguage();
+        updateTimeJlabels();
     }
 
     private void loadLanguage() {
@@ -137,7 +150,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderFocusOnCharter.setPaintLabels(true);
         jSliderFocusOnCharter.setPaintTicks(true);
         jSliderFocusOnCharter.setValue(0);
-        jSliderFocusOnCharter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSliderFocusOnCharter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSliderFocusOnCharter.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderFocusOnCharterStateChanged(evt);
@@ -168,13 +181,13 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanelFeelUsingTheApp.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you feel using the system under test?"));
 
         jRadioButtonFeelBad.setText("Bad");
-        jRadioButtonFeelBad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonFeelBad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButtonFeelGood.setText("Good");
-        jRadioButtonFeelGood.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonFeelGood.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButtonFeelExcelent.setText("Excellent");
-        jRadioButtonFeelExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonFeelExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jRadioButtonFeelExcelent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButtonFeelExcelentActionPerformed(evt);
@@ -183,7 +196,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jRadioButtonFeelNoAnswer.setSelected(true);
         jRadioButtonFeelNoAnswer.setText("No Answer");
-        jRadioButtonFeelNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonFeelNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanelFeelUsingTheAppLayout = new javax.swing.GroupLayout(jPanelFeelUsingTheApp);
         jPanelFeelUsingTheApp.setLayout(jPanelFeelUsingTheAppLayout);
@@ -213,17 +226,17 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jPanelNavegability.setBorder(javax.swing.BorderFactory.createTitledBorder("What about the navegability?"));
 
         jRadioButtonNavegabilityBad.setText("Bad");
-        jRadioButtonNavegabilityBad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonNavegabilityBad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButtonNavegabilityGood.setText("Good");
-        jRadioButtonNavegabilityGood.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonNavegabilityGood.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButtonNavegabilityExcelent.setText("Excellent");
-        jRadioButtonNavegabilityExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonNavegabilityExcelent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jRadioButtonNavNoAnswer.setSelected(true);
         jRadioButtonNavNoAnswer.setText("No Answer");
-        jRadioButtonNavNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButtonNavNoAnswer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanelNavegabilityLayout = new javax.swing.GroupLayout(jPanelNavegability);
         jPanelNavegability.setLayout(jPanelNavegabilityLayout);
@@ -257,7 +270,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderConfiguration.setPaintLabels(true);
         jSliderConfiguration.setPaintTicks(true);
         jSliderConfiguration.setValue(0);
-        jSliderConfiguration.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSliderConfiguration.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSliderConfiguration.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderConfigurationStateChanged(evt);
@@ -278,7 +291,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderBugReport.setPaintLabels(true);
         jSliderBugReport.setPaintTicks(true);
         jSliderBugReport.setValue(0);
-        jSliderBugReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSliderBugReport.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSliderBugReport.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderBugReportStateChanged(evt);
@@ -292,7 +305,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         jSliderTesting.setPaintLabels(true);
         jSliderTesting.setPaintTicks(true);
         jSliderTesting.setValue(0);
-        jSliderTesting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSliderTesting.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSliderTesting.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jSliderTestingStateChanged(evt);
@@ -333,7 +346,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         );
 
         jButtonSave.setText("Save");
-        jButtonSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSave.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveActionPerformed(evt);
@@ -341,7 +354,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         });
 
         jButtonSaveAndOpen.setText("Save and Open Report");
-        jButtonSaveAndOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonSaveAndOpen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonSaveAndOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSaveAndOpenActionPerformed(evt);
@@ -369,9 +382,9 @@ public class QuestionnaireForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder("Browser used?"));
+        jPanelBrowser.setBorder(javax.swing.BorderFactory.createTitledBorder("Environment details?"));
 
-        jTextPaneBrowser.setText("<No browser used>");
+        jTextPaneBrowser.setText("<No Environment Details>");
         jTextPaneBrowser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextPaneBrowserMouseClicked(evt);
@@ -397,7 +410,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Do you need more sessions?"));
 
-        jSpinnerHowManySessions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSpinnerHowManySessions.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabelHowManySessions.setText("How many?");
 
@@ -455,7 +468,6 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         );
 
         jPanelFocusOnCharter.getAccessibleContext().setAccessibleName("");
-        jPanelNavegability.getAccessibleContext().setAccessibleName("What about the navegability?");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -564,12 +576,12 @@ private int totalTimeSum=0;
             jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
             jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
             jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
-            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spent your time? (Sum = "+totalTimeSum+" %)"));
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spend your time? (Sum = "+totalTimeSum+" %)"));
         } else {
             jLabelTesting.setText("<html>Time Testing <font color='red'>(%" + jSliderTesting.getValue() + "</font>):</html>");
              jLabelBugReport.setText("<html>Time researching and reporting bugs <font color='red'>(%" + jSliderBugReport.getValue() + "</font>):</html>");
             jLabelConfig.setText("<html>Time spent on configuration <font color='red'>(%" + jSliderConfiguration.getValue() + "</font>):</html>");
-            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("<html>How did you spent your time? (<font color='red'>Sum = "+totalTimeSum+" %</font>)</html>"));
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("<html>How did you spend your time? (<font color='red'>Sum = "+totalTimeSum+" %</font>)</html>"));
         }
     }
     
@@ -592,7 +604,7 @@ private int totalTimeSum=0;
 
     private void jTextPaneBrowserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextPaneBrowserMouseClicked
         // TODO add your handling code here:
-        if (jTextPaneBrowser.getText().equals("<No browser used>")) {
+        if (jTextPaneBrowser.getText().equals("<No Environment Details>")) {
             jTextPaneBrowser.setText("");
         }
     }//GEN-LAST:event_jTextPaneBrowserMouseClicked

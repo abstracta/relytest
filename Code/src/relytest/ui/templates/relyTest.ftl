@@ -83,11 +83,7 @@
                         <tr>
 				<td><strong>OS Arch:</strong></td>
 				<td>${OSarch}</td>
-			</tr>
-                        <tr>
-				<td><strong>User Name:</strong></td>
-				<td>${UserName}</td>
-			</tr>
+			</tr>               
                         <tr>
 				<td><strong>User Language:</strong></td>
 				<td>${UserLanguage}</td>
@@ -101,9 +97,9 @@
 				<td>${UserCountry}</td>
 			</tr>
 
-                        <#if Browser != "<No browser used>">
+                        <#if Browser != "">
 			<tr>
-				<td><strong>Browser:</strong> </td>
+				<td><strong>Environment Details:</strong> </td>
 				<td>${Browser}</td> 
 			</tr>
                         </#if>
