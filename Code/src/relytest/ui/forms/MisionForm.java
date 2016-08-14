@@ -138,7 +138,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void loadLanguage() {
         jButtonPath.setText("");
         //jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
-
+        jCheckBoxAlwaysOnTop.setToolTipText(lCon.getValue(Texts.MisionForm_AlwaysOnTop));
+        jCheckBoxAddNoteShortcut.setToolTipText(lCon.getValue(Texts.MisionForm_Shortcut));
     }
 
     @Override

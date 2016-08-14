@@ -48,6 +48,8 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jButtonPath.setText("");
         jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
         
+        jButtonStart.setToolTipText(lCon.getValue(Texts.MainForm_startNewCharter));
+        jButtonConfig.setToolTipText(lCon.getValue(Texts.MainForm_openConfigForm));
     }
     
     @Override

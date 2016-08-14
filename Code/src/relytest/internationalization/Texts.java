@@ -30,6 +30,8 @@ public enum Texts {
     MainForm_jToggleButtonShort,
     MainForm_jToggleButtonMedium,
     MainForm_jToggleButtonLong,
+    MainForm_startNewCharter,
+    MainForm_openConfigForm,
     
     MisionForm_Title,
     MisionForm_AlwaysOnTop,
