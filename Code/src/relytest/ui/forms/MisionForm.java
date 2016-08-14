@@ -133,7 +133,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void loadLanguage() {
         jButtonPath.setText("");
-        jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
+        //jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
 
     }
 
@@ -445,9 +445,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextAreaNote = new javax.swing.JTextArea();
         jButtonClock = new javax.swing.JButton();
         jButtonPlay = new javax.swing.JButton();
-        jPanelWorkspace = new javax.swing.JPanel();
-        jTextFieldPath = new javax.swing.JTextField();
+        jToolBar2 = new javax.swing.JToolBar();
         jButtonPath = new javax.swing.JButton();
+        jTextFieldPath = new javax.swing.JTextField();
         jToolBar1 = new javax.swing.JToolBar();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -571,7 +571,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jTextAreaLog.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jScrollPane2.setViewportView(jTextAreaLog);
 
-        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Stop.png"))); // NOI18N
+        jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/120/Stop.png"))); // NOI18N
         jButtonStop.setToolTipText("Close the session");
         jButtonStop.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jButtonStop.setBorderPainted(false);
@@ -631,16 +631,18 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         });
         jScrollPane1.setViewportView(jTextAreaNote);
 
-        jButtonClock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Chronometer.png"))); // NOI18N
-        jButtonClock.setToolTipText("Pause the session");
-        jButtonClock.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
+        jButtonClock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/110/Chronometer.png"))); // NOI18N
+        jButtonClock.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jButtonClock.setBorderPainted(false);
         jButtonClock.setContentAreaFilled(false);
         jButtonClock.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonClock.setDefaultCapable(false);
         jButtonClock.setFocusPainted(false);
+        jButtonClock.setFocusable(false);
+        jButtonClock.setRolloverEnabled(false);
 
-        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Pause.png"))); // NOI18N
-        jButtonPlay.setToolTipText("Close the session");
+        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/120/Pause.png"))); // NOI18N
+        jButtonPlay.setToolTipText("Pause the session");
         jButtonPlay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(16, 36, 65)));
         jButtonPlay.setBorderPainted(false);
         jButtonPlay.setContentAreaFilled(false);
@@ -665,7 +667,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelNoteLayout.createSequentialGroup()
                         .addComponent(jButtonClock, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -699,9 +701,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jTextFieldPath.setEditable(false);
-        jTextFieldPath.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jTextFieldPath.setText("Path");
+        jToolBar2.setRollover(true);
 
         jButtonPath.setIcon(new javax.swing.ImageIcon(getClass().getResource("/relytest/ui/forms/Folder.png"))); // NOI18N
         jButtonPath.setToolTipText("Take a look at your workspace");
@@ -716,27 +716,12 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 jButtonPathActionPerformed(evt);
             }
         });
+        jToolBar2.add(jButtonPath);
 
-        javax.swing.GroupLayout jPanelWorkspaceLayout = new javax.swing.GroupLayout(jPanelWorkspace);
-        jPanelWorkspace.setLayout(jPanelWorkspaceLayout);
-        jPanelWorkspaceLayout.setHorizontalGroup(
-            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextFieldPath, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        jPanelWorkspaceLayout.setVerticalGroup(
-            jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelWorkspaceLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelWorkspaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        jTextFieldPath.setEditable(false);
+        jTextFieldPath.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTextFieldPath.setText("Path");
+        jToolBar2.add(jTextFieldPath);
 
         javax.swing.GroupLayout jPanelNoteSelectionLayout = new javax.swing.GroupLayout(jPanelNoteSelection);
         jPanelNoteSelection.setLayout(jPanelNoteSelectionLayout);
@@ -750,14 +735,10 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                     .addComponent(jtbBug, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtbNote, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jtbProblem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanelWorkspace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelNoteSelectionLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelNoteSelectionLayout.setVerticalGroup(
             jPanelNoteSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -775,9 +756,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jtbProblem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanelNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanelWorkspace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanelNoteSelection, java.awt.BorderLayout.CENTER);
@@ -1010,13 +990,13 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelNote;
     private javax.swing.JPanel jPanelNoteSelection;
-    private javax.swing.JPanel jPanelWorkspace;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaLog;
     private javax.swing.JTextArea jTextAreaNote;
     private javax.swing.JTextField jTextFieldPath;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToggleButton jtbBug;
     private javax.swing.JToggleButton jtbNote;
     private javax.swing.JToggleButton jtbProblem;

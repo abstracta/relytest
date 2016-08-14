@@ -82,7 +82,7 @@
                   <Component id="jButtonStart" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonConfig" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" pref="23" max="32767" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="jToolBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>

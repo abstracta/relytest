@@ -268,7 +268,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         jButtonPath.setToolTipText("Take a look at your workspace");
         jButtonPath.setBorderPainted(false);
         jButtonPath.setContentAreaFilled(false);
-        jButtonPath.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPath.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonPath.setFocusable(false);
         jButtonPath.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonPath.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -352,7 +352,7 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonConfig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
