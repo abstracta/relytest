@@ -525,6 +525,7 @@ private int totalTimeSum=0;
             feeling = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setFeelUsingRelyTest(feeling);
+        charterDto.getDetails().getMetrics().setFeelUsingSystemUndeTest(feeling);
         String nav;
         if (jRadioButtonNavegabilityBad.isSelected()) {
             nav = lCon.getValue(Texts.Bad);
@@ -536,6 +537,8 @@ private int totalTimeSum=0;
             nav = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setNavegability(nav);
+        charterDto.getDetails().getMetrics().setNavegability(nav);
+        charterDto.getDetails().getMetrics().setNumberSessionsNeeded((Integer)jSpinnerHowManySessions.getValue() );
 
         Gson gson = new Gson();
         //2. Convert object to JSON string and save into a file directly

@@ -24,7 +24,7 @@
 
 <body>
 <div class="jumbotron text-center bg-3">
-  <h1>Charter: ${charterName}</h1>
+  <h1>RelyTest</h1>
   <div class="container">
   <!-- Trigger the modal with a button -->
   <!-- Modal -->
@@ -48,7 +48,7 @@
 </div>    
 </div>
 
-<div class="well bg-2"><H2>Details:</H2>
+<div class="well sm bg-2"><H2>Charter: ${charterName} (Date: ${startTime})</H2>
 </div>
 <div class="container" >
 <table class="table table-bordered">
@@ -144,17 +144,35 @@
 					<td>${FocusOnCharter} %</td>
 				</tr>
                                 <tr>
-					<td><strong>Time spent configuration:</strong></td>
-					<td>${TimeSpentConfiguration} %</td>
+					<td><strong>System under test feeling:</strong></td>
+					<td>${feelUsingSystemUndeTest} %</td>
 				</tr>
                                 <tr>
-					<td><strong>Time spent reporting bugs:</strong></td>
-					<td>${TimeSpentReportingBugs} %</td>
+					<td><strong>System under test navegability:</strong></td>
+					<td>${navegability} %</td>
 				</tr>
                                 <tr>
-					<td><strong>Time spent testing:</strong></td>
-					<td>${getTimeSpentTesting} %</td>
+					<td><strong>Number of sessions needed:</strong></td>
+					<td>${numberSessionsNeeded} %</td>
 				</tr>
+
+                                <tr>
+                                <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                            <td><strong>Time spent configuration:</strong></td>
+                                            <td>${TimeSpentConfiguration} %</td>
+                                    
+                                            <td><strong>Time spent reporting bugs:</strong></td>
+                                            <td>${TimeSpentReportingBugs} %</td>
+                                 
+                                            <td><strong>Time spent testing:</strong></td>
+                                            <td>${getTimeSpentTesting} %</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                </tr>
+                                
 			</tbody>
 			</table>
 		</td>
@@ -165,7 +183,7 @@
 
 
 <#if logNotes??>
-<div class="well bg-2"><H2>Session Log:</H2>
+<div class="well sm bg-2"><H2>Session Log:</H2>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#logNote"></button>
 </div>
 <div id="logNote" class="collapse">
@@ -192,7 +210,7 @@
 
 <#if labels0??>
 <li class="list-group-item"><span class="badge">${label0badge}</span>
-<div class="well bg-2"><H3>${label0}:</H3>
+<div class="well sm bg-2"><H3>${label0}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label0"></button>
 </div>
 <div id="label0" class="collapse">
@@ -207,7 +225,7 @@
 
 <#if labels1??>
 <li class="list-group-item"><span class="badge">${label1badge}</span>
-<div class="well bg-2"><H3>${label1}:</H3>
+<div class="well sm bg-2"><H3>${label1}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label1"></button>
 </div>
 <div id="label1" class="collapse">
@@ -222,7 +240,7 @@
 
 <#if labels2??>
 <li class="list-group-item"><span class="badge">${label2badge}</span>
-<div class="well bg-2"><H3>${label2}:</H3>
+<div class="well sm bg-2"><H3>${label2}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label2"></button>
 </div>
 <div id="label2" class="collapse">
@@ -237,7 +255,7 @@
 
 <#if labels3??>
 <li class="list-group-item"><span class="badge">${label3badge}</span>
-<div class="well bg-2"><H3>${label3}:</H3>
+<div class="well sm bg-2"><H3>${label3}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label3"></button>
 </div>
 <div id="label3" class="collapse">
@@ -252,7 +270,7 @@
 
 <#if labels4??>
 <li class="list-group-item"><span class="badge">${label4badge}</span>
-<div class="well bg-2"><H3>${label4}:</H3>
+<div class="well sm bg-2"><H3>${label4}:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#label04"></button>
 </div>
 <div id="label04" class="collapse">
@@ -266,7 +284,7 @@
 </#if>
  <#if screenprints??>	
 <li class="list-group-item"><span class="badge">${label5badge}</span>
-<div class="well bg-2"><H3>List of screenprints:</H3>
+<div class="well sm bg-2"><H3>List of screenprints:</H3>
 <button type="button" class="btn btn-default collapsed" data-toggle="collapse" data-target="#screenPrints"></button>
 </div>
 <div id="screenPrints" class="collapse">

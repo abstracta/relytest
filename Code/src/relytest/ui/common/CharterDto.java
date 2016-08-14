@@ -36,6 +36,7 @@ public class CharterDto {
      private String pathHtml;
      private String totalTime;
      private String folderName;
+     private String startTime;
      private GroupNote[] groupNotes;
      private ArrayList<Note> notesTaken;
      private DetailsDto details;
@@ -182,5 +183,19 @@ public class CharterDto {
      */
     public void setDetails(DetailsDto details) {
         this.details = details;
+    }
+
+    /**
+     * @return the startTime
+     */
+    public String getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * @param startTime the startTime to set
+     */
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 }

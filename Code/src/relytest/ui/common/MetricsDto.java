@@ -26,6 +26,9 @@ public class MetricsDto {
     private String timeSpentConfiguration;
     private String timeSpentReportingBugs;
     private String timeSpentTesting;
+    private String feelUsingSystemUndeTest;
+    private String navegability;
+    private int numberSessionsNeeded;
 
     /**
      * @return the focusOnCharter
@@ -81,5 +84,47 @@ public class MetricsDto {
      */
     public void setTimeSpentTesting(String timeSpentTesting) {
         this.timeSpentTesting = timeSpentTesting;
+    }
+
+    /**
+     * @return the feelUsingSystemUndeTest
+     */
+    public String getFeelUsingSystemUndeTest() {
+        return feelUsingSystemUndeTest;
+    }
+
+    /**
+     * @param feelUsingSystemUndeTest the feelUsingSystemUndeTest to set
+     */
+    public void setFeelUsingSystemUndeTest(String feelUsingSystemUndeTest) {
+        this.feelUsingSystemUndeTest = feelUsingSystemUndeTest;
+    }
+
+    /**
+     * @return the navegability
+     */
+    public String getNavegability() {
+        return navegability;
+    }
+
+    /**
+     * @param navegability the navegability to set
+     */
+    public void setNavegability(String navegability) {
+        this.navegability = navegability;
+    }
+
+    /**
+     * @return the numberSessionsNeeded
+     */
+    public int getNumberSessionsNeeded() {
+        return numberSessionsNeeded;
+    }
+
+    /**
+     * @param numberSessionsNeeded the numberSessionsNeeded to set
+     */
+    public void setNumberSessionsNeeded(int numberSessionsNeeded) {
+        this.numberSessionsNeeded = numberSessionsNeeded;
     }
 }

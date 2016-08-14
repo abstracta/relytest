@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
-import javax.swing.plaf.ColorUIResource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -358,6 +357,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private void writeToLog(String label, String text) {
         boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
         String timeStamp = getDateNow(setStartTime);
+        if(setStartTime){
+            charterDto.setStartTime(timeStamp);
+        }
         jTextAreaLog.append(" > [" + label + "] " + text + System.lineSeparator());
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);

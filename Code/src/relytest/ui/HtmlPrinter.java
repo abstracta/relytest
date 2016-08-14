@@ -97,9 +97,14 @@ public class HtmlPrinter implements IPrinter {
             input.put("TimeSpentReportingBugs", dto.getDetails().getMetrics().getTimeSpentReportingBugs());
             input.put("getTimeSpentTesting", dto.getDetails().getMetrics().getTimeSpentTesting());
 
+            input.put("feelUsingSystemUndeTest", dto.getDetails().getMetrics().getFeelUsingSystemUndeTest());
+             input.put("navegability", dto.getDetails().getMetrics().getNavegability());
+              input.put("numberSessionsNeeded", dto.getDetails().getMetrics().getNumberSessionsNeeded());
+            
             input.put("title", "RelyTest Summary");
 
             input.put("charterName", dto.getName());
+            input.put("startTime", dto.getStartTime());
 
             if (!dto.getNotesTaken().isEmpty()) {
                 input.put("logNotes", dto.getNotesTaken());

@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.plaf.ColorUIResource;
