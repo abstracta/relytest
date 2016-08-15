@@ -1,0 +1,49 @@
+Prototype001/build/
+Prototype001/nbproject/build-impl.xml
+Prototype001/nbproject/build-native.xml
+Prototype001/nbproject/genfiles.properties
+Prototype001/nbproject/private/private.properties
+Prototype001/nbproject/
+Prototype001/2016.06.19_16.54.34/Environment_Summary.txt
+Prototype001/2016.06.19_16.54.34/SessionLog.txt
+Prototype001/2016.06.19_17.07.37/Environment_Summary.txt
+Prototype001/2016.06.19_17.07.37/SessionLog.txt
+Prototype001/2016.06.19_17.08.11/Environment_Summary.txt
+Prototype001/2016.06.19_17.08.11/SessionLog.txt
+Prototype001/2016.06.19_17.08.29/Environment_Summary.txt
+Prototype001/2016.06.19_17.08.29/SessionLog.txt
+Prototype001/2016.06.19_17.42.47_Charter_65436543/Environment_Summary.txt
+Prototype001/2016.06.19_17.42.47_Charter_65436543/SessionLog.txt
+Prototype001/2016.06.19_17.44.51_Charter_78/Environment_Summary.txt
+Prototype001/2016.06.19_17.44.51_Charter_78/SessionLog.txt
+Prototype001/2016.06.19_17.58.03_Charter_787889/Environment_Summary.txt
+Prototype001/2016.06.19_17.58.03_Charter_787889/SessionLog.txt
+Prototype001/2016.07.04_10.42.23_Charter_321/Environment_Summary.txt
+Prototype001/2016.07.04_10.42.23_Charter_321/SessionLog.txt
+<<<<<<< HEAD
+=======
+Prototype001/dist/RelyTest.jar
+<<<<<<< HEAD
+>>>>>>> Feature button Medium
+=======
+>>>>>>> feature/Rename_button_RelyTest_to_Medium
+>>>>>>> 90261d502a08d189a4dc35cc78a09026ebdde83d
+Prototype001/dist/README.TXT
+sh.exe.stackdump
+Prototype001/null/Environment_Summary.txt
+Prototype001/null/ScreenShots/Pic_2016.07.13_19.53.15.jpg
+Prototype001/null/SessionLog.txt
+Prototype001/null/log.json
+Prototype001/null/notes.json
+Prototype001/Properties.properties
+Prototype001/Relytest_en_US.properties
+/Code/build/
+/Code/dist/
+/Code/nbproject/private/
+Code/null/
+Code/Properties.properties
+Code/NoteTypes.txt
+Code/Relytest_en_US.properties
+Code/Relytest_es_UY.properties
+Code/.jacocoverage/
+Code/tmp.jpg
