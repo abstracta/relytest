@@ -24,6 +24,7 @@ package relytest.ui;
 public class Constants {
 
     public static final String DATE_TIME_FORMAT = "yyyy.MM.dd_HH.mm.ss";
+    public static final String DATE_TIME_FORMAT_REPORT = "MMMM dd, yyyy h:mm a";
     public static final String DATE_TIME_FORMAT_LOG = "yyyy.MM.dd_HH:mm:ss";
     public static final String KEY_OPEN_IMAGE_EDITOR = "OpenImageEditor";
     public static final String KEY_HIDE_RELY_TEST = "HideRelyTest";

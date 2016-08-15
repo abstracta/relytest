@@ -17,7 +17,12 @@
  */
 package relytest.ui.common;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import relytest.ui.Constants;
 
 /**
  *
@@ -36,7 +41,8 @@ public class CharterDto {
      private String pathHtml;
      private String totalTime;
      private String folderName;
-     private String startTime;
+  
+     private Calendar startTimeCal;
      private GroupNote[] groupNotes;
      private ArrayList<Note> notesTaken;
      private DetailsDto details;
@@ -186,16 +192,27 @@ public class CharterDto {
     }
 
     /**
-     * @return the startTime
+     * @return the startTimeCal
      */
-    public String getStartTime() {
-        return startTime;
+    public Calendar getStartTime() {
+        return startTimeCal;
     }
 
     /**
-     * @param startTime the startTime to set
+     * @param startTime the startTimeCal to set
      */
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public void setStartTime(Calendar startTime) {
+        this.startTimeCal = startTime;
     }
+
+    public String getStartTimeToString(){
+        TimeTool timeTool = new TimeTool();
+        String dayNumberSuffix = timeTool.getDayNumberSuffix(getStartTime().get(Calendar.DAY_OF_MONTH));
+           // DateFormat dateFormat = new SimpleDateFormat(" d'" + dayNumberSuffix + "' MMMM yyyy");
+            //MMMM dd, yyyy h:mm a
+            String dateFormatString ="MMMM d'" + dayNumberSuffix + "', yyyy h:mm a";
+            
+        DateFormat dateFormat = new SimpleDateFormat(dateFormatString);
+        return dateFormat.format(startTimeCal.getTime());
+    }    
 }

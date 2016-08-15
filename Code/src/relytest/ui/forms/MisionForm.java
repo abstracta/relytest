@@ -85,7 +85,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     public MisionForm(CharterDto dto) {
         initComponents();
         charterDto = dto;
-        charterDto.setFolderName(getDateNow(false) + "_Charter_" + dto.getCharterFileName());
+        charterDto.setFolderName(getDateNowToString() + "_Charter_" + dto.getCharterFileName());
         charterDto.setFolderNamePath(RunningPath + File.separator + charterDto.getFolderName());
         charterDto.setPicturePath(charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
         createMisionFolders();
@@ -234,7 +234,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private String print() {
         String pictureName = "";
         try {
-            String now = getDateNow(false);
+            String now = getDateNowToString();
 
             pictureName = "Pic_" + now;
             IScreenPrinter printer = new ScreenPrinter();
@@ -361,10 +361,11 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void writeToLog(String label, String text) {
         boolean setStartTime = Constants.LABEL_SESSION_STARTED.equals(label);
-        String timeStamp = getDateNow(setStartTime);
+        
         if(setStartTime){
-            charterDto.setStartTime(timeStamp);
+            charterDto.setStartTime(getDateNow());
         }
+        String timeStamp = getDateNowToString();
         jTextAreaLog.append(" > [" + label + "] " + text + System.lineSeparator());
         String newLogLine = timeStamp + " > [" + label + "] " + text;
         writer.writeToFile(RunningPath + File.separator + charterDto.getFolderName() + File.separator + LogFile, newLogLine);
@@ -401,11 +402,19 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         }
     }
 
-    private String getDateNow(boolean setStartTime) {
+    private Calendar getDateNow() {
         Date dt = new Date();
-        if (setStartTime) {
+     
             calStart.setTime(dt);
-        }
+             
+        return calStart;
+    }
+    
+    private String getDateNowToString() {
+        Date dt = new Date();
+//        if (setStartTime) {
+//            calStart.setTime(dt);
+//        }
         DateFormat dateFormat = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
         return dateFormat.format(dt);
     }

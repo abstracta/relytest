@@ -14,7 +14,7 @@ import relytest.ui.PropertiesMgr;
  *
  * @author Gabriela Sanchez - Miguel Sanchez
  */
-public class RelyTest {
+public class Relytest {
 
     /**
      * @param args the command line arguments

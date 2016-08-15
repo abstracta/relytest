@@ -29,11 +29,14 @@ import freemarker.template.Version;
 import java.io.File;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import relytest.ui.common.TimeTool;
 
 /**
  *
@@ -101,10 +104,14 @@ public class HtmlPrinter implements IPrinter {
              input.put("navegability", dto.getDetails().getMetrics().getNavegability());
               input.put("numberSessionsNeeded", dto.getDetails().getMetrics().getNumberSessionsNeeded());
             
-            input.put("title", "RelyTest Summary");
+            input.put("title", "Relytest Summary");
 
             input.put("charterName", dto.getName());
-            input.put("startTime", dto.getStartTime());
+            
+            TimeTool timeTool = new TimeTool();
+            
+            
+            input.put("startTime", dto.getStartTimeToString());
 
             if (!dto.getNotesTaken().isEmpty()) {
                 input.put("logNotes", dto.getNotesTaken());

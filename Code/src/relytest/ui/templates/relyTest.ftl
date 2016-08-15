@@ -24,7 +24,7 @@
 
 <body>
 <div class="jumbotron text-center bg-3">
-  <h1>RelyTest</h1>
+  <h1>Relytest</h1>
   <div class="container">
   <!-- Trigger the modal with a button -->
   <!-- Modal -->
@@ -144,15 +144,15 @@
 				</tr>
                                 <tr>
 					<td><strong>System under test feeling:</strong></td>
-					<td>${feelUsingSystemUndeTest} %</td>
+					<td>${feelUsingSystemUndeTest} </td>
 				</tr>
                                 <tr>
 					<td><strong>System under test navegability:</strong></td>
-					<td>${navegability} %</td>
+					<td>${navegability} </td>
 				</tr>
                                 <tr>
 					<td><strong>Number of sessions needed:</strong></td>
-					<td>${numberSessionsNeeded} %</td>
+					<td>${numberSessionsNeeded} </td>
 				</tr>
 
                                 <tr>

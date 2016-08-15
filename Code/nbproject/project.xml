@@ -6,7 +6,7 @@
             <extension file="build-native.xml" id="j2sedeploy"/>
         </buildExtensions>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
-            <name>RelyTest</name>
+            <name>Relytest</name>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -18,7 +18,7 @@
             <definitions>.\lib\nblibraries.properties</definitions>
         </libraries>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
-            <word>RelyTest</word>
+            <word>Relytest</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
