@@ -144,7 +144,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     @Override
     public void loadTimes() {
-
     }
 
     private void loadProperties() {
