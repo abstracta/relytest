@@ -40,6 +40,10 @@ public class Note {
     public Note(){
         
     }
+    @Override
+   public String toString(){
+       return text;
+   }
    
     private String txtToHtml(String s) {
         StringBuilder builder = new StringBuilder();
