@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IPrinter;
 import relytest.internationalization.LanguageController;
@@ -45,10 +46,10 @@ public class QuestionnaireForm extends javax.swing.JFrame {
     private final LanguageController lCon;
 
     public QuestionnaireForm(CharterDto aCharterDto) {
-        
+
         initComponents();
         this.lCon = new LanguageController();
-        
+
         jSliderFocusOnCharter.setMajorTickSpacing(10);
         jSliderFocusOnCharter.setMinorTickSpacing(10);
         jSliderFocusOnCharter.setPaintTicks(true);
@@ -81,7 +82,7 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         groupNav.add(jRadioButtonNavegabilityExcelent);
         groupNav.add(jRadioButtonNavegabilityGood);
         groupNav.add(jRadioButtonNavNoAnswer);
-        
+
         jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
         jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
         jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
@@ -140,6 +141,9 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -487,7 +491,8 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         IPrinter printer = new HtmlPrinter();
         printer.print(charterDto);
     }
-private int totalTimeSum=0;
+    private int totalTimeSum = 0;
+
     private boolean isTimeSumCorrect(boolean showMessageDialog) {
         totalTimeSum = jSliderConfiguration.getValue() + jSliderBugReport.getValue() + jSliderTesting.getValue();
         boolean ok = totalTimeSum == 100;
@@ -519,9 +524,9 @@ private int totalTimeSum=0;
             feeling = lCon.getValue(Texts.Bad);
         } else if (jRadioButtonFeelGood.isSelected()) {
             feeling = lCon.getValue(Texts.Good);
-        } else if (jRadioButtonFeelExcelent.isSelected()){
+        } else if (jRadioButtonFeelExcelent.isSelected()) {
             feeling = lCon.getValue(Texts.Excelent);
-        }else{
+        } else {
             feeling = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setFeelUsingRelyTest(feeling);
@@ -531,14 +536,14 @@ private int totalTimeSum=0;
             nav = lCon.getValue(Texts.Bad);
         } else if (jRadioButtonNavegabilityGood.isSelected()) {
             nav = lCon.getValue(Texts.Good);
-        } else if (jRadioButtonNavegabilityExcelent.isSelected()){
+        } else if (jRadioButtonNavegabilityExcelent.isSelected()) {
             nav = lCon.getValue(Texts.Excelent);
-        }else{
+        } else {
             nav = lCon.getValue(Texts.NoAnswer);
         }
         qDto.setNavegability(nav);
         charterDto.getDetails().getMetrics().setNavegability(nav);
-        charterDto.getDetails().getMetrics().setNumberSessionsNeeded((Integer)jSpinnerHowManySessions.getValue() );
+        charterDto.getDetails().getMetrics().setNumberSessionsNeeded((Integer) jSpinnerHowManySessions.getValue());
 
         Gson gson = new Gson();
         //2. Convert object to JSON string and save into a file directly
@@ -567,27 +572,27 @@ private int totalTimeSum=0;
     }//GEN-LAST:event_jSliderFocusOnCharterStateChanged
 
     private void jSliderConfigurationStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderConfigurationStateChanged
-         updateTimeJlabels();
+        updateTimeJlabels();
     }//GEN-LAST:event_jSliderConfigurationStateChanged
 
     private void jSliderBugReportStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderBugReportStateChanged
         updateTimeJlabels();
     }//GEN-LAST:event_jSliderBugReportStateChanged
 
-    private void updateTimeJlabels(){
+    private void updateTimeJlabels() {
         if (isTimeSumCorrect(false)) {
             jLabelTesting.setText("Time Testing (%" + jSliderTesting.getValue() + "):");
             jLabelBugReport.setText("Time researching and reporting bugs (%" + jSliderBugReport.getValue() + "):");
             jLabelConfig.setText("Time spent on configuration (%" + jSliderConfiguration.getValue() + "):");
-            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spend your time? (Sum = "+totalTimeSum+" %)"));
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("How did you spend your time? (Sum = " + totalTimeSum + " %)"));
         } else {
             jLabelTesting.setText("<html>Time Testing <font color='red'>(%" + jSliderTesting.getValue() + "</font>):</html>");
-             jLabelBugReport.setText("<html>Time researching and reporting bugs <font color='red'>(%" + jSliderBugReport.getValue() + "</font>):</html>");
+            jLabelBugReport.setText("<html>Time researching and reporting bugs <font color='red'>(%" + jSliderBugReport.getValue() + "</font>):</html>");
             jLabelConfig.setText("<html>Time spent on configuration <font color='red'>(%" + jSliderConfiguration.getValue() + "</font>):</html>");
-            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("<html>How did you spend your time? (<font color='red'>Sum = "+totalTimeSum+" %</font>)</html>"));
+            jPanelConfigTime.setBorder(javax.swing.BorderFactory.createTitledBorder("<html>How did you spend your time? (<font color='red'>Sum = " + totalTimeSum + " %</font>)</html>"));
         }
     }
-    
+
     private void jSliderTestingStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderTestingStateChanged
         updateTimeJlabels();
     }//GEN-LAST:event_jSliderTestingStateChanged
@@ -615,6 +620,10 @@ private int totalTimeSum=0;
     private void jRadioButtonFeelExcelentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFeelExcelentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonFeelExcelentActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setIconImage(new ImageIcon(getClass().getResource("Logo.png")).getImage());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

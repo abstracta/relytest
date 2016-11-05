@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import relytest.ui.common.CharterDto;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.plaf.ColorUIResource;
@@ -153,6 +154,11 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
         setTitle("RelyTest");
         setBackground(new java.awt.Color(223, 223, 223));
         setForeground(new java.awt.Color(223, 223, 223));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jButtonConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Tool.png"))); // NOI18N
         jButtonConfig.setToolTipText("Opens the Configuration Window");
@@ -397,6 +403,11 @@ public final class MainForm extends javax.swing.JFrame implements IConfigFormLoa
             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPathActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.setIconImage(new ImageIcon(getClass().getResource("Logo.png")).getImage());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -17,6 +17,7 @@
  */
 package relytest.ui.forms;
 
+import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
 import relytest.internationalization.LanguageController;
@@ -159,6 +160,11 @@ public class ConfigForm extends javax.swing.JFrame {
         setName("frameConfiguration"); // NOI18N
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(223, 223, 223));
         jPanel1.setMaximumSize(new java.awt.Dimension(440, 368));
@@ -316,6 +322,11 @@ public class ConfigForm extends javax.swing.JFrame {
         this.setVisible(false);
         laf.setVisible(true);
     }//GEN-LAST:event_jButtonLaFActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.setIconImage(new ImageIcon(getClass().getResource("Logo.png")).getImage());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

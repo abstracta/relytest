@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
@@ -488,6 +489,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -1005,6 +1009,11 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         // TODO add your handling code here:
         this.setAlwaysOnTop(jCheckBoxAlwaysOnTop.isSelected());
     }//GEN-LAST:event_jCheckBoxAlwaysOnTopActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.setIconImage(new ImageIcon(getClass().getResource("Logo.png")).getImage());
+    }//GEN-LAST:event_formWindowOpened
        
     private void switchImage(JToggleButton button) {
         if (!button.isSelected()) {
