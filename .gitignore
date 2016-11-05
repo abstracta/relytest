@@ -47,3 +47,5 @@ Code/Relytest_en_US.properties
 Code/Relytest_es_UY.properties
 Code/.jacocoverage/
 Code/tmp.jpg
+/RelytestCommon/dist/
+RelytestCommon/build/

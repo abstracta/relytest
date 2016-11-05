@@ -6,6 +6,8 @@
 
 package relytest.interfaces;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Gabriela Sanchez - Miguel Sanchez

@@ -17,13 +17,20 @@
  */
 package relytest.ui.forms;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
 import relytest.internationalization.LanguageController;
 import relytest.internationalization.Texts;
 import relytest.ui.Constants;
 import relytest.ui.PropertiesMgr;
+import relytest.ui.tools.IPAddressValidator;
+import relytest.ui.tools.IValidator;
+import relytest.ui.tools.PortNumberValidator;
 
 /**
  *
@@ -46,6 +53,12 @@ public class ConfigForm extends javax.swing.JFrame {
         loadValues();
         loadLanguage();
         jButtonLaF.setVisible(false);
+        
+//        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
+//DecimalFormat decimalFormat = (DecimalFormat) numberFormat;
+//decimalFormat.setGroupingUsed(false);
+//jTextFieldServerPort = new JFormattedTextField(decimalFormat);
+//jTextFieldServerPort.setColumns(5); //whatever size you wish to set
     }
 
     private void loadLanguage() {
@@ -93,11 +106,37 @@ public class ConfigForm extends javax.swing.JFrame {
 
         i = Integer.parseInt(p.getValue(Constants.KEY_MEDIUM_TIME));
         jSpinnerMedium.setValue(i);
+        
+         Boolean connect = Boolean.valueOf(p.getValue(Constants.KEY_CONNECT_TO_SERVER));
+        jCheckBoxConnectToServer.setSelected(connect);
+        jTextFieldServerIP.setText( p.getValue(Constants.KEY_SERVER_IP));
+        jTextFieldServerPort.setText( p.getValue(Constants.KEY_SERVER_PORT));
     }
 
+    private boolean validateIPAddress(){
+        if(jCheckBoxConnectToServer.isSelected()){
+            IValidator valid = new IPAddressValidator();
+            return valid.validate(jTextFieldServerIP.getText());
+        }else{
+            return true;
+        }
+    }
+    private boolean validatePortNumber(){
+        if(jCheckBoxConnectToServer.isSelected()){
+            IValidator valid = new PortNumberValidator();
+            String port =jTextFieldServerPort.getText();
+            return valid.validate(port);
+        }else{
+            return true;
+        }
+    }
+    
     private void save() {
         if (jTextFieldName.getText().equals("")) {
             showMessageDialog(this, "Please insert the name of the user.");
+        }
+        else if(!validateIPAddress() || !validatePortNumber()){
+              showMessageDialog(this, "The IP address or the port number are incorrect.");                                  
         } else {
 
             p.setValue(Constants.KEY_NAME, jTextFieldName.getText());
@@ -122,6 +161,13 @@ public class ConfigForm extends javax.swing.JFrame {
             p.setValue(Constants.KEY_LONG_TIME, jSpinnerLong.getValue().toString());
             p.setValue(Constants.KEY_MEDIUM_TIME, jSpinnerMedium.getValue().toString());
 
+            
+            Boolean launchConnectToServer = jCheckBoxConnectToServer.isSelected();
+            p.setValue(Constants.KEY_CONNECT_TO_SERVER, launchConnectToServer.toString());
+            
+            p.setValue(Constants.KEY_SERVER_IP, jTextFieldServerIP.getText());
+            p.setValue(Constants.KEY_SERVER_PORT, jTextFieldServerPort.getText());
+            
             _loadConfigForm.loadTimes();
             this.setVisible(false);
         }
@@ -153,6 +199,11 @@ public class ConfigForm extends javax.swing.JFrame {
         jCheckBoxConfirmStopCharter = new javax.swing.JCheckBox();
         jCheckBoxConfirmExitRelyTest = new javax.swing.JCheckBox();
         jCheckBoxLaunchBrowserAfterCharterEnds = new javax.swing.JCheckBox();
+        jLabelServerIP = new javax.swing.JLabel();
+        jTextFieldServerIP = new javax.swing.JTextField();
+        jLabelServerPort = new javax.swing.JLabel();
+        jTextFieldServerPort = new javax.swing.JTextField();
+        jCheckBoxConnectToServer = new javax.swing.JCheckBox();
 
         setTitle("RelyTest - Configuration");
         setAlwaysOnTop(true);
@@ -181,6 +232,7 @@ public class ConfigForm extends javax.swing.JFrame {
 
         jCheckBoxOpenImageEditor.setBackground(new java.awt.Color(223, 223, 223));
         jCheckBoxOpenImageEditor.setText("Open image editor after a picture is taken");
+        jCheckBoxOpenImageEditor.setEnabled(false);
 
         jCheckBoxHideRelyTest.setBackground(new java.awt.Color(223, 223, 223));
         jCheckBoxHideRelyTest.setText("Hide RelyTest when taking a picture");
@@ -216,6 +268,18 @@ public class ConfigForm extends javax.swing.JFrame {
         jCheckBoxLaunchBrowserAfterCharterEnds.setBackground(new java.awt.Color(223, 223, 223));
         jCheckBoxLaunchBrowserAfterCharterEnds.setText("Launch Browser At End");
 
+        jLabelServerIP.setText("Server IP:");
+
+        jLabelServerPort.setText("Server Port:");
+
+        jCheckBoxConnectToServer.setBackground(new java.awt.Color(223, 223, 223));
+        jCheckBoxConnectToServer.setText("Connect to server?");
+        jCheckBoxConnectToServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxConnectToServerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,23 +292,9 @@ public class ConfigForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldName))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonLaF)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxHideRelyTest)
                             .addComponent(jCheckBoxOpenImageEditor)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelShortTimeValue)
-                                    .addComponent(jLabelLongTimeValue)
-                                    .addComponent(jLabelMediumTimeValue))
-                                .addGap(26, 26, 26)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinnerShort)
-                                    .addComponent(jSpinnerMedium)
-                                    .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jCheckBoxTakePicAfterBug))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,8 +302,35 @@ public class ConfigForm extends javax.swing.JFrame {
                             .addComponent(jCheckBoxLaunchBrowserAfterCharterEnds)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButtonSave)
-                                .addComponent(jCheckBoxConfirmExitRelyTest)))))
-                .addGap(10, 10, 10))
+                                .addComponent(jCheckBoxConfirmExitRelyTest))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonLaF)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelShortTimeValue)
+                            .addComponent(jLabelLongTimeValue)
+                            .addComponent(jLabelMediumTimeValue))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSpinnerShort)
+                            .addComponent(jSpinnerMedium)
+                            .addComponent(jSpinnerLong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelServerPort)
+                                    .addComponent(jLabelServerIP))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldServerIP)
+                                    .addComponent(jTextFieldServerPort)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxConnectToServer)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,14 +354,23 @@ public class ConfigForm extends javax.swing.JFrame {
                         .addComponent(jCheckBoxConfirmStopCharter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxConfirmExitRelyTest)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jCheckBoxConnectToServer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelShortTimeValue)
-                    .addComponent(jSpinnerShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jSpinnerShort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelServerIP)
+                        .addComponent(jTextFieldServerIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelMediumTimeValue)
-                    .addComponent(jSpinnerMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelServerPort)
+                        .addComponent(jTextFieldServerPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelMediumTimeValue)
+                        .addComponent(jSpinnerMedium, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLongTimeValue)
@@ -323,9 +409,15 @@ public class ConfigForm extends javax.swing.JFrame {
         laf.setVisible(true);
     }//GEN-LAST:event_jButtonLaFActionPerformed
 
+    private void jCheckBoxConnectToServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxConnectToServerActionPerformed
+        // TODO add your handling code here:
+        jTextFieldServerIP.setEnabled(jCheckBoxConnectToServer.isSelected());
+        jTextFieldServerPort.setEnabled(jCheckBoxConnectToServer.isSelected());
+    }//GEN-LAST:event_jCheckBoxConnectToServerActionPerformed
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        this.setIconImage(new ImageIcon(getClass().getResource("Logo.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("RelyTest_logo.png")).getImage());
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -363,6 +455,7 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSave;
     private javax.swing.JCheckBox jCheckBoxConfirmExitRelyTest;
     private javax.swing.JCheckBox jCheckBoxConfirmStopCharter;
+    private javax.swing.JCheckBox jCheckBoxConnectToServer;
     private javax.swing.JCheckBox jCheckBoxHideRelyTest;
     private javax.swing.JCheckBox jCheckBoxLaunchBrowserAfterCharterEnds;
     private javax.swing.JCheckBox jCheckBoxOpenImageEditor;
@@ -370,11 +463,15 @@ public class ConfigForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLongTimeValue;
     private javax.swing.JLabel jLabelMediumTimeValue;
     private javax.swing.JLabel jLabelName;
+    private javax.swing.JLabel jLabelServerIP;
+    private javax.swing.JLabel jLabelServerPort;
     private javax.swing.JLabel jLabelShortTimeValue;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinnerLong;
     private javax.swing.JSpinner jSpinnerMedium;
     private javax.swing.JSpinner jSpinnerShort;
     private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldServerIP;
+    private javax.swing.JTextField jTextFieldServerPort;
     // End of variables declaration//GEN-END:variables
 }

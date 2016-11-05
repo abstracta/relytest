@@ -42,7 +42,7 @@ public class PropertiesMgrTest {
      */
     @Test
     public void testGetValue() {
-        System.out.println("getValue");
+      //  System.out.println("getValue");
         String key = "test";
         PropertiesMgr instance = new PropertiesMgr();
         String expResult = "123";

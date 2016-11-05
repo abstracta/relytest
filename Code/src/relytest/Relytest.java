@@ -5,10 +5,14 @@
  */
 package relytest;
 
+import java.awt.Toolkit;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import relytest.ui.Constants;
 import relytest.ui.LookAndFeelMgr;
-import relytest.ui.forms.MainForm;
 import relytest.ui.PropertiesMgr;
+import relytest.ui.forms.MainForm;
+import relytest.ui.forms.SessionsForm;
 
 /**
  *
@@ -27,10 +31,11 @@ public class Relytest {
             lookAndFeelInt = Integer.valueOf(lookAndFeel);
         }
         LookAndFeelMgr laf = new LookAndFeelMgr();
-        laf.setLookAndFeel(lookAndFeelInt);
-                
+        laf.setLookAndFeel(lookAndFeelInt);                               
         MainForm main = new MainForm();
-        main.setLocationRelativeTo(null);
+        //main.setIconImage(Toolkit.getDefaultToolkit().getImage("Aplicación_1.png"));
+       // main.setIconImage(new ImageIcon("Logo_final.png").getImage());
+        main.setLocationRelativeTo(null);   
         main.setVisible(true);
     }
 

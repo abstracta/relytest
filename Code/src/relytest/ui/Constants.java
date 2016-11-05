@@ -78,4 +78,9 @@ public class Constants {
     public static final String[] LAF_NAMES = new String[]{"Acryl", "Aero", "Aluminium", "Bernstein", "Fast", "Graphite", "HiFi", "Luna", "McWin", "Mint", "Noire", "Smart", "Texture"};
 
     public static final String HTML_TEMPLATE_FILE ="relyTest.ftl";
+    
+    public static final String KEY_SERVER_IP = "ServerIP";
+    public static final String KEY_SERVER_PORT = "ServerPort";
+    public static final String KEY_CONNECT_TO_SERVER = "ConnectToServer";
+    
 }

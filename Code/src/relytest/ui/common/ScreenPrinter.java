@@ -17,13 +17,25 @@
  */
 package relytest.ui.common;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import relytest.interfaces.IScreenPrinter;
 
 /**
@@ -37,6 +49,7 @@ public class ScreenPrinter implements IScreenPrinter {
     @Override
     public String print(String path) {
         try {
+           
             Rectangle screenRect = new Rectangle(0, 0, 0, 0);
             for (GraphicsDevice gd : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
                 screenRect = screenRect.union(gd.getDefaultConfiguration().getBounds());
@@ -45,10 +58,12 @@ public class ScreenPrinter implements IScreenPrinter {
             Thread.sleep(1000);
             File f = new File(path + PicFormat);
             BufferedImage img = robot.createScreenCapture(screenRect);
-            ImageIO.write(img, "jpeg", f);
+            ImageIO.write(img, "jpeg", f);     
         } catch (Exception e) {
             e.printStackTrace();
         }
         return PicFormat;
     }
+     
+    
 }
