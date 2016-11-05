@@ -26,7 +26,7 @@ import java.io.Console;
 public class TimeTool {
 
     public String getDayNumberSuffix(int day) {
-        System.out.println("Day nr="+day);
+       // System.out.println("Day nr="+day);
         if (day >= 11 && day <= 13) {
             return "th";
         }

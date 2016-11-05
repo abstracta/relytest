@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IPrinter;
 import relytest.internationalization.LanguageController;
@@ -140,6 +141,9 @@ public class QuestionnaireForm extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -615,6 +619,11 @@ private int totalTimeSum=0;
     private void jRadioButtonFeelExcelentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFeelExcelentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonFeelExcelentActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        this.setIconImage(new ImageIcon(getClass().getResource("RelyTest_logo.png")).getImage());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
