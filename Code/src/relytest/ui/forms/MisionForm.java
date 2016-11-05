@@ -257,6 +257,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
     private void takePicture() {
         if (paintApp != null) {
+            this.setAlwaysOnTop(false);
             String pic = print();
 
             PropertiesMgr p = new PropertiesMgr();
@@ -264,6 +265,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             if (open) {
                 executePaint(charterDto.getPicturePath() + pic);
             }
+             this.setAlwaysOnTop(jCheckBoxAlwaysOnTop.isSelected());
         }
     }
 
