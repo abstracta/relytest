@@ -22,14 +22,12 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import relytest.common.dto.Charter;
 import relytest.common.dto.Tester;
-import relytest.web.client.CharterClient;
 import relytest.web.client.TesterClient;
 
 /**
  *
- * @author MS
+ * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class SessionsForm extends javax.swing.JFrame {
 

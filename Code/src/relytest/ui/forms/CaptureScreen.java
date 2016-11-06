@@ -15,12 +15,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-
 package relytest.ui.forms;
 
 /**
  *
- * @author MS
+ * @author Gabriela Sanchez - Miguel Sanchez
  */
 import javax.imageio.*;
 import javax.swing.*;
@@ -28,20 +27,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import relytest.interfaces.IScreenPrinter;
 
-public class CaptureScreen implements ActionListener,IScreenPrinter {
+public class CaptureScreen implements ActionListener, IScreenPrinter {
 
-    private JFrame f = new JFrame("Screen Capture");
-    private JPanel pane = new JPanel();
-    private JButton capture = new JButton("Capture");
-    private JFrame d = new JFrame();
+    private final JFrame f = new JFrame("Screen Capture");
+    private final JPanel pane = new JPanel();
+    private final JButton capture = new JButton("Capture");
+
+    private final ImageForm d = new ImageForm();
     private JScrollPane scrollPane = new JScrollPane();
-    private JLabel l = new JLabel();
-    private Point location;
-    private final String PicFormat = ".jpg";
+    private final JLabel l = new JLabel();
+    private final String PicFormat = "png";
 
     public CaptureScreen() {
         capture.setActionCommand("CaptureScreen");
@@ -63,40 +60,42 @@ public class CaptureScreen implements ActionListener,IScreenPrinter {
         });
     }
     File file;
+
     @Override
     public String print(String path) {
         try {
-           
+
             Rectangle screenRect = new Rectangle(0, 0, 0, 0);
             for (GraphicsDevice gd : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
                 screenRect = screenRect.union(gd.getDefaultConfiguration().getBounds());
             }
             Robot robot = new Robot();
             Thread.sleep(1000);
-            file = new File(path + PicFormat);
+            file = new File(path + "." + PicFormat);
             BufferedImage bI = robot.createScreenCapture(screenRect);
-            ImageIO.write(bI, "jpeg", file);     
+            ImageIO.write(bI, PicFormat, file);
             showPic(bI);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return PicFormat;
+        return "." + PicFormat;
     }
-    public void capture(){
+
+    public void capture() {
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize(); // gets the screen size
-            Robot r;
-            BufferedImage bI;
-            try {
-                r = new Robot(); // creates robot not sure exactly how it works
-                Thread.sleep(1000); // waits 1 second before capture
-                bI = r.createScreenCapture(new Rectangle(d)); // tells robot to capture the screen
-                showPic(bI);
-                saveImage(bI);
-            } catch (AWTException e1) {
-                e1.printStackTrace();
-            } catch (InterruptedException e2) {
-                e2.printStackTrace();
-            }
+        Robot r;
+        BufferedImage bI;
+        try {
+            r = new Robot(); // creates robot not sure exactly how it works
+            Thread.sleep(1000); // waits 1 second before capture
+            bI = r.createScreenCapture(new Rectangle(d)); // tells robot to capture the screen
+            showPic(bI);
+            saveImage(bI);
+        } catch (AWTException e1) {
+            e1.printStackTrace();
+        } catch (InterruptedException e2) {
+            e2.printStackTrace();
+        }
     }
 
     private void createPicContainer() {
@@ -107,7 +106,7 @@ public class CaptureScreen implements ActionListener,IScreenPrinter {
         scrollPane.setBackground(Color.white);
         scrollPane.getViewport().setBackground(Color.white);
         d.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-        d.add(scrollPane);        
+        d.add(scrollPane);
         d.pack();
         d.setVisible(false);
         d.setIconImage(new ImageIcon(getClass().getResource("RelyTest_logo.png")).getImage());
@@ -125,34 +124,35 @@ public class CaptureScreen implements ActionListener,IScreenPrinter {
                 bI = r.createScreenCapture(new Rectangle(d)); // tells robot to capture the screen
                 showPic(bI);
                 saveImage(bI);
-            } catch (AWTException e1) {
+            } catch (AWTException | InterruptedException e1) {
                 e1.printStackTrace();
-            } catch (InterruptedException e2) {
-                e2.printStackTrace();
             }
         }
     }
 
-    
     private void saveImage(BufferedImage bI) {
         try {
-            ImageIO.write(bI, "JPG", new File("screenShot.jpg"));
+            ImageIO.write(bI, PicFormat, new File("screenShot." + PicFormat));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void showPic(String path){
-        try {
-            BufferedImage img = ImageIO.read(new File(path));
-            file = new File(path);
-            showPic(img);
-        } catch (IOException ex) {
-            Logger.getLogger(CaptureScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void showPic(String path) {
+        d.showPic(path);
+//        try {
+//            BufferedImage img = ImageIO.read(new File(path));
+//            file = new File(path);
+//            showPic(img);
+//        } catch (IOException ex) {
+//            Logger.getLogger(CaptureScreen.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
-    
+
     public void showPic(BufferedImage bI) {
+        d.setFile(file);
+        d.showPic(bI);
+        /*
         ImageIcon pic = new ImageIcon(bI);
         l.setIcon(pic);
         l.revalidate();
@@ -170,6 +170,7 @@ public class CaptureScreen implements ActionListener,IScreenPrinter {
                 d.setVisible(true);
             }
         });
+         */
     }
 
     public static void main(String[] args) {
