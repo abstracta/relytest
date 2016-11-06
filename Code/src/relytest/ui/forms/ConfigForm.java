@@ -17,11 +17,7 @@
  */
 package relytest.ui.forms;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 import javax.swing.ImageIcon;
-import javax.swing.JFormattedTextField;
 import static javax.swing.JOptionPane.showMessageDialog;
 import relytest.interfaces.IConfigFormLoad;
 import relytest.internationalization.LanguageController;

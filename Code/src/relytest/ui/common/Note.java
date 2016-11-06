@@ -17,34 +17,86 @@
  */
 package relytest.ui.common;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import relytest.ui.Constants;
 
 /**
  *
  * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class Note {
-    private long id;    
+
+    private long id;
     private String text;
     private String textHtml;
     private String timeStamp;
     private String label;
 
-    public Note(long idNew,String textNew, String timeStampNew, String aLabel){        
-        text=textNew;
-        timeStamp=timeStampNew;
-        id=idNew;
-        label=aLabel;
+    public Note(long idNew, String textNew, String timeStampNew, String aLabel) {
+        text = textNew;
+        timeStamp = timeStampNew;
+        id = idNew;
+        label = aLabel;
     }
-    public Note(){
-        
+
+    public Note() {
+
     }
+    
+    public boolean canBeRemoved(){
+       return ( (getLabel()==Constants.LABEL_NOTE) || (getLabel()==Constants.LABEL_BUG)
+                            ||(getLabel()==Constants.LABEL_RISK ) ||(getLabel()==Constants.LABEL_PROBLEM )
+                                ||(getLabel()==Constants.LABEL_ToDo )
+                            );
+    }
+
+     @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Note)) {
+            return false;
+        }
+        Note noteO = (Note) o;
+        return this.id ==(noteO.getId());
+    }
+
     @Override
-   public String toString(){
-       return text;
-   }
-   
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+ 
+    
+    @Override
+    public String toString() {
+        return text;
+    }
+    private final String Separator = "<br>";
+
+    private final int maxLabelDisplaySize = 40;
+
+    public String toStringHtml() {
+        String open = "";
+        if (Constants.LABEL_PICTURE_TAKEN==label) {
+            open = Separator + "<font color=\"blue\">Double click opens the picture</font>";      
+        }
+        
+        String txt;
+        if (text.length() > maxLabelDisplaySize) {
+
+            txt = text.substring(0, maxLabelDisplaySize)+"...";
+        } else {
+            txt = text;
+        }
+        return "<html><b>Label:</b> " + label + " " + Separator
+                + "<b>Id:</b> " + id + Separator
+                + "<b>Text:</b> " + txtToHtml(txt) + Separator
+                + "<b>Time:</b> " + timeStamp + open + "</html>";
+
+    }
+
     private String txtToHtml(String s) {
         StringBuilder builder = new StringBuilder();
         boolean previousWasASpace = false;

@@ -7,14 +7,16 @@ package relytest.ui.forms;
 
 import com.google.gson.Gson;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.Event;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,11 +31,13 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
+import javax.swing.ListModel;
 import javax.swing.Timer;
-import javax.swing.text.DefaultCaret;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,7 +55,6 @@ import relytest.ui.common.CharterDto;
 import relytest.ui.common.EnvironmentStats;
 import relytest.ui.common.GroupNote;
 import relytest.ui.common.Note;
-import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 
 /**
@@ -101,7 +104,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         charterDto.setFolderNamePath(RunningPath + File.separator + charterDto.getFolderName());
         charterDto.setPicturePath(charterDto.getFolderNamePath() + File.separator + ScreenShotsDir + File.separator);
         createMisionFolders();
-//        jTextFieldPath.setText(charterDto.getFolderName());
 
         EnvironmentStats e = new EnvironmentStats(charterDto.getDetails().getPlanification());
         e.setFile(charterDto.getFolderNamePath() + File.separator + Summary);
@@ -111,14 +113,8 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         loadProperties();
         initializeNotesGroup();
         writeToLog(Constants.LABEL_SESSION_STARTED, Constants.LABEL_SESSION_STARTED);
-//        jLabelEventLog.setText(Constants.LABEL_SESSION_STARTED);
-
         jTextAreaNote.setLineWrap(true);
         jTextAreaNote.setWrapStyleWord(true);
-
-//        DefaultCaret caret = (DefaultCaret) jTextAreaLog.getCaret();
-        //caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        //jButtonConfig.setVisible(false);
         loadLanguage();
 
         jTextAreaNote.addKeyListener(new KeyAdapter() {
@@ -143,6 +139,45 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
         setButtonsDefaultColor();
         this.setAlwaysOnTop(jCheckBoxAlwaysOnTop.isSelected());
+
+        jListLog.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                JList l = (JList) e.getSource();
+                ListModel m = l.getModel();
+                int index = l.locationToIndex(e.getPoint());
+                if (index > -1) {
+                    Note note = (Note) m.getElementAt(index);
+                    if (note != null) {
+                        l.setToolTipText(note.toStringHtml());
+                    }
+                }
+            }
+        });
+
+        ActionListener menuListener;
+        menuListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("Popup menu item ["
+                        + event.getActionCommand() + "] was pressed.");
+                if (event.getActionCommand() == "Delete") {
+                    int index = jListLog.getSelectedIndex();
+                    if (index != -1) {
+                        Note n = (Note) model.getElementAt(index);
+                        if (n != null && n.canBeRemoved()) {
+                            removeNoteFromArrays(n);
+                            model.remove(index);
+                        }
+                    }
+                }
+            }
+        };
+        JMenuItem item;
+        popUpLog.add(item = new JMenuItem("Delete"));
+        item.setHorizontalTextPosition(JMenuItem.RIGHT);
+        item.addActionListener(menuListener);
+        jListLog.setComponentPopupMenu(popUpLog);
     }
 
     private void setButtonsDefaultColor() {
@@ -154,9 +189,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     }
 
     private void loadLanguage() {
-        //jButtonPath.setText("");
-        //jPanelWorkspace.setBorder(javax.swing.BorderFactory.createTitledBorder(lCon.getValue(Texts.MainForm_jButtonPath)));
-        jCheckBoxAlwaysOnTop.setText(lCon.getValue(Texts.MisionForm_AlwaysOnTop));
+         jCheckBoxAlwaysOnTop.setText(lCon.getValue(Texts.MisionForm_AlwaysOnTop));
         jCheckBoxAddNoteShortcut.setText(lCon.getValue(Texts.MisionForm_Shortcut));
         jButtonPath.setToolTipText(lCon.getValue(Texts.OpenTheWorkspace));
     }
@@ -172,8 +205,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         jtbProblem.setVisible(displayButton(p, Constants.KEY_BUTTON_PROBLEM));
         jtbRisk.setVisible(displayButton(p, Constants.KEY_BUTTON_RISK));
         jtbToDo.setVisible(displayButton(p, Constants.KEY_BUTTON_TODO));
-
-//        paintApp = p.getValue(Constants.KEY_PAINT_APP);
     }
 
     private Boolean displayButton(PropertiesMgr p, String buttonName) {
@@ -248,7 +279,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 //    }
     private String print() {
 
-       // CaptureScreen capture = new CaptureScreen();
+        // CaptureScreen capture = new CaptureScreen();
         String pictureName = "";
         try {
             String now = getDateNowToString();
@@ -315,6 +346,33 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
         return str;
     }
 
+    private void removeNoteFromArrays(Note note){
+        switch (note.getLabel()) {
+            case Constants.LABEL_BUG:
+                groupNotes[0].removeNote(note);
+                
+                break;
+            case Constants.LABEL_NOTE:
+                groupNotes[1].removeNote(note);
+                break;
+            case Constants.LABEL_ToDo:
+                groupNotes[2].removeNote(note);
+                break;
+            case Constants.LABEL_PROBLEM:
+                groupNotes[3].removeNote(note);
+                break;
+            case Constants.LABEL_RISK:
+                groupNotes[4].removeNote(note);
+                break;
+        
+            default:
+               
+                break;
+        }
+        
+        notesTaken.remove(note);
+    }
+    
     private final ArrayList<Note> notesTaken = new ArrayList<>();
     GroupNote[] groupNotes = new GroupNote[7];
 
@@ -473,6 +531,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
 
         buttonGroupNotes = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
+        popUpLog = new javax.swing.JPopupMenu();
         jPanelLog = new javax.swing.JPanel();
         jPanelCommands = new javax.swing.JPanel();
         jButtonAdd = new javax.swing.JButton();
@@ -659,8 +718,6 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonStop, javax.swing.GroupLayout.PREFERRED_SIZE, 26, Short.MAX_VALUE))
         );
-
-        jButtonStop.getAccessibleContext().setAccessibleDescription("Close the session and go to the session questionaire");
 
         getContentPane().add(jPanelLog, java.awt.BorderLayout.CENTER);
 
@@ -999,7 +1056,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private final int WindowWidthShort = 540;
     private void jButtonHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHideActionPerformed
         // TODO add your handling code here:
-        System.out.println("size"+this.getSize());
+        System.out.println("size" + this.getSize());
         if ("<".equals(jButtonHide.getText())) {
             jButtonHide.setText(">");
             this.setSize(WindowWidthShort, WindowHeight);
@@ -1037,9 +1094,9 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
             int index = list.locationToIndex(evt.getPoint());
             System.out.println("index: " + index);
             Note noteSelected = (Note) model.getElementAt(index);
-            if (noteSelected != null && noteSelected.getLabel()=="Picture Taken") {
+            if (noteSelected != null && noteSelected.getLabel() == Constants.LABEL_PICTURE_TAKEN) {
                 CaptureScreen c = new CaptureScreen();
-                c.showPic(charterDto.getPicturePath() +noteSelected.getText());
+                c.showPic(charterDto.getPicturePath() + noteSelected.getText());
             }
         }
     }//GEN-LAST:event_jListLogMouseClicked
@@ -1201,6 +1258,7 @@ public class MisionForm extends javax.swing.JFrame implements IConfigFormLoad {
     private javax.swing.JToggleButton jtbProblem;
     private javax.swing.JToggleButton jtbRisk;
     private javax.swing.JToggleButton jtbToDo;
+    private javax.swing.JPopupMenu popUpLog;
     // End of variables declaration//GEN-END:variables
 
     /**
