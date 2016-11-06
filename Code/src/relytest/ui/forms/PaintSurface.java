@@ -32,20 +32,20 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 /**
  *
- * @author MS
+ * @author Gabriela Sanchez - Miguel Sanchez
  */
 public class PaintSurface extends JFrame {
-    ArrayList<Shape> shapes = new ArrayList<Shape>();
+    ArrayList<Shape> shapes = new ArrayList<>();
 
     Point startDrag, endDrag;
 
     public PaintSurface() {
       this.addMouseListener(new MouseAdapter() {
+        @Override
         public void mousePressed(MouseEvent e) {
           startDrag = new Point(e.getX(), e.getY());
           endDrag = startDrag;
@@ -63,6 +63,7 @@ public class PaintSurface extends JFrame {
       });
 
       this.addMouseMotionListener(new MouseMotionAdapter() {
+        @Override
         public void mouseDragged(MouseEvent e) {
           endDrag = new Point(e.getX(), e.getY());
           repaint();
@@ -83,6 +84,7 @@ public class PaintSurface extends JFrame {
 
       
     }
+    @Override
     public void paint(Graphics g) {
       Graphics2D g2 = (Graphics2D) g;
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

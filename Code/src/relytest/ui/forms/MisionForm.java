@@ -8,11 +8,8 @@ package relytest.ui.forms;
 import com.google.gson.Gson;
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -33,7 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
-import javax.swing.text.DefaultCaret;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -51,7 +47,6 @@ import relytest.ui.common.CharterDto;
 import relytest.ui.common.EnvironmentStats;
 import relytest.ui.common.GroupNote;
 import relytest.ui.common.Note;
-import relytest.ui.common.ScreenPrinter;
 import relytest.ui.common.Writer;
 
 /**

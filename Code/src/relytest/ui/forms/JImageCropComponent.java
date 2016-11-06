@@ -20,20 +20,16 @@ package relytest.ui.forms;
 
 /**
  *
- * @author MS
+ * @author Gabriela Sanchez - Miguel Sanchez
  */
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import javax.swing.JComponent;
 import javax.imageio.*;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
 import java.io.*;
 
 public class JImageCropComponent extends JComponent implements MouseListener, MouseMotionListener
