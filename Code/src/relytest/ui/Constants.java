@@ -47,7 +47,7 @@ public class Constants {
     public static final String KEY_BUTTON_PROBLEM = "Problem";
 
     /** LABELS **/
-        public static final String LABEL_NOTE = "Note";
+    public static final String LABEL_NOTE = "Note";
     public static  final String LABEL_BUG = "Bug";
     public static  final String LABEL_ToDo = "ToDo";
     public static  final String LABEL_RISK = "Risk";
